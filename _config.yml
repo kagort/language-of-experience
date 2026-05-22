@@ -1,0 +1,33 @@
+title: "Язык опыта"
+subtitle: "Философия сознания и восприятия"
+description: "Опорные материалы к лекции «Сознание, тело, язык в истории западноевропейской мысли»"
+baseurl: ""
+url: "http://localhost:4000"
+lang: ru
+
+collections:
+  sections:
+    output: true
+    permalink: /lecture/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: "sections"
+    values:
+      layout: "section"
+
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+
+sass:
+  style: compressed
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor

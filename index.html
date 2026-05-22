@@ -1,0 +1,46 @@
+---
+layout: default
+title: "Язык опыта"
+---
+
+<div class="index-hero">
+  <span class="index-ornament">❦</span>
+  <h1>Язык опыта</h1>
+  <p class="subtitle">Философия сознания и восприятия</p>
+  <div class="lecture-meta">
+    <span>Лекция 1,5 часа</span>
+    <span class="sep">·</span>
+    <span>18 мыслителей</span>
+    <span class="sep">·</span>
+    <span>8 разделов</span>
+  </div>
+</div>
+
+<div class="index-intro">
+  <p>Вот три обычных высказывания:</p>
+  <div class="opening-questions">
+    <p>«Мне больно.»</p>
+    <p>«Я вижу красное.»</p>
+    <p>«У меня на душе тяжело.»</p>
+  </div>
+  <p>Что именно мы делаем, произнося эти фразы? Описываем внутреннее состояние — или это скорее стон, непроизвольная реакция? И если мы всё-таки что-то описываем — то что именно?</p>
+  <p>Этот вопрос оказывается одним из самых трудных в истории философии. Им занимались величайшие умы XVII–XXI веков, и единого ответа до сих пор нет. Сайт сопровождает лекцию: каждый раздел соответствует блоку слайдов.</p>
+
+  <a href="/lecture/01-intro/" class="start-link">Начать лекцию →</a>
+</div>
+
+<div class="divider">— ❦ —</div>
+
+<h2 style="margin-bottom: 1rem;">Разделы лекции</h2>
+
+<div class="section-grid">
+  {% assign sorted_sections = site.sections | sort: 'order' %}
+  {% for section in sorted_sections %}
+  <a href="{{ section.url | relative_url }}" class="section-card">
+    <div class="card-order">{{ section.order }}</div>
+    <div class="card-title">{{ section.title }}</div>
+    {% if section.subtitle %}<div class="card-sub">{{ section.subtitle }}</div>{% endif %}
+    <div class="card-slides">{{ section.slides }}</div>
+  </a>
+  {% endfor %}
+</div>

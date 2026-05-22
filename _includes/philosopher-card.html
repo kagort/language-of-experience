@@ -1,0 +1,48 @@
+{% assign p = site.data.philosophers[include.id] %}
+{% if p %}
+<div class="philosopher-card" id="phil-{{ include.id }}">
+  <div class="card-frame">
+
+    <div class="card-header">
+      <div class="card-num">{{ p.num }}</div>
+      <div class="card-identity">
+        <h3 class="philosopher-name">{{ p.name }}</h3>
+        <div class="philosopher-meta">
+          <span class="dates">{{ p.dates }}</span>
+          <span class="dot">·</span>
+          <span class="tradition">{{ p.tradition }}</span>
+        </div>
+        <div class="key-work">{{ p.key_work }}</div>
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <details class="card-details bio-details">
+        <summary>
+          <span class="summary-icon">☞</span> Биография
+        </summary>
+        <div class="details-content">{{ p.biography }}</div>
+      </details>
+
+      <div class="contribution-block">
+        <h4 class="contribution-heading">Вклад в тему лекции</h4>
+        <div class="contribution-text">{{ p.contribution }}</div>
+      </div>
+
+      <div class="language-indicator">
+        <span class="lang-label">Язык чувств →</span>
+        <span class="lang-text">{{ p.language }}</span>
+      </div>
+
+      <details class="card-details fact-details">
+        <summary>
+          <span class="summary-icon">★</span> Любопытный факт
+        </summary>
+        <div class="details-content">{{ p.fact }}</div>
+      </details>
+
+    </div>
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,20 @@
+---
+layout: default
+title: "Персоналии"
+---
+
+<div class="philosophers-page">
+  <h2>Персоналии лекции</h2>
+  <p style="color: var(--brown-light); font-style: italic; margin-bottom: 0.5rem;">
+    18 мыслителей от Декарта до Фристона — биографии, вклад в тему и любопытные факты.
+  </p>
+
+  <div class="divider" style="margin: 1.5rem 0;">— ❦ —</div>
+
+  <div class="philosophers-grid">
+    {% assign phil_list = "descartes,leibniz,spinoza,locke,berkeley,hume,kant,brentano,husserl,merleau_ponty,russell,sellars,wittgenstein,churchland,putnam,chalmers,barrett,friston" | split: "," %}
+    {% for id in phil_list %}
+      {% include philosopher-card.html id=id %}
+    {% endfor %}
+  </div>
+</div>
