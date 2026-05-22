@@ -1,46 +1,82 @@
 ---
 layout: default
-title: "Сознание, тело, язык"
+title: "Лекторий"
 ---
 
-<div class="index-hero">
+<div class="series-hero">
   <span class="index-ornament">❦</span>
-  <h1>Сознание, тело, язык</h1>
-  <p class="subtitle">в истории западноевропейской мысли</p>
-  <div class="lecture-meta">
-    <span>Лекция 1,5 часа</span>
-    <span class="sep">·</span>
-    <span>18 мыслителей</span>
-    <span class="sep">·</span>
-    <span>8 разделов</span>
-  </div>
-</div>
-
-<div class="index-intro">
-  <p>Вот три обычных высказывания:</p>
-  <div class="opening-questions">
-    <p>«Мне больно.»</p>
-    <p>«Я вижу красное.»</p>
-    <p>«У меня на душе тяжело.»</p>
-  </div>
-  <p>Что именно мы делаем, произнося эти фразы? Описываем внутреннее состояние — или это скорее стон, непроизвольная реакция? И если мы всё-таки что-то описываем — то что именно?</p>
-  <p>Этот вопрос оказывается одним из самых трудных в истории философии. Им занимались величайшие умы XVII–XXI веков, и единого ответа до сих пор нет. Сайт сопровождает лекцию: каждый раздел соответствует блоку слайдов.</p>
-
-  <a href="/lecture/01-intro/" class="start-link">Начать лекцию →</a>
+  <p class="series-label">Серия лекций</p>
+  <h1 class="series-title">Сознание · Тело · Язык</h1>
+  <p class="series-subtitle">Философские традиции Востока и Запада о природе восприятия</p>
 </div>
 
 <div class="divider">— ❦ —</div>
 
-<h2 style="margin-bottom: 1rem;">Разделы лекции</h2>
+<div class="lectures-list">
 
-<div class="section-grid">
-  {% assign sorted_sections = site.sections | sort: 'order' %}
-  {% for section in sorted_sections %}
-  <a href="{{ section.url | relative_url }}" class="section-card">
-    <div class="card-order">{{ section.order }}</div>
-    <div class="card-title">{{ section.title }}</div>
-    {% if section.subtitle %}<div class="card-sub">{{ section.subtitle }}</div>{% endif %}
-    <div class="card-slides">{{ section.slides }}</div>
-  </a>
-  {% endfor %}
+  <!-- Лекция 1 — готова -->
+  <div class="lecture-entry lecture-entry--available">
+    <div class="lecture-num">1</div>
+    <div class="lecture-body">
+      <div class="lecture-status lecture-status--available">Доступна</div>
+      <h2 class="lecture-title">Сознание, тело, язык в истории западноевропейской мысли</h2>
+      <p class="lecture-desc">
+        От Декарта до Фристона: как западная философия XVII–XXI веков отвечала на вопрос
+        «на что указывает языковое выражение, когда мы говорим о чувственном опыте?»
+      </p>
+      <div class="lecture-tags">
+        <span>18 мыслителей</span>
+        <span>8 разделов</span>
+        <span>1,5 часа</span>
+      </div>
+      <div class="lecture-actions">
+        <a href="{{ '/lecture/01-intro/' | relative_url }}" class="lecture-btn lecture-btn--primary">
+          Начать лекцию →
+        </a>
+        <a href="{{ '/philosophers/' | relative_url }}" class="lecture-btn lecture-btn--ghost">
+          Все персоналии
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Лекция 2 — скоро -->
+  <div class="lecture-entry lecture-entry--soon">
+    <div class="lecture-num">2</div>
+    <div class="lecture-body">
+      <div class="lecture-status lecture-status--soon">Готовится</div>
+      <h2 class="lecture-title">Чувство, слово и внутренний человек</h2>
+      <p class="lecture-subtitle-extra">Святоотеческая аскетика и философия восприятия</p>
+      <p class="lecture-desc">
+        Как греческие отцы Церкви, исихасты и аскетическая традиция осмысляли телесный опыт,
+        страсти и язык внутренней жизни? Паламитские споры о природе боговидения
+        и современные когнитивные интерпретации.
+      </p>
+      <div class="lecture-tags">
+        <span>Патристика</span>
+        <span>Исихазм</span>
+        <span>Аскетика</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Лекция 3 — скоро -->
+  <div class="lecture-entry lecture-entry--soon">
+    <div class="lecture-num">3</div>
+    <div class="lecture-body">
+      <div class="lecture-status lecture-status--soon">Готовится</div>
+      <h2 class="lecture-title">Сознание, реальность и язык: четыре традиции в сравнении</h2>
+      <p class="lecture-desc">
+        Сравнительный анализ четырёх философских традиций: как каждая из них понимает
+        природу восприятия, связь языка и опыта, место тела в познании.
+      </p>
+      <div class="lecture-tags">
+        <span>Западная философия</span>
+        <span>Святоотеческая аскетика</span>
+        <span>Индуизм</span>
+        <span>Буддизм</span>
+      </div>
+    </div>
+  </div>
+
 </div>

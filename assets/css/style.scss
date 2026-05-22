@@ -159,6 +159,15 @@ hr {
 }
 .site-brand:hover { color: #fff; }
 
+.brand-series {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  opacity: 0.65;
+  margin-bottom: 0.2rem;
+}
+
 .brand-ornament {
   font-size: 1.4rem;
   color: var(--gold-light);
@@ -891,6 +900,175 @@ hr {
   text-decoration: none;
 }
 .start-link:hover { background: var(--gold); color: #fff; }
+
+/* ============================================================
+   SERIES / LECTURE LIST (home page)
+   ============================================================ */
+.series-hero {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+  border-bottom: 1px solid var(--parchment-dark);
+  margin-bottom: 2.5rem;
+}
+.series-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+.series-title {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--brown-dark);
+  margin-bottom: 0.4rem;
+  line-height: 1.15;
+}
+.series-subtitle {
+  font-size: 1.05rem;
+  color: var(--brown-mid);
+  font-style: italic;
+}
+
+.lectures-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.lecture-entry {
+  display: flex;
+  gap: 1.75rem;
+  background: var(--parchment-card);
+  border: 1.5px solid var(--gold);
+  padding: 1.75rem 2rem;
+  position: relative;
+  box-shadow: inset 0 0 0 4px var(--parchment-card),
+              inset 0 0 0 5.5px rgba(139,105,20,0.3),
+              3px 5px 16px rgba(26,13,5,0.09);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+.lecture-entry::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(139,105,20,0.2);
+  pointer-events: none;
+}
+.lecture-entry--available:hover {
+  transform: translateY(-2px);
+  box-shadow: inset 0 0 0 4px var(--parchment-card),
+              inset 0 0 0 5.5px rgba(139,105,20,0.3),
+              4px 8px 24px rgba(26,13,5,0.15);
+}
+.lecture-entry--soon {
+  opacity: 0.65;
+  filter: grayscale(0.15);
+}
+
+.lecture-num {
+  flex-shrink: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--parchment-dark);
+  width: 3.5rem;
+  text-align: center;
+  padding-top: 0.15rem;
+  user-select: none;
+}
+.lecture-entry--available .lecture-num { color: rgba(139,105,20,0.35); }
+
+.lecture-body { flex: 1; min-width: 0; }
+
+.lecture-status {
+  display: inline-block;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-family: 'EB Garamond', serif;
+  padding: 0.15rem 0.6rem;
+  border-radius: 2px;
+  margin-bottom: 0.7rem;
+}
+.lecture-status--available {
+  background: var(--gold);
+  color: #fff;
+}
+.lecture-status--soon {
+  border: 1px solid var(--brown-light);
+  color: var(--brown-light);
+}
+
+.lecture-entry .lecture-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+  margin-bottom: 0.3rem;
+  line-height: 1.3;
+}
+.lecture-entry--soon .lecture-title { color: var(--brown-mid); }
+
+.lecture-subtitle-extra {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--brown-light);
+  margin-bottom: 0.6rem;
+}
+
+.lecture-desc {
+  font-size: 0.95rem;
+  color: var(--brown-mid);
+  line-height: 1.65;
+  margin-bottom: 0.9rem;
+}
+
+.lecture-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 1.1rem;
+}
+.lecture-tags span {
+  font-size: 0.75rem;
+  color: var(--gold);
+  border: 1px solid rgba(139,105,20,0.4);
+  padding: 0.15rem 0.55rem;
+  border-radius: 2px;
+}
+
+.lecture-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+.lecture-btn {
+  display: inline-block;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  padding: 0.55rem 1.25rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+.lecture-btn--primary {
+  background: var(--brown-dark);
+  color: var(--gold-pale);
+  border: 1px solid var(--gold);
+}
+.lecture-btn--primary:hover {
+  background: var(--gold);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.lecture-btn--ghost {
+  background: transparent;
+  color: var(--brown-mid);
+  border: 1px solid var(--brown-light);
+}
+.lecture-btn--ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
 
 /* ============================================================
    PHILOSOPHERS INDEX PAGE
