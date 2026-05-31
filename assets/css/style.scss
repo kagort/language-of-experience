@@ -286,7 +286,8 @@ hr {
   border-radius: 4px;
   transition: background var(--transition);
 }
-.all-philosophers-link:hover {
+.all-philosophers-link:hover,
+.all-philosophers-link.is-active {
   background: rgba(201,162,39,0.15);
   color: #fff;
 }

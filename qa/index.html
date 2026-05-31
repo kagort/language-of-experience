@@ -1,0 +1,248 @@
+---
+layout: default
+title: "Вопросы и ответы"
+---
+
+<style>
+/* ── Q&A page ─────────────────────────────────────────── */
+.qa-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--parchment-dark);
+  position: relative;
+}
+.qa-header-ornament {
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  font-weight: 900;
+  color: var(--parchment-dark);
+  opacity: 0.5;
+  line-height: 1;
+  position: absolute;
+  right: 0;
+  top: 0;
+  user-select: none;
+}
+.qa-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-family: 'EB Garamond', serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 0.15rem 0.55rem;
+  border-radius: 2px;
+  margin-bottom: 0.75rem;
+}
+.qa-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+  margin-bottom: 0.35rem;
+  line-height: 1.25;
+}
+.qa-subtitle {
+  font-size: 1.05rem;
+  color: var(--brown-mid);
+  font-style: italic;
+  margin: 0 0 0.9rem;
+}
+.qa-meta {
+  font-size: 0.82rem;
+  color: var(--brown-light);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.qa-meta .dot { opacity: 0.4; }
+
+/* ── section label ──────────────────────────────────── */
+.qa-section-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid rgba(139,105,20,0.3);
+  padding-bottom: 0.45em;
+  margin: 2.8em 0 1.6em;
+}
+
+/* ── Q&A pair ────────────────────────────────────────── */
+.qa-pair {
+  margin-bottom: 2.5em;
+  padding-bottom: 2.5em;
+  border-bottom: 1px solid var(--parchment-dark);
+}
+.qa-pair:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+/* ── lecture slide quote ─────────────────────────────── */
+.slide-q {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.08rem;
+  font-style: italic;
+  color: var(--brown-mid);
+  border-left: 3px solid var(--gold);
+  background: rgba(201,162,39,0.07);
+  padding: 0.6rem 1.1rem;
+  margin: 0 0 1.1rem 0;
+  line-height: 1.65;
+}
+
+/* ── speech row ─────────────────────────────────────── */
+.speech {
+  display: flex;
+  gap: 1em;
+  align-items: baseline;
+  margin: 0.85em 0;
+}
+.sp {
+  flex-shrink: 0;
+  min-width: 3.2em;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 0.76em;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding-top: 0.2em;
+}
+.sp.gk { color: #5a8060; }
+.sp.pb { color: var(--brown-light); }
+.speech-body {
+  flex: 1;
+  margin: 0;
+  font-size: 0.97em;
+  line-height: 1.78;
+  color: var(--ink);
+}
+.speech-body p { margin: 0 0 0.5em; }
+.speech-body p:last-child { margin-bottom: 0; }
+
+/* ── back link ──────────────────────────────────────── */
+.qa-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--parchment-dark);
+  font-size: 0.9rem;
+  color: var(--gold);
+  text-decoration: none;
+  font-family: 'Playfair Display', serif;
+}
+.qa-back:hover { color: var(--brown-dark); }
+</style>
+
+<article class="lecture-section">
+
+  <header class="qa-header">
+    <div class="qa-header-ornament">Q&amp;A</div>
+    <div class="qa-badge">Лекция I · 23 мая 2026</div>
+    <h2 class="qa-title">Вопросы и ответы</h2>
+    <p class="qa-subtitle">Беседа после лекции «Сознание, тело, язык в истории западноевропейской мысли»</p>
+    <div class="qa-meta">
+      <span><strong>Г.К.</strong> — Георгий Клубников</span>
+      <span class="dot">·</span>
+      <span><strong>П.Б.</strong> — Павел Барышников (лектор)</span>
+    </div>
+  </header>
+
+  <p class="section-label" style="font-size:0.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(139,105,20,.3);padding-bottom:.45em;margin:0 0 1.6em;font-family:'Playfair Display',serif;">Вопросы из чата</p>
+
+  <!-- ① -->
+  <div class="qa-pair">
+    <div class="speech">
+      <span class="sp gk">Г.К.</span>
+      <p class="speech-body">Добрый, сегодня мы успели только исторический разбор — подскажите, планировался ли блок про современные достижения? Например, в формате «новинки и революции XXI века»?</p>
+    </div>
+    <div class="speech">
+      <span class="sp pb">П.Б.</span>
+      <p class="speech-body">Добрый вечер. Серия лекций задумывалась как философско-историческая экспозиция. Здесь в первую очередь речь не о научных объектах, а о философских понятиях и категориях, многие из которых стали в XX–XXI вв. научными объектами.</p>
+    </div>
+  </div>
+
+  <!-- ② -->
+  <div class="qa-pair">
+    <div class="speech">
+      <span class="sp gk">Г.К.</span>
+      <p class="speech-body">Прочитал материалы с сайта, немного уточню свой вопрос. Единственное революционное место — получается, это Кант? Только про его идеи мы можем сказать в формате «было до&nbsp;/ стало после»?</p>
+    </div>
+    <div class="speech">
+      <span class="sp pb">П.Б.</span>
+      <p class="speech-body">Кант действительно многое перевернул в традиционной теории познания. Таких поворотов было несколько: математический, лингвистический, компьютерный, когнитивный. Там, может быть, не было одиноких одиозных фигур, но были родоначальники целых направлений. Например, от Готлоба Фреге берёт начало аналитическая философия, которая предвосхитила и революцию в философии математики, и лингвистический поворот. Витгенштейн вообще задал новый стиль философствования. Но в целом, да: условное деление на аналитизм и феноменологию — это затяжная реакция на Канта. В прикладных исследованиях это выразилось в конструктивистской методологии.</p>
+    </div>
+  </div>
+
+  <!-- ③ -->
+  <div class="qa-pair">
+    <div class="speech">
+      <span class="sp gk">Г.К.</span>
+      <p class="speech-body">У кого из рассмотренных авторов был анализ природы «субъективного»? Не увидел нигде на это ссылки — только фокус на механике процесса «лёгкой проблемы».</p>
+    </div>
+    <blockquote class="slide-q">Мы объяснили роль языка в этом процессе. Но мы не объяснили, почему этот процесс сопровождается субъективным переживанием.</blockquote>
+    <div class="speech">
+      <span class="sp pb">П.Б.</span>
+      <p class="speech-body">Вся феноменологическая традиция — это попытка объяснить природу субъективного опыта. Фокус на «механике» — это мой фокус. Мне важно показать, что вопросы о сознании закладывают основы для научных онтологий.</p>
+    </div>
+  </div>
+
+  <p class="section-label" style="font-size:0.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(139,105,20,.3);padding-bottom:.45em;margin:2.8em 0 1.6em;font-family:'Playfair Display',serif;">Ответы на вопросы к аудитории</p>
+
+  <!-- ④ -->
+  <div class="qa-pair">
+    <blockquote class="slide-q">Если язык формирует наш опыт — значит ли это, что люди, говорящие на разных языках, воспринимают мир по-разному?</blockquote>
+    <div class="speech">
+      <span class="sp gk">Г.К.</span>
+      <p class="speech-body">Откуда взялось утверждение «язык формирует опыт»? Это точное утверждение? Если нет — вторая часть вопроса уходит на паузу. Но если допустить, что формирует, то нет, не значит: нигде нет утверждения, что уникальный язык формирует уникальный опыт. Разные языки могут формировать одну систему опыта. К тому же неясно, как конструкция «язык формирует опыт» связана с «люди воспринимают мир» — кажется, вопрос получился о «тёплом и мягком».</p>
+    </div>
+    <div class="speech">
+      <span class="sp pb">П.Б.</span>
+      <p class="speech-body">Утверждение в такой форме не может быть точным. Здесь важно различать язык как систему правил и язык как способ поведения. Когда говорят «язык формирует опыт», чаще всего имеют в виду, что концептуализация (оснащение понятиями) сильно влияет на свойства опыта. Человек как организм, разумеется, способен обладать чувственным опытом и без развитого языка — например, дети-маугли или младенцы. Но содержательная сторона опыта требует концептуальной рамки. Эта рамка тащит за собой культуру, среду, эпоху, социум. Только тогда возникает тот полноценный опыт, о котором и идёт речь в этой неточной фразе.</p>
+    </div>
+  </div>
+
+  <!-- ⑤ -->
+  <div class="qa-pair">
+    <blockquote class="slide-q">Может ли животное, не владеющее языком, испытывать боль в том же смысле, что и человек? Или оно испытывает нечто принципиально иное?</blockquote>
+    <div class="speech">
+      <span class="sp gk">Г.К.</span>
+      <p class="speech-body">Можете дать определение боли для этого вопроса? Нейрохирурги дают такое: боль — это то, что парализует орган; всё остальное — болевые ощущения. Если взять это за рабочий тезис, получается: боль все живые организмы испытывают одинаково, а вот болевые ощущения у всех разные — в силу различия или наличия нервной системы.</p>
+    </div>
+    <div class="speech">
+      <span class="sp pb">П.Б.</span>
+      <p class="speech-body">Феноменология боли — тема сложная. Есть ноцицепция, а есть нейропатическая, или фантомная боль — не только паралич органа. Ощущения боли могут быть идентичными, но вызваны при этом разными событиями. Животное способно — в силу возможностей своей нервной системы — испытывать следствия некоторого события в организме. Но как это называть и насколько это похоже на то, что способен испытывать человек — другой вопрос. Когда мы принимаем обезболивающие, мы блокируем событие. Иногда причина боли изолирована, а ощущения только нарастают. В лекции всё-таки ключевые вопросы такие: что есть опыт? Какова реальность в опыте и вне опыта? Какова роль языка при ответе на оба вопроса?</p>
+    </div>
+  </div>
+
+  <!-- ⑥ -->
+  <div class="qa-pair">
+    <blockquote class="slide-q">Если нейронаука когда-нибудь полностью опишет нейронные процессы, соответствующие «красному» — будет ли это объяснением того, каково это — видеть красное?</blockquote>
+    <div class="speech">
+      <span class="sp gk">Г.К.</span>
+      <p class="speech-body">Нет — до тех пор, пока нейронаука не опишет процесс «субъективного феномена». Забрасывая удочку в будущее: нейронаука этого не сможет — ответ даст оптогенетика, когда мы разберёмся, как ею заниматься (создадим нужный инструментарий).</p>
+    </div>
+    <div class="speech">
+      <span class="sp pb">П.Б.</span>
+      <p class="speech-body">Про оптогенетику ничего не знаю — надо читать. На первый взгляд это всё равно движение на ощупь в «тёмном мозге», просто новый способ конфигурирования нейронных коррелятов. На мой взгляд, ответ на вопрос «каково это — видеть красный» принципиально невозможен, потому что дело не в «красном», а в том, КТО смотрит. Каждый человек — это уникальный контекст для фотонов с длиной волны от 600 до 700 нм (обычно эту длину волны мы называем «красным», указывая при этом на что-то, что к фотонам не относится).</p>
+    </div>
+  </div>
+
+  <!-- ⑦ -->
+  <div class="qa-pair">
+    <blockquote class="slide-q">Витгенштейн говорил: «жук в ящике» выпадает из языковой игры. Но тогда почему нам так важно, чтобы нас поняли, когда нам больно? Разве субъективный опыт не имеет значения?</blockquote>
+    <div class="speech">
+      <span class="sp gk">Г.К.</span>
+      <p class="speech-body">Витгенштейн создал концептуальную ловушку. Если погружать себя в матрицу «я в танке», с такой позиции ответ будет ровно таким, каким его даёт автор. Но что мешает поместить себя в другую матрицу? Современный опыт цифровой среды подтверждает именно это: мы можем быть в танке, если нам так нравится думать, — но мы точно не в танке, и нам ничего не мешает выйти и зайти в другую игру. Поэтому субъективный опыт имеет значение. А потребность в «понимании» объясняется иначе — тем, как работает миндалевидное тело: именно поэтому не всем и не каждому эта потребность необходима.</p>
+    </div>
+    <div class="speech">
+      <span class="sp pb">П.Б.</span>
+      <p class="speech-body">Основная мысль состоит в том, что значение языковых выражений, даже относительно приватного опыта, сильно зависит от языковых игр. Если игра ведётся на полном серьёзе (религия, армия, рынок, семья), то способы описания влияют и на убеждения о том, что и как мы чувствуем. Если перейти на уровень чисто организменных переживаний, то не будет повода что-то о них сказать: организм взаимодействует со средой — слова там не нужны. А сознание взаимодействует с другими сознаниями — здесь без слов никак. Вера в «жуков в ящиках» — это то, что толкает людей на коммуникацию.</p>
+    </div>
+  </div>
+
+  <a href="{{ '/' | relative_url }}" class="qa-back">← К списку лекций</a>
+
+</article>

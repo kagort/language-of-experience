@@ -42,6 +42,9 @@
       </nav>
 
       <footer class="sidebar-footer">
+        <a href="{{ '/qa/' | relative_url }}" class="all-philosophers-link{% if page.url == '/qa/' %} is-active{% endif %}">
+          ✦ Вопросы и ответы
+        </a>
         <a href="{{ '/philosophers/' | relative_url }}" class="all-philosophers-link">
           ☰ Все персоналии
         </a>
