@@ -1,0 +1,61 @@
+---
+layout: default
+---
+
+{% assign p = site.data.philosophers[page.phil_id] %}
+{% if p %}
+
+<article class="philosopher-solo">
+
+  <a href="{{ page.back_url | default: '/' | relative_url }}" class="phil-back">← Все персоналии</a>
+
+  <div class="philosopher-card philosopher-card--solo">
+    <div class="card-frame">
+
+      <div class="card-header">
+        <div class="card-num">{{ p.num }}</div>
+        {% if p.portrait %}
+        <div class="card-portrait" style="width:160px;height:190px;">
+          <img src="{{ p.portrait | relative_url }}" alt="{{ p.name }}">
+        </div>
+        {% endif %}
+        <div class="card-identity">
+          <h1 class="philosopher-name" style="font-size:1.6rem;">{{ p.name }}</h1>
+          <div class="philosopher-meta">
+            <span class="dates">{{ p.dates }}</span>
+            <span class="dot">·</span>
+            <span class="tradition">{{ p.tradition }}</span>
+          </div>
+          <div class="key-work">{{ p.key_work }}</div>
+        </div>
+      </div>
+
+      <div class="card-body">
+
+        <div class="contribution-block">
+          <h4 class="contribution-heading">Биография</h4>
+          <div class="contribution-text">{{ p.biography }}</div>
+        </div>
+
+        <div class="contribution-block" style="margin-top:1.5rem;">
+          <h4 class="contribution-heading">Вклад в тему лекции</h4>
+          <div class="contribution-text">{{ p.contribution }}</div>
+        </div>
+
+        <div class="language-indicator" style="margin-top:1.5rem;">
+          <span class="lang-label">Язык чувств →</span>
+          <span class="lang-text">{{ p.language }}</span>
+        </div>
+
+        <div class="contribution-block" style="margin-top:1.5rem;">
+          <h4 class="contribution-heading">Любопытный факт</h4>
+          <div class="contribution-text">{{ p.fact }}</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</article>
+
+{% endif %}

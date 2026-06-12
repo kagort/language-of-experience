@@ -1185,6 +1185,26 @@ hr {
   font-size: 0.8rem;
   color: var(--brown-light);
 }
+.philosopher-solo {
+  max-width: 720px;
+}
+.phil-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.9rem;
+  color: var(--gold);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  &:hover { color: var(--brown-dark); }
+}
+.philosopher-card--solo .card-portrait {
+  cursor: default;
+  &:hover { transform: none; box-shadow: none; }
+  img { filter: sepia(15%) contrast(1.05); }
+}
+
 .gsr-empty {
   padding: 0.75rem 1rem;
   font-family: 'EB Garamond', serif;

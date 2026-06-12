@@ -129,7 +129,8 @@ var PHIL_DATA = [
       results.innerHTML = '<li class="gsr-empty">Ничего не найдено</li>';
     } else {
       matches.forEach(function(p) {
-        var href = (p.lecture === 1 ? '/philosophers/' : '/philosophers2/') + '#phil-' + p.id;
+        var base = '{{ "/" | relative_url }}';
+    var href = base.replace(/\/$/, '') + '/philosopher/' + p.id + '/';
         var li = document.createElement('li');
         li.className = 'gsr-item';
         li.innerHTML = '<a href="' + href + '" class="gsr-link">'
