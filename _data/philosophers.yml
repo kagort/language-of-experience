@@ -1,6 +1,6 @@
 descartes:
   name: "Рене Декарт"
-  portrait: "/assets/images/philosophers/Декарт.jpg"
+  portrait: "/assets/images/philosophers/Декарт.webp"
   dates: "1596–1650"
   tradition: "Рационализм"
   key_work: "«Размышления о первой философии» (1641)"
@@ -15,7 +15,7 @@ descartes:
 
 leibniz:
   name: "Готфрид Вильгельм Лейбниц"
-  portrait: "/assets/images/philosophers/Лейбниц.jpg"
+  portrait: "/assets/images/philosophers/Лейбниц.webp"
   dates: "1646–1716"
   tradition: "Рационализм"
   key_work: "«Монадология» (1714); «Новые опыты о человеческом разумении» (опубл. 1765)"
@@ -30,7 +30,7 @@ leibniz:
 
 spinoza:
   name: "Бенедикт Спиноза"
-  portrait: "/assets/images/philosophers/Спиноза.jpg"
+  portrait: "/assets/images/philosophers/Спиноза.webp"
   dates: "1632–1677"
   tradition: "Рационализм"
   key_work: "«Этика» (опубл. посмертно, 1677)"
@@ -45,7 +45,7 @@ spinoza:
 
 locke:
   name: "Джон Локк"
-  portrait: "/assets/images/philosophers/Локк.jpg"
+  portrait: "/assets/images/philosophers/Локк.webp"
   dates: "1632–1704"
   tradition: "Эмпиризм"
   key_work: "«Опыт о человеческом разумении» (1690)"
@@ -60,7 +60,7 @@ locke:
 
 berkeley:
   name: "Джордж Беркли"
-  portrait: "/assets/images/philosophers/Беркли.jpg"
+  portrait: "/assets/images/philosophers/Беркли.webp"
   dates: "1685–1753"
   tradition: "Эмпиризм, субъективный идеализм"
   key_work: "«Трактат о началах человеческого знания» (1710)"
@@ -75,7 +75,7 @@ berkeley:
 
 hume:
   name: "Дэвид Юм"
-  portrait: "/assets/images/philosophers/Юм.jpg"
+  portrait: "/assets/images/philosophers/Юм.webp"
   dates: "1711–1776"
   tradition: "Эмпиризм, скептицизм"
   key_work: "«Трактат о человеческой природе» (1739–1740)"
@@ -90,7 +90,7 @@ hume:
 
 kant:
   name: "Иммануил Кант"
-  portrait: "/assets/images/philosophers/Кант.jpg"
+  portrait: "/assets/images/philosophers/Кант.webp"
   dates: "1724–1804"
   tradition: "Трансцендентальный идеализм"
   key_work: "«Критика чистого разума» (1781)"
@@ -105,7 +105,7 @@ kant:
 
 brentano:
   name: "Франц Брентано"
-  portrait: "/assets/images/philosophers/Брентано.jpg"
+  portrait: "/assets/images/philosophers/Брентано.webp"
   dates: "1838–1917"
   tradition: "Феноменология, дескриптивная психология"
   key_work: "«Психология с эмпирической точки зрения» (1874)"
@@ -120,7 +120,7 @@ brentano:
 
 husserl:
   name: "Эдмунд Гуссерль"
-  portrait: "/assets/images/philosophers/Гуссерль.jpg"
+  portrait: "/assets/images/philosophers/Гуссерль.webp"
   dates: "1859–1938"
   tradition: "Феноменология"
   key_work: "«Идеи к чистой феноменологии» (1913)"
@@ -135,7 +135,7 @@ husserl:
 
 merleau_ponty:
   name: "Морис Мерло-Понти"
-  portrait: "/assets/images/philosophers/Мерло-Понти.jpg"
+  portrait: "/assets/images/philosophers/Мерло-Понти.webp"
   dates: "1908–1961"
   tradition: "Феноменология, экзистенциализм"
   key_work: "«Феноменология восприятия» (1945)"
@@ -150,7 +150,7 @@ merleau_ponty:
 
 russell:
   name: "Бертран Рассел"
-  portrait: "/assets/images/philosophers/Бертран.jpg"
+  portrait: "/assets/images/philosophers/Бертран.webp"
   dates: "1872–1970"
   tradition: "Аналитическая философия, теория sense-data"
   key_work: "«Проблемы философии» (1912); «Principia Mathematica» (с Уайтхедом, 1910–1913)"
@@ -165,7 +165,7 @@ russell:
 
 sellars:
   name: "Уилфрид Селларс"
-  portrait: "/assets/images/philosophers/Селларс.jpg"
+  portrait: "/assets/images/philosophers/Селларс.webp"
   dates: "1912–1989"
   tradition: "Аналитическая философия"
   key_work: "«Эмпиризм и философия разума» (1956)"
@@ -180,7 +180,7 @@ sellars:
 
 wittgenstein:
   name: "Людвиг Витгенштейн"
-  portrait: "/assets/images/philosophers/Витгенштейн.jpg"
+  portrait: "/assets/images/philosophers/Витгенштейн.webp"
   dates: "1889–1951"
   tradition: "Аналитическая философия (два несовместимых периода)"
   key_work: "«Логико-философский трактат» (1921); «Философские исследования» (посм. 1953)"
@@ -195,7 +195,7 @@ wittgenstein:
 
 churchland:
   name: "Патриция и Пол Черчленд"
-  portrait: "/assets/images/philosophers/Патриция и Пол Черчленд.jpg"
+  portrait: "/assets/images/philosophers/Патриция и Пол Черчленд.webp"
   dates: "р. 1943 и р. 1942"
   tradition: "Элиминативный материализм, нейрофилософия"
   key_work: "Пол — «Материя и сознание» (1984); Патриция — «Нейрофилософия» (1986)"
@@ -210,7 +210,7 @@ churchland:
 
 putnam:
   name: "Хилари Патнэм"
-  portrait: "/assets/images/philosophers/Патнем.jpg"
+  portrait: "/assets/images/philosophers/Патнем.webp"
   dates: "1926–2016"
   tradition: "Функционализм, аналитическая философия"
   key_work: "«Разум, язык и реальность» (1975)"
@@ -225,7 +225,7 @@ putnam:
 
 chalmers:
   name: "Дэвид Чалмерс"
-  portrait: "/assets/images/philosophers/Чалмерс.jpg"
+  portrait: "/assets/images/philosophers/Чалмерс.webp"
   dates: "р. 1966"
   tradition: "Дуализм свойств, философия сознания"
   key_work: "«Сознающий ум» (The Conscious Mind, 1996)"
@@ -240,7 +240,7 @@ chalmers:
 
 barrett:
   name: "Лиза Фельдман Барретт"
-  portrait: "/assets/images/philosophers/Лиза Баррет.jpg"
+  portrait: "/assets/images/philosophers/Лиза Баррет.webp"
   dates: "р. 1963"
   tradition: "Нейронаука, психология аффекта"
   key_work: "«Как рождаются эмоции» (How Emotions Are Made, 2017)"
@@ -255,7 +255,7 @@ barrett:
 
 friston:
   name: "Карл Фристон"
-  portrait: "/assets/images/philosophers/Фристон.jpg"
+  portrait: "/assets/images/philosophers/Фристон.webp"
   dates: "р. 1959"
   tradition: "Нейронаука, теория предиктивного кодирования"
   key_work: "Цикл статей о принципе свободной энергии и предиктивном кодировании (с 2005)"
@@ -272,7 +272,7 @@ friston:
 
 justin_martyr:
   name: "Иустин Мученик"
-  portrait: "/assets/images/philosophers/Иустин_Мученик.jpg"
+  portrait: "/assets/images/philosophers/Иустин_Мученик.webp"
   dates: "ок. 100–165"
   tradition: "Апологетика, ранняя патристика"
   key_work: "«Апология I и II»; «Разговор с Трифоном Иудеем»"
@@ -287,7 +287,7 @@ justin_martyr:
 
 evagrius:
   name: "Евагрий Понтийский"
-  portrait: "/assets/images/philosophers/Евагрий.jpg"
+  portrait: "/assets/images/philosophers/Евагрий.webp"
   dates: "345–399"
   tradition: "Монашеская аскетика, греческая патристика"
   key_work: "«Практик (Πρακτικός)»; «Гностик»; «О молитве»"
@@ -302,7 +302,7 @@ evagrius:
 
 mark_ascetic:
   name: "Марк Подвижник"
-  portrait: "/assets/images/philosophers/Марк Подвижник.jpg"
+  portrait: "/assets/images/philosophers/Марк Подвижник.webp"
   dates: "нач. V в. (ок. 360–430)"
   tradition: "Монашеская аскетика, египетская школа"
   key_work: "«О законе духовном»; «О тех, кто думает оправдаться делами»"
@@ -317,7 +317,7 @@ mark_ascetic:
 
 diadochus:
   name: "Диадох Фотикийский"
-  portrait: "/assets/images/philosophers/Диадох_Фотикийский.jpg"
+  portrait: "/assets/images/philosophers/Диадох_Фотикийский.webp"
   dates: "ок. 400–486"
   tradition: "Аскетика, мистическое богословие"
   key_work: "«Сто гностических глав о духовном совершенстве»"
@@ -332,7 +332,7 @@ diadochus:
 
 cassian:
   name: "Иоанн Кассиан"
-  portrait: "/assets/images/philosophers/Иоанн_Кассиан.jpg"
+  portrait: "/assets/images/philosophers/Иоанн_Кассиан.webp"
   dates: "ок. 360–435"
   tradition: "Монашеская аскетика, западная рецепция восточной традиции"
   key_work: "«Собеседования (Conlationes)»; «Установления (De institutis)»"
@@ -347,7 +347,7 @@ cassian:
 
 dorotheos:
   name: "Авва Дорофей Газский"
-  portrait: "/assets/images/philosophers/Авва_Дорофей.jpg"
+  portrait: "/assets/images/philosophers/Авва_Дорофей.webp"
   dates: "ок. 505–565"
   tradition: "Монашеская аскетика, Газская школа"
   key_work: "«Душеполезные поучения и послания»"
@@ -362,7 +362,7 @@ dorotheos:
 
 isaac_syrian:
   name: "Исаак Сирин"
-  portrait: "/assets/images/philosophers/Исаак_Сирин.jpg"
+  portrait: "/assets/images/philosophers/Исаак_Сирин.webp"
   dates: "VII в. (ок. 613–700)"
   tradition: "Монашеская аскетика, восточно-сирийская традиция"
   key_work: "«Аскетические слова (Беседы об уединении)»"
@@ -377,7 +377,7 @@ isaac_syrian:
 
 john_climacus:
   name: "Иоанн Лествичник"
-  portrait: "/assets/images/philosophers/Иоанн_Лествичник.jpg"
+  portrait: "/assets/images/philosophers/Иоанн_Лествичник.webp"
   dates: "ок. 579–649"
   tradition: "Монашеская аскетика, Синайская школа"
   key_work: "«Лествица (Scala Paradisi)»"
@@ -392,7 +392,7 @@ john_climacus:
 
 nikiphoros:
   name: "Никифор Монашествующий"
-  portrait: "/assets/images/philosophers/Никифор_уединенный.jpg"
+  portrait: "/assets/images/philosophers/Никифор_уединенный.webp"
   dates: "XIII в."
   tradition: "Исихазм, Афонская школа"
   key_work: "«О трезвении и хранении сердца» (вошло в «Добротолюбие»)"
@@ -407,7 +407,7 @@ nikiphoros:
 
 nikitas_stithatos:
   name: "Никита Стифат"
-  portrait: "/assets/images/philosophers/Никита_Стифат.jpg"
+  portrait: "/assets/images/philosophers/Никита_Стифат.webp"
   dates: "ок. 1005–1090"
   tradition: "Исихазм, Константинопольская школа"
   key_work: "«Сотницы»; «Жизнь Симеона Нового Богослова»"
@@ -422,7 +422,7 @@ nikitas_stithatos:
 
 theodore_studite:
   name: "Феодор Студит"
-  portrait: "/assets/images/philosophers/Феодор_Студит.jpg"
+  portrait: "/assets/images/philosophers/Феодор_Студит.webp"
   dates: "759–826"
   tradition: "Монашеская реформа, константинопольская аскетика"
   key_work: "«Малое и Большое огласительное слово»; «Письма»"
@@ -437,7 +437,7 @@ theodore_studite:
 
 symeon_theologian:
   name: "Симеон Новый Богослов"
-  portrait: "/assets/images/philosophers/Симеон_Новый_Богослов.jpg"
+  portrait: "/assets/images/philosophers/Симеон_Новый_Богослов.webp"
   dates: "949–1022"
   tradition: "Мистическое богословие, исихазм"
   key_work: "«Гимны Божественной любви»; «Богословские, нравственные и практические слова»"
@@ -452,7 +452,7 @@ symeon_theologian:
 
 origen:
   name: "Ориген Александрийский"
-  portrait: "/assets/images/philosophers/Ориген.jpg"
+  portrait: "/assets/images/philosophers/Ориген.webp"
   dates: "ок. 184–253"
   tradition: "Александрийская школа, ранняя патристика"
   key_work: "«О началах (De principiis)»; «Против Цельса»; толкования на Священное Писание"
@@ -467,7 +467,7 @@ origen:
 
 macarius:
   name: "Макарий Египетский"
-  portrait: "/assets/images/philosophers/Макарий_Египетский.jpg"
+  portrait: "/assets/images/philosophers/Макарий_Египетский.webp"
   dates: "ок. 300–390"
   tradition: "Пустынная аскетика, мистическое богословие"
   key_work: "«Духовные беседы (Homiliae spirituales)»"
@@ -482,7 +482,7 @@ macarius:
 
 nikodim:
   name: "Никодим Святогорец"
-  portrait: "/assets/images/philosophers/Никодим_Святогорец.jpg"
+  portrait: "/assets/images/philosophers/Никодим_Святогорец.webp"
   dates: "1749–1809"
   tradition: "Исихастская традиция, афонское монашество"
   key_work: "«Добротолюбие» (составитель и редактор); «Невидимая брань»"
@@ -497,7 +497,7 @@ nikodim:
 
 silouan:
   name: "Силуан Афонский"
-  portrait: "/assets/images/philosophers/Силуан_Афонский.jpg"
+  portrait: "/assets/images/philosophers/Силуан_Афонский.webp"
   dates: "1866–1938"
   tradition: "Исихазм, Афонская школа"
   key_work: "«Записи» (изданы посмертно Софронием Сахаровым как «Старец Силуан»)"
@@ -512,7 +512,7 @@ silouan:
 
 theophan:
   name: "Феофан Затворник"
-  portrait: "/assets/images/philosophers/Феофан_Затворник.jpg"
+  portrait: "/assets/images/philosophers/Феофан_Затворник.webp"
   dates: "1815–1894"
   tradition: "Православная аскетика, духовное руководство"
   key_work: "«Путь ко спасению»; «Что есть духовная жизнь»; перевод «Добротолюбия»"
@@ -527,7 +527,7 @@ theophan:
 
 ignaty:
   name: "Игнатий Брянчанинов"
-  portrait: "/assets/images/philosophers/Игнатий_Брянчанинов.jpg"
+  portrait: "/assets/images/philosophers/Игнатий_Брянчанинов.webp"
   dates: "1807–1867"
   tradition: "Православная аскетика, духовное руководство"
   key_work: "«Слово о чувственном и духовном видении духов»; «Аскетические опыты»"
