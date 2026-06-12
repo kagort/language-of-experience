@@ -1181,11 +1181,36 @@ hr {
   margin-bottom: 1.5rem;
   &:hover { color: var(--brown-dark); }
 }
-.philosopher-card--solo .card-portrait {
-  cursor: default;
-  &:hover { transform: none; box-shadow: none; }
-  img { filter: sepia(15%) contrast(1.05); }
+.solo-header {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--parchment-dark);
 }
+.solo-name {
+  font-size: 1.7rem;
+  margin: 0.3rem 0 0.4rem;
+}
+.solo-portrait {
+  float: right;
+  width: 160px;
+  height: 190px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 3px;
+  border: 1px solid var(--parchment-dark);
+  filter: sepia(15%) contrast(1.05);
+  margin: 0 0 1rem 1.5rem;
+}
+@media (max-width: 600px) {
+  .solo-portrait {
+    float: none;
+    display: block;
+    width: 100%;
+    height: 200px;
+    margin: 0 0 1rem 0;
+  }
+}
+.philosopher-card--solo .card-portrait { display: none; }
 
 .gsr-empty {
   padding: 0.75rem 1rem;
