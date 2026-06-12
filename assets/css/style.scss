@@ -598,6 +598,24 @@ hr {
   border-radius: 50%;
 }
 
+.card-portrait {
+  flex-shrink: 0;
+  width: 72px;
+  height: 88px;
+  overflow: hidden;
+  border-radius: 3px;
+  border: 1px solid var(--parchment-dark);
+  background: var(--parchment-mid);
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: sepia(15%) contrast(1.05);
+  }
+}
+
 .card-identity { flex: 1; }
 
 .philosopher-name {

@@ -254,6 +254,7 @@ friston:
 
 justin_martyr:
   name: "Иустин Мученик"
+  portrait: "/assets/images/philosophers/justin_martyr.jpg"
   dates: "ок. 100–165"
   tradition: "Апологетика, ранняя патристика"
   key_work: "«Апология I и II»; «Разговор с Трифоном Иудеем»"
@@ -450,6 +451,7 @@ macarius:
 
 nikodim:
   name: "Никодим Святогорец"
+  portrait: "/assets/images/philosophers/nikodim.jpg"
   dates: "1749–1809"
   tradition: "Исихастская традиция, афонское монашество"
   key_work: "«Добротолюбие» (составитель и редактор); «Невидимая брань»"
@@ -464,6 +466,7 @@ nikodim:
 
 silouan:
   name: "Силуан Афонский"
+  portrait: "/assets/images/philosophers/silouan.jpg"
   dates: "1866–1938"
   tradition: "Исихазм, Афонская школа"
   key_work: "«Записи» (изданы посмертно Софронием Сахаровым как «Старец Силуан»)"
@@ -478,6 +481,7 @@ silouan:
 
 theophan:
   name: "Феофан Затворник"
+  portrait: "/assets/images/philosophers/theophan.jpg"
   dates: "1815–1894"
   tradition: "Православная аскетика, духовное руководство"
   key_work: "«Путь ко спасению»; «Что есть духовная жизнь»; перевод «Добротолюбия»"
@@ -492,6 +496,7 @@ theophan:
 
 ignaty:
   name: "Игнатий Брянчанинов"
+  portrait: "/assets/images/philosophers/ignaty.jpg"
   dates: "1807–1867"
   tradition: "Православная аскетика, духовное руководство"
   key_work: "«Слово о чувственном и духовном видении духов»; «Аскетические опыты»"
