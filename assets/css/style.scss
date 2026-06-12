@@ -618,7 +618,7 @@ hr {
   }
   &:hover {
     cursor: zoom-in;
-    transform: scale(1.5);
+    transform: scale(1.75);
     z-index: 10;
     box-shadow: 0 6px 24px rgba(0,0,0,0.25);
   }
@@ -1306,37 +1306,15 @@ hr {
   .index-hero h1 { font-size: 2rem; }
   .philosophers-grid { grid-template-columns: 1fr; }
 
-  /* Lecture entry title overflow fix */
   .lecture-entry .lecture-title {
     font-size: 1.15rem;
     overflow-wrap: break-word;
     word-break: break-word;
   }
 
-  /* Philosopher card header: hide portrait from flex row, show below */
-  .card-header {
-    flex-wrap: nowrap;
-    align-items: flex-start;
-  }
   .card-portrait {
-    display: none;
-  }
-  .card-portrait--mobile-show {
-    display: block;
-    width: 100%;
-    height: 180px;
-    margin: 0.75rem 0;
-    border-radius: 3px;
-    overflow: hidden;
-    border: 1px solid var(--parchment-dark);
-    background: var(--parchment-mid);
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      filter: sepia(15%) contrast(1.05);
-    }
+    width: 64px;
+    height: 76px;
   }
   .card-identity {
     min-width: 0;
