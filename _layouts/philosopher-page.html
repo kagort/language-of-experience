@@ -15,7 +15,7 @@ layout: default
       <div class="card-header">
         <div class="card-num">{{ p.num }}</div>
         {% if p.portrait %}
-        <div class="card-portrait">
+        <div class="card-portrait solo-portrait-desktop">
           <img src="{{ p.portrait | relative_url }}" alt="{{ p.name }}">
         </div>
         {% endif %}
@@ -29,6 +29,12 @@ layout: default
           <div class="key-work">{{ p.key_work }}</div>
         </div>
       </div>
+
+      {% if p.portrait %}
+      <div class="solo-portrait-mobile">
+        <img src="{{ p.portrait | relative_url }}" alt="{{ p.name }}">
+      </div>
+      {% endif %}
 
       <div class="card-body">
 

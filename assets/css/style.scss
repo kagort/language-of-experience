@@ -1181,6 +1181,26 @@ hr {
   margin-bottom: 1.5rem;
   &:hover { color: var(--brown-dark); }
 }
+.solo-portrait-mobile { display: none; }
+@media (max-width: 600px) {
+  .solo-portrait-desktop { display: none; }
+  .solo-portrait-mobile {
+    display: block;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 3px;
+    border: 1px solid var(--parchment-dark);
+    margin: 0.75rem 0 1rem;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: sepia(15%) contrast(1.05);
+    }
+  }
+}
 
 .gsr-empty {
   padding: 0.75rem 1rem;
