@@ -12,22 +12,25 @@ layout: default
   <div class="philosopher-card philosopher-card--solo">
     <div class="card-frame">
 
-      <div class="solo-header">
+      <div class="card-header">
         <div class="card-num">{{ p.num }}</div>
-        <h1 class="philosopher-name solo-name">{{ p.name }}</h1>
-        <div class="philosopher-meta">
-          <span class="dates">{{ p.dates }}</span>
-          <span class="dot">·</span>
-          <span class="tradition">{{ p.tradition }}</span>
+        {% if p.portrait %}
+        <div class="card-portrait">
+          <img src="{{ p.portrait | relative_url }}" alt="{{ p.name }}">
         </div>
-        <div class="key-work">{{ p.key_work }}</div>
+        {% endif %}
+        <div class="card-identity">
+          <h1 class="philosopher-name" style="font-size:1.6rem;">{{ p.name }}</h1>
+          <div class="philosopher-meta">
+            <span class="dates">{{ p.dates }}</span>
+            <span class="dot">·</span>
+            <span class="tradition">{{ p.tradition }}</span>
+          </div>
+          <div class="key-work">{{ p.key_work }}</div>
+        </div>
       </div>
 
-      <div class="card-body solo-body">
-
-        {% if p.portrait %}
-        <img src="{{ p.portrait | relative_url }}" alt="{{ p.name }}" class="solo-portrait">
-        {% endif %}
+      <div class="card-body">
 
         <div class="contribution-block">
           <h4 class="contribution-heading">Биография</h4>
@@ -48,8 +51,6 @@ layout: default
           <h4 class="contribution-heading">Любопытный факт</h4>
           <div class="contribution-text">{{ p.fact }}</div>
         </div>
-
-        <div style="clear:both;"></div>
 
       </div>
     </div>
