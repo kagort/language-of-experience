@@ -254,7 +254,7 @@ friston:
 
 justin_martyr:
   name: "Иустин Мученик"
-  portrait: "/assets/images/philosophers/justin_martyr.jpg"
+  portrait: "/assets/images/philosophers/Иустин_Мученик.jpg"
   dates: "ок. 100–165"
   tradition: "Апологетика, ранняя патристика"
   key_work: "«Апология I и II»; «Разговор с Трифоном Иудеем»"
@@ -269,6 +269,7 @@ justin_martyr:
 
 evagrius:
   name: "Евагрий Понтийский"
+  portrait: "/assets/images/philosophers/Евагрий.jpg"
   dates: "345–399"
   tradition: "Монашеская аскетика, греческая патристика"
   key_work: "«Практик (Πρακτικός)»; «Гностик»; «О молитве»"
@@ -283,6 +284,7 @@ evagrius:
 
 mark_ascetic:
   name: "Марк Подвижник"
+  portrait: "/assets/images/philosophers/Марк Подвижник.jpg"
   dates: "нач. V в. (ок. 360–430)"
   tradition: "Монашеская аскетика, египетская школа"
   key_work: "«О законе духовном»; «О тех, кто думает оправдаться делами»"
@@ -297,6 +299,7 @@ mark_ascetic:
 
 diadochus:
   name: "Диадох Фотикийский"
+  portrait: "/assets/images/philosophers/Диадох_Фотикийский.jpg"
   dates: "ок. 400–486"
   tradition: "Аскетика, мистическое богословие"
   key_work: "«Сто гностических глав о духовном совершенстве»"
@@ -311,6 +314,7 @@ diadochus:
 
 cassian:
   name: "Иоанн Кассиан"
+  portrait: "/assets/images/philosophers/Иоанн_Кассиан.jpg"
   dates: "ок. 360–435"
   tradition: "Монашеская аскетика, западная рецепция восточной традиции"
   key_work: "«Собеседования (Conlationes)»; «Установления (De institutis)»"
@@ -325,6 +329,7 @@ cassian:
 
 dorotheos:
   name: "Авва Дорофей Газский"
+  portrait: "/assets/images/philosophers/Авва_Дорофей.jpg"
   dates: "ок. 505–565"
   tradition: "Монашеская аскетика, Газская школа"
   key_work: "«Душеполезные поучения и послания»"
@@ -339,6 +344,7 @@ dorotheos:
 
 isaac_syrian:
   name: "Исаак Сирин"
+  portrait: "/assets/images/philosophers/Исаак_Сирин.jpg"
   dates: "VII в. (ок. 613–700)"
   tradition: "Монашеская аскетика, восточно-сирийская традиция"
   key_work: "«Аскетические слова (Беседы об уединении)»"
@@ -353,6 +359,7 @@ isaac_syrian:
 
 john_climacus:
   name: "Иоанн Лествичник"
+  portrait: "/assets/images/philosophers/Иоанн_Лествичник.jpg"
   dates: "ок. 579–649"
   tradition: "Монашеская аскетика, Синайская школа"
   key_work: "«Лествица (Scala Paradisi)»"
@@ -367,6 +374,7 @@ john_climacus:
 
 nikiphoros:
   name: "Никифор Монашествующий"
+  portrait: "/assets/images/philosophers/Никифор_уединенный.jpg"
   dates: "XIII в."
   tradition: "Исихазм, Афонская школа"
   key_work: "«О трезвении и хранении сердца» (вошло в «Добротолюбие»)"
@@ -381,6 +389,7 @@ nikiphoros:
 
 nikitas_stithatos:
   name: "Никита Стифат"
+  portrait: "/assets/images/philosophers/Никита_Стифат.jpg"
   dates: "ок. 1005–1090"
   tradition: "Исихазм, Константинопольская школа"
   key_work: "«Сотницы»; «Жизнь Симеона Нового Богослова»"
@@ -395,6 +404,7 @@ nikitas_stithatos:
 
 theodore_studite:
   name: "Феодор Студит"
+  portrait: "/assets/images/philosophers/Феодор_Студит.jpg"
   dates: "759–826"
   tradition: "Монашеская реформа, константинопольская аскетика"
   key_work: "«Малое и Большое огласительное слово»; «Письма»"
@@ -409,6 +419,7 @@ theodore_studite:
 
 symeon_theologian:
   name: "Симеон Новый Богослов"
+  portrait: "/assets/images/philosophers/Симеон_Новый_Богослов.jpg"
   dates: "949–1022"
   tradition: "Мистическое богословие, исихазм"
   key_work: "«Гимны Божественной любви»; «Богословские, нравственные и практические слова»"
@@ -423,6 +434,7 @@ symeon_theologian:
 
 origen:
   name: "Ориген Александрийский"
+  portrait: "/assets/images/philosophers/Ориген.jpg"
   dates: "ок. 184–253"
   tradition: "Александрийская школа, ранняя патристика"
   key_work: "«О началах (De principiis)»; «Против Цельса»; толкования на Священное Писание"
@@ -437,6 +449,7 @@ origen:
 
 macarius:
   name: "Макарий Египетский"
+  portrait: "/assets/images/philosophers/Макарий_Египетский.jpg"
   dates: "ок. 300–390"
   tradition: "Пустынная аскетика, мистическое богословие"
   key_work: "«Духовные беседы (Homiliae spirituales)»"
@@ -451,7 +464,7 @@ macarius:
 
 nikodim:
   name: "Никодим Святогорец"
-  portrait: "/assets/images/philosophers/nikodim.jpg"
+  portrait: "/assets/images/philosophers/Никодим_Святогорец.jpg"
   dates: "1749–1809"
   tradition: "Исихастская традиция, афонское монашество"
   key_work: "«Добротолюбие» (составитель и редактор); «Невидимая брань»"
@@ -466,7 +479,7 @@ nikodim:
 
 silouan:
   name: "Силуан Афонский"
-  portrait: "/assets/images/philosophers/silouan.jpg"
+  portrait: "/assets/images/philosophers/Силуан_Афонский.jpg"
   dates: "1866–1938"
   tradition: "Исихазм, Афонская школа"
   key_work: "«Записи» (изданы посмертно Софронием Сахаровым как «Старец Силуан»)"
@@ -481,7 +494,7 @@ silouan:
 
 theophan:
   name: "Феофан Затворник"
-  portrait: "/assets/images/philosophers/theophan.jpg"
+  portrait: "/assets/images/philosophers/Феофан_Затворник.jpg"
   dates: "1815–1894"
   tradition: "Православная аскетика, духовное руководство"
   key_work: "«Путь ко спасению»; «Что есть духовная жизнь»; перевод «Добротолюбия»"
@@ -496,7 +509,7 @@ theophan:
 
 ignaty:
   name: "Игнатий Брянчанинов"
-  portrait: "/assets/images/philosophers/ignaty.jpg"
+  portrait: "/assets/images/philosophers/Игнатий_Брянчанинов.jpg"
   dates: "1807–1867"
   tradition: "Православная аскетика, духовное руководство"
   key_work: "«Слово о чувственном и духовном видении духов»; «Аскетические опыты»"
