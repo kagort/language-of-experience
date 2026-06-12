@@ -1,5 +1,6 @@
 descartes:
   name: "Рене Декарт"
+  portrait: "/assets/images/philosophers/Декарт.jpg"
   dates: "1596–1650"
   tradition: "Рационализм"
   key_work: "«Размышления о первой философии» (1641)"
@@ -14,6 +15,7 @@ descartes:
 
 leibniz:
   name: "Готфрид Вильгельм Лейбниц"
+  portrait: "/assets/images/philosophers/Лейбниц.jpg"
   dates: "1646–1716"
   tradition: "Рационализм"
   key_work: "«Монадология» (1714); «Новые опыты о человеческом разумении» (опубл. 1765)"
@@ -28,6 +30,7 @@ leibniz:
 
 spinoza:
   name: "Бенедикт Спиноза"
+  portrait: "/assets/images/philosophers/Спиноза.jpg"
   dates: "1632–1677"
   tradition: "Рационализм"
   key_work: "«Этика» (опубл. посмертно, 1677)"
@@ -42,6 +45,7 @@ spinoza:
 
 locke:
   name: "Джон Локк"
+  portrait: "/assets/images/philosophers/Локк.jpg"
   dates: "1632–1704"
   tradition: "Эмпиризм"
   key_work: "«Опыт о человеческом разумении» (1690)"
@@ -56,6 +60,7 @@ locke:
 
 berkeley:
   name: "Джордж Беркли"
+  portrait: "/assets/images/philosophers/Беркли.jpg"
   dates: "1685–1753"
   tradition: "Эмпиризм, субъективный идеализм"
   key_work: "«Трактат о началах человеческого знания» (1710)"
@@ -70,6 +75,7 @@ berkeley:
 
 hume:
   name: "Дэвид Юм"
+  portrait: "/assets/images/philosophers/Юм.jpg"
   dates: "1711–1776"
   tradition: "Эмпиризм, скептицизм"
   key_work: "«Трактат о человеческой природе» (1739–1740)"
@@ -84,6 +90,7 @@ hume:
 
 kant:
   name: "Иммануил Кант"
+  portrait: "/assets/images/philosophers/Кант.jpg"
   dates: "1724–1804"
   tradition: "Трансцендентальный идеализм"
   key_work: "«Критика чистого разума» (1781)"
@@ -98,6 +105,7 @@ kant:
 
 brentano:
   name: "Франц Брентано"
+  portrait: "/assets/images/philosophers/Брентано.jpg"
   dates: "1838–1917"
   tradition: "Феноменология, дескриптивная психология"
   key_work: "«Психология с эмпирической точки зрения» (1874)"
@@ -112,6 +120,7 @@ brentano:
 
 husserl:
   name: "Эдмунд Гуссерль"
+  portrait: "/assets/images/philosophers/Гуссерль.jpg"
   dates: "1859–1938"
   tradition: "Феноменология"
   key_work: "«Идеи к чистой феноменологии» (1913)"
@@ -126,6 +135,7 @@ husserl:
 
 merleau_ponty:
   name: "Морис Мерло-Понти"
+  portrait: "/assets/images/philosophers/Мерло-Понти.jpg"
   dates: "1908–1961"
   tradition: "Феноменология, экзистенциализм"
   key_work: "«Феноменология восприятия» (1945)"
@@ -140,6 +150,7 @@ merleau_ponty:
 
 russell:
   name: "Бертран Рассел"
+  portrait: "/assets/images/philosophers/Бертран.jpg"
   dates: "1872–1970"
   tradition: "Аналитическая философия, теория sense-data"
   key_work: "«Проблемы философии» (1912); «Principia Mathematica» (с Уайтхедом, 1910–1913)"
@@ -154,6 +165,7 @@ russell:
 
 sellars:
   name: "Уилфрид Селларс"
+  portrait: "/assets/images/philosophers/Селларс.jpg"
   dates: "1912–1989"
   tradition: "Аналитическая философия"
   key_work: "«Эмпиризм и философия разума» (1956)"
@@ -168,6 +180,7 @@ sellars:
 
 wittgenstein:
   name: "Людвиг Витгенштейн"
+  portrait: "/assets/images/philosophers/Витгенштейн.jpg"
   dates: "1889–1951"
   tradition: "Аналитическая философия (два несовместимых периода)"
   key_work: "«Логико-философский трактат» (1921); «Философские исследования» (посм. 1953)"
@@ -182,6 +195,7 @@ wittgenstein:
 
 churchland:
   name: "Патриция и Пол Черчленд"
+  portrait: "/assets/images/philosophers/Патриция и Пол Черчленд.jpg"
   dates: "р. 1943 и р. 1942"
   tradition: "Элиминативный материализм, нейрофилософия"
   key_work: "Пол — «Материя и сознание» (1984); Патриция — «Нейрофилософия» (1986)"
@@ -196,6 +210,7 @@ churchland:
 
 putnam:
   name: "Хилари Патнэм"
+  portrait: "/assets/images/philosophers/Патнем.jpg"
   dates: "1926–2016"
   tradition: "Функционализм, аналитическая философия"
   key_work: "«Разум, язык и реальность» (1975)"
@@ -210,6 +225,7 @@ putnam:
 
 chalmers:
   name: "Дэвид Чалмерс"
+  portrait: "/assets/images/philosophers/Чалмерс.jpg"
   dates: "р. 1966"
   tradition: "Дуализм свойств, философия сознания"
   key_work: "«Сознающий ум» (The Conscious Mind, 1996)"
@@ -224,6 +240,7 @@ chalmers:
 
 barrett:
   name: "Лиза Фельдман Барретт"
+  portrait: "/assets/images/philosophers/Лиза Баррет.jpg"
   dates: "р. 1963"
   tradition: "Нейронаука, психология аффекта"
   key_work: "«Как рождаются эмоции» (How Emotions Are Made, 2017)"
@@ -238,6 +255,7 @@ barrett:
 
 friston:
   name: "Карл Фристон"
+  portrait: "/assets/images/philosophers/Фристон.jpg"
   dates: "р. 1959"
   tradition: "Нейронаука, теория предиктивного кодирования"
   key_work: "Цикл статей о принципе свободной энергии и предиктивном кодировании (с 2005)"
