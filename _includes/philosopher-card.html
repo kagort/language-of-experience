@@ -11,7 +11,7 @@
       </div>
       {% endif %}
       <div class="card-identity">
-        <h3 class="philosopher-name">{{ p.name }}</h3>
+        <h3 class="philosopher-name"><a href="{{ '/philosopher/' | append: include.id | append: '/' | relative_url }}">{{ p.name }}</a></h3>
         <div class="philosopher-meta">
           <span class="dates">{{ p.dates }}</span>
           <span class="dot">·</span>

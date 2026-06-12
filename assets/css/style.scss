@@ -1185,6 +1185,12 @@ hr {
   font-size: 0.8rem;
   color: var(--brown-light);
 }
+.philosopher-name a {
+  color: inherit;
+  text-decoration: none;
+  &:hover { color: var(--gold); }
+}
+
 .philosopher-solo {
   max-width: 720px;
 }
