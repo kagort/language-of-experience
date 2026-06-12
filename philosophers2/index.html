@@ -11,12 +11,12 @@ title: "Персоналии"
 
   <div class="divider" style="margin: 1.5rem 0;">— ❦ —</div>
 
-  <div class="phil-search-wrap">
-    <input type="search" id="phil-search" class="phil-search" placeholder="Поиск по имени, традиции, датам…" autocomplete="off">
-    <span class="phil-search-count" id="phil-search-count"></span>
+  <div class="global-search-wrap" style="max-width:100%;margin-bottom:1.5rem;">
+    <input type="search" id="global-search" class="global-search" placeholder="Поиск по картотеке: имя, традиция, даты…" autocomplete="off">
+    <ul class="global-search-results" id="global-search-results" hidden></ul>
   </div>
 
-  <div class="philosophers-grid" id="philosophers-grid">
+  <div class="philosophers-grid">
     {% assign phil_list = "justin_martyr,evagrius,mark_ascetic,diadochus,cassian,dorotheos,isaac_syrian,john_climacus,nikiphoros,nikitas_stithatos,theodore_studite,symeon_theologian,origen,macarius,nikodim,silouan,theophan,ignaty" | split: "," %}
     {% for id in phil_list %}
       {% include philosopher-card.html id=id %}
@@ -24,24 +24,4 @@ title: "Персоналии"
   </div>
 </div>
 
-<script>
-(function() {
-  var input = document.getElementById('phil-search');
-  var count = document.getElementById('phil-search-count');
-  var grid  = document.getElementById('philosophers-grid');
-  if (!input || !grid) return;
-  var cards = Array.from(grid.querySelectorAll('.philosopher-card'));
-  function update() {
-    var q = input.value.trim().toLowerCase();
-    var visible = 0;
-    cards.forEach(function(card) {
-      var text = card.textContent.toLowerCase();
-      var show = !q || text.indexOf(q) !== -1;
-      card.style.display = show ? '' : 'none';
-      if (show) visible++;
-    });
-    count.textContent = q ? ('Найдено: ' + visible) : '';
-  }
-  input.addEventListener('input', update);
-})();
-</script>
+{% include global-search.html %}
