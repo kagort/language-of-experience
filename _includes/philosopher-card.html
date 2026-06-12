@@ -6,8 +6,8 @@
     <div class="card-header">
       <div class="card-num">{{ p.num }}</div>
       {% if p.portrait %}
-      <div class="card-portrait">
-        <img src="{{ p.portrait | relative_url }}" alt="{{ p.name }}" loading="lazy">
+      <div class="card-portrait card-portrait--lazy" data-src="{{ p.portrait | relative_url }}" data-alt="{{ p.name }}">
+        <button class="portrait-reveal-btn" aria-label="Загрузить портрет">Увидеть<br>изображение</button>
       </div>
       {% endif %}
       <div class="card-identity">

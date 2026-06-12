@@ -606,7 +606,6 @@ hr {
   border-radius: 3px;
   border: 1px solid var(--parchment-dark);
   background: var(--parchment-mid);
-  cursor: zoom-in;
   position: relative;
   z-index: 0;
   transition: transform 0.35s ease, box-shadow 0.35s ease, z-index 0s;
@@ -617,10 +616,36 @@ hr {
     display: block;
     filter: sepia(15%) contrast(1.05);
   }
-  &:hover {
+  &:not(.card-portrait--lazy):hover {
+    cursor: zoom-in;
     transform: scale(1.25);
     z-index: 10;
     box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+  }
+}
+
+.portrait-reveal-btn {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--brown-light);
+  letter-spacing: 0.03em;
+  padding: 0.4rem;
+  transition: color 0.2s, background 0.2s;
+  &:hover {
+    color: var(--gold);
+    background: rgba(201,162,39,0.08);
   }
 }
 
