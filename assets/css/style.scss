@@ -600,8 +600,8 @@ hr {
 
 .card-portrait {
   flex-shrink: 0;
-  width: 72px;
-  height: 88px;
+  width: 103px;
+  height: 122px;
   overflow: hidden;
   border-radius: 3px;
   border: 1px solid var(--parchment-dark);
@@ -610,7 +610,6 @@ hr {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center top;
     display: block;
     filter: sepia(15%) contrast(1.05);
   }
