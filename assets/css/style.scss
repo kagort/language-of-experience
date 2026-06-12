@@ -618,7 +618,7 @@ hr {
   }
   &:not(.card-portrait--lazy):hover {
     cursor: zoom-in;
-    transform: scale(1.25);
+    transform: scale(1.5);
     z-index: 10;
     box-shadow: 0 6px 24px rgba(0,0,0,0.25);
   }
