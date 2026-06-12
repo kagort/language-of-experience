@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
+      <header class="sidebar-header">
+        <a href="{{ '/' | relative_url }}" class="site-brand">
+          <div class="brand-ornament">❧</div>
+          <p class="brand-series">Серия лекций</p>
+          <h1 class="brand-title">Сознание · Тело · Язык</h1>
+          <p class="brand-subtitle">{{ site.subtitle }}</p>
+          <div class="brand-ornament">❧</div>
+        </a>
+      </header>
+
+      <nav class="lecture-nav" aria-label="Разделы лекции">
+        <h2 class="nav-heading">Ход лекции</h2>
+        <ol class="section-list">
+          {% assign sorted_sections = site.sections2 | sort: 'order' %}
+          {% for section in sorted_sections %}
+          <li class="section-item{% if page.url == section.url %} is-active{% endif %}">
+            <a href="{{ section.url | relative_url }}" class="section-link">
+              <span class="section-num">{{ section.order }}</span>
+              <span class="section-info">
+                <span class="section-name">{{ section.short_title | default: section.title }}</span>
+                <span class="slide-ref">{{ section.slides }}</span>
+              </span>
+            </a>
+          </li>
+          {% endfor %}
+        </ol>
+      </nav>
+
+      <footer class="sidebar-footer">
+        <a href="{{ '/philosophers2/' | relative_url }}" class="all-philosophers-link">
+          ☰ Персоналии лекции
+        </a>
+        <a href="{{ '/' | relative_url }}" class="all-philosophers-link">
+          ← Все лекции
+        </a>
+      </footer>
+    </div>
+  </aside>
+
+  <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Открыть навигацию">
+    <span></span><span></span><span></span>
+  </button>
+
+  <main class="main-content">
+    {{ content }}
+  </main>
+
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+</html>
