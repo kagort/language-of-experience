@@ -1,0 +1,20 @@
+---
+layout: default2
+title: "Персоналии"
+---
+
+<div class="philosophers-page">
+  <h2>Персоналии лекции II</h2>
+  <p style="color: var(--brown-light); font-style: italic; margin-bottom: 0.5rem;">
+    18 мыслителей от Иустина Мученика до Игнатия Брянчанинова — биографии, вклад в тему и любопытные факты.
+  </p>
+
+  <div class="divider" style="margin: 1.5rem 0;">— ❦ —</div>
+
+  <div class="philosophers-grid">
+    {% assign phil_list = "justin_martyr,evagrius,mark_ascetic,diadochus,cassian,dorotheos,isaac_syrian,john_climacus,nikiphoros,nikitas_stithatos,theodore_studite,symeon_theologian,origen,macarius,nikodim,silouan,theophan,ignaty" | split: "," %}
+    {% for id in phil_list %}
+      {% include philosopher-card.html id=id %}
+    {% endfor %}
+  </div>
+</div>

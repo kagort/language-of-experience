@@ -9,6 +9,9 @@ collections:
   sections:
     output: true
     permalink: /lecture/:name/
+  sections2:
+    output: true
+    permalink: /lecture2/:name/
 
 defaults:
   - scope:
@@ -16,6 +19,11 @@ defaults:
       type: "sections"
     values:
       layout: "section"
+  - scope:
+      path: ""
+      type: "sections2"
+    values:
+      layout: "section2"
 
 markdown: kramdown
 highlighter: rouge

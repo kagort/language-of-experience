@@ -1,0 +1,82 @@
+---
+layout: default2
+---
+{% assign sorted_sections = site.sections2 | sort: 'order' %}
+{% assign current_index = nil %}
+{% for s in sorted_sections %}
+  {% if s.url == page.url %}
+    {% assign current_index = forloop.index0 %}
+  {% endif %}
+{% endfor %}
+
+{% if current_index != nil and current_index > 0 %}
+  {% assign prev_index = current_index | minus: 1 %}
+  {% assign prev_section = sorted_sections[prev_index] %}
+{% endif %}
+
+{% assign next_index = current_index | plus: 1 %}
+{% assign sections_count = sorted_sections | size %}
+{% if next_index < sections_count %}
+  {% assign next_section = sorted_sections[next_index] %}
+{% endif %}
+
+<article class="lecture-section">
+
+  <header class="section-header">
+    <div class="section-meta-row">
+      <span class="slide-badge">{{ page.slides }}</span>
+      {% if page.era %}<span class="era-badge">{{ page.era }}</span>{% endif %}
+    </div>
+    <div class="section-numeral">{{ page.order }}</div>
+    <h2 class="section-title">{{ page.title }}</h2>
+    {% if page.subtitle %}<p class="section-subtitle">{{ page.subtitle }}</p>{% endif %}
+  </header>
+
+  {% if page.concepts %}
+  <aside class="key-concepts">
+    <h3 class="concepts-heading">
+      <span class="concepts-icon">◈</span> Ключевые понятия
+    </h3>
+    <ul class="concepts-list">
+      {% for concept in page.concepts %}
+      <li>{{ concept }}</li>
+      {% endfor %}
+    </ul>
+  </aside>
+  {% endif %}
+
+  <div class="section-content">
+    {{ content }}
+  </div>
+
+  <nav class="section-nav" aria-label="Переход между разделами">
+    <div class="nav-cell nav-prev">
+      {% if prev_section %}
+      <a href="{{ prev_section.url | relative_url }}" class="nav-link">
+        <span class="nav-arrow">←</span>
+        <span class="nav-label">
+          <span class="nav-hint">Предыдущий раздел</span>
+          <span class="nav-title">{{ prev_section.short_title | default: prev_section.title }}</span>
+        </span>
+      </a>
+      {% endif %}
+    </div>
+    <div class="nav-cell nav-center">
+      <span class="progress-indicator">
+        {{ page.order }}&thinsp;/&thinsp;{{ sections_count }}
+      </span>
+    </div>
+    <div class="nav-cell nav-next">
+      {% if next_section %}
+      <a href="{{ next_section.url | relative_url }}" class="nav-link">
+        <span class="nav-label">
+          <span class="nav-hint">Следующий раздел</span>
+          <span class="nav-title">{{ next_section.short_title | default: next_section.title }}</span>
+        </span>
+        <span class="nav-arrow">→</span>
+      </a>
+      {% endif %}
+    </div>
+  </nav>
+
+</article>
