@@ -1,6 +1,8 @@
 ---
 title: "Синтез: что остаётся открытым"
 section_num: 8
+order: 8
+short_title: "Синтез"
 prev_url: "/lecture3/07-silence-practice/"
 ---
 
@@ -47,3 +49,12 @@ prev_url: "/lecture3/07-silence-practice/"
 ---
 
 *Спасибо за участие в лекции. Вопросы для обсуждения — в разделе «Вопросы для дискуссии». Биографии всех 18 мыслителей — в разделе «Персоналии».*
+
+<div class="philosophers-section">
+<h3 class="philosophers-section-title">Мыслители этого раздела</h3>
+
+{% include philosopher-card.html id="nisargadatta" %}
+
+{% include philosopher-card.html id="buddhaghosa" %}
+
+</div>

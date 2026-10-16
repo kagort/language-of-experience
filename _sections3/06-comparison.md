@@ -1,6 +1,8 @@
 ---
 title: "Четыре традиции: сравнительный анализ"
 section_num: 6
+order: 6
+short_title: "Сравнение традиций"
 prev_url: "/lecture3/05-buddhism-yogacara/"
 next_url: "/lecture3/07-silence-practice/"
 ---

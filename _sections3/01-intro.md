@@ -1,6 +1,8 @@
 ---
 title: "Введение: один вопрос, четыре ответа"
 section_num: 1
+order: 1
+short_title: "Введение"
 next_url: "/lecture3/02-hinduism-vedanta/"
 ---
 

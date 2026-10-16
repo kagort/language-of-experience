@@ -40,6 +40,9 @@
       </nav>
 
       <footer class="sidebar-footer">
+        <a href="{{ '/' | relative_url }}" class="all-philosophers-link sidebar-home-link{% if page.url == '/' %} is-active{% endif %}">
+          ⌂ Домой
+        </a>
         <a href="{{ '/philosophers2/' | relative_url }}" class="all-philosophers-link">
           ☰ Персоналии лекции
         </a>
