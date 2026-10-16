@@ -2,861 +2,594 @@
 layout: default
 title: "Обзорный дашборд"
 ---
+{% assign g_western = "descartes,leibniz,spinoza,locke,berkeley,hume,kant,brentano,husserl,merleau_ponty,russell,sellars,wittgenstein,churchland,putnam,chalmers,barrett,friston" | split: "," %}
+{% assign g_patristic = "justin_martyr,origen,evagrius,macarius,cassian,mark_ascetic,diadochus,dorotheos,john_climacus,isaac_syrian,theodore_studite,symeon_theologian,nikitas_stithatos,nikiphoros,nikodim,ignaty,theophan,silouan" | split: "," %}
+{% assign g_hindu = "patanjali,bhartrhari,shankara,abhinavagupta,ramanuja,ramana_maharshi,nisargadatta" | split: "," %}
+{% assign g_buddhist = "nagasena,nagarjuna,asanga,vasubandhu,buddhaghosa,dignaga,chandrakirti,dharmakirti,linji_yixuan,tilopa,dogen" | split: "," %}
+{% assign n_sections = site.sections.size | plus: site.sections2.size | plus: site.sections3.size %}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 
 <style>
-/* ── Dashboard base ── */
-.dash { max-width: 820px; font-family: 'EB Garamond', Georgia, serif; }
-.dash-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  color: var(--brown-dark);
-  margin-bottom: 0.25rem;
+.dash { font-family: 'EB Garamond', Georgia, serif; }
+.main-content:has(.dash) { max-width: 1120px; }
+.dash-title { font-size: 2.1rem; margin-bottom: 0.2rem; }
+.dash-lead { color: var(--brown-light); font-style: italic; margin-bottom: 1.75rem; }
+.dash-section { margin-bottom: 3rem; scroll-margin-top: 1rem; }
+.dash-h {
+  font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--brown-dark);
+  margin-bottom: 0.2rem;
 }
-.dash-sub {
-  font-size: 0.9rem;
-  color: var(--brown-light);
-  margin-bottom: 2rem;
-  font-style: italic;
-}
-.dash-section { margin-bottom: 2.5rem; }
-.dash-section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border-bottom: 1px solid var(--parchment-dark);
-  padding-bottom: 0.4rem;
-  margin-bottom: 1.25rem;
-}
-
-/* ── Stats row ── */
-.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-.stat-tile {
-  background: var(--parchment-card);
-  border: 1px solid var(--gold);
-  padding: 1.1rem 1rem;
-  text-align: center;
-  position: relative;
-}
-.stat-tile::before {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border: 1px solid rgba(139,105,20,0.2);
-  pointer-events: none;
-}
-.stat-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.4rem;
-  font-weight: 900;
-  color: var(--brown-dark);
-  line-height: 1;
-  display: block;
-}
-.stat-label {
-  font-size: 0.78rem;
-  color: var(--brown-light);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-top: 0.3rem;
-  display: block;
-}
-
-/* ── Timeline ── */
-.timeline-wrap {
-  overflow-x: auto;
-  border: 1px solid #3a2e1e;
-  background: #1a1510;
-  border-radius: 3px;
-  padding: 0.5rem 0;
-  position: relative;
-}
-.timeline-wrap svg { display: block; }
-
-/* Tooltip card */
-.tl-tooltip {
-  position: fixed;
-  background: #2a1f10;
-  color: #e8d4a0;
-  font-family: 'EB Garamond', serif;
-  font-size: 0.85rem;
-  padding: 0.5rem 0.85rem;
+.dash-hint { font-size: 0.88rem; color: var(--brown-light); margin-bottom: 0.9rem; }
+.panel {
+  background: rgba(255,255,255,0.28);
+  border: 1px solid var(--parchment-dark);
   border-radius: 4px;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0;
-  transition: opacity 0.15s;
-  border: 1px solid rgba(232,184,109,0.5);
-  min-width: 140px;
-}
-.tl-tooltip-name { font-weight: 700; color: #e8d4a0; display: block; }
-.tl-tooltip-trad { font-size: 0.75rem; color: #a09080; display: block; }
-.tl-tooltip-year { font-size: 0.78rem; color: #c9a46e; display: block; }
-
-/* ── Legend ── */
-.legend-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 0.75rem;
-}
-.legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--brown-mid); }
-.legend-swatch {
-  width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0;
-  border: 1px solid rgba(255,255,255,0.3);
-}
-
-/* ── Donut chart ── */
-.chart-row { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
-.donut-wrap { flex-shrink: 0; }
-.bar-list { flex: 1; min-width: 200px; }
-.bar-item { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.65rem; }
-.bar-label { font-size: 0.85rem; color: var(--brown-mid); min-width: 160px; }
-.bar-track { flex: 1; height: 8px; background: rgba(139,105,20,0.1); border-radius: 4px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 4px; }
-.bar-count { font-size: 0.82rem; color: var(--brown-light); min-width: 1.5rem; text-align: right; }
-
-/* ── World map ── */
-.map-wrap {
-  border: 1px solid #3a2e1e;
-  background: #111009;
-  border-radius: 3px;
-  overflow: hidden;
   position: relative;
 }
-.map-wrap svg { display: block; width: 100%; height: auto; }
-.map-tooltip {
-  position: fixed;
-  background: #2a1f10;
-  color: #e8d4a0;
-  font-family: 'EB Garamond', serif;
-  font-size: 0.82rem;
-  padding: 0.35rem 0.7rem;
-  border-radius: 3px;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0;
-  transition: opacity 0.15s;
-  border: 1px solid rgba(232,184,109,0.4);
-  white-space: nowrap;
-}
 
-/* ── Concept matrix ── */
-.matrix-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-.matrix-table th {
-  background: var(--brown-dark);
-  color: var(--gold-pale);
-  font-family: 'Playfair Display', serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.55rem 0.65rem;
-  text-align: left;
-  letter-spacing: 0.03em;
-}
-.matrix-table td {
-  padding: 0.55rem 0.65rem;
-  border-bottom: 1px solid var(--parchment-dark);
-  border-right: 1px solid var(--parchment-dark);
-  vertical-align: top;
-  line-height: 1.45;
-}
-.matrix-table tr td:first-child { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.8rem; white-space: nowrap; }
-.matrix-table tr:nth-child(even) td { background: rgba(201,162,39,0.05); }
+/* stats */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.25rem; }
+.stat-tile { padding: 0.9rem 0.5rem; text-align: center; }
+.stat-num { display: block; font-family: 'Playfair Display', serif; font-size: 2.1rem; font-weight: 700; color: var(--brown-dark); line-height: 1.1; }
+.stat-label { display: block; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brown-light); }
 
-/* ── D3 concept graph ── */
-.concept-graph-wrap {
-  background: #1a1510;
-  border: 1px solid #3a2e1e;
-  border-radius: 3px;
-  overflow: hidden;
-  position: relative;
+/* tradition filter chips */
+.trad-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.trad-bar-label { font-size: 0.85rem; color: var(--brown-light); margin-right: 0.25rem; }
+.trad-chip {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.3rem 0.8rem; border-radius: 999px;
+  border: 1px solid var(--parchment-dark); background: rgba(255,255,255,0.35);
+  font-family: inherit; font-size: 0.9rem; color: var(--brown-dark); cursor: pointer;
+  transition: opacity .2s, background .2s;
 }
-.concept-graph-wrap svg { display: block; width: 100%; }
-.node-label { pointer-events: none; user-select: none; }
+.trad-chip .dot { width: 11px; height: 11px; border-radius: 50%; }
+.trad-chip .cnt { color: var(--brown-light); font-size: 0.82rem; }
+.trad-chip.off { opacity: 0.4; background: transparent; }
+.trad-chip:hover { background: rgba(255,255,255,0.6); }
+
+/* timeline */
+#tl-panel { overflow-x: auto; }
+#tl-svg { display: block; }
+#tl-svg .era-label { font-size: 11px; fill: var(--brown-light); font-style: italic; }
+#tl-svg .tick-label { font-size: 11px; fill: var(--brown-mid); }
+#tl-svg .lane-label { font-family: 'Playfair Display', serif; font-size: 12px; font-weight: 700; }
+#tl-svg .ph { cursor: pointer; transition: opacity .2s; }
+#tl-svg .ph circle { stroke: #fbf3df; stroke-width: 1.5; }
+#tl-svg .ph:hover circle { stroke: var(--brown-dark); stroke-width: 2; }
+
+.tip {
+  position: fixed; z-index: 1000; pointer-events: none; opacity: 0;
+  transition: opacity .12s;
+  display: flex; gap: 0.6rem; align-items: center;
+  background: #fbf3df; border: 1px solid var(--gold); border-radius: 4px;
+  box-shadow: 0 4px 14px rgba(59,26,8,0.18);
+  padding: 0.45rem 0.7rem 0.45rem 0.45rem; max-width: 280px;
+}
+.tip img, .tip .tip-blank { width: 42px; height: 50px; object-fit: cover; border-radius: 2px; flex-shrink: 0; background: var(--parchment-dark); }
+.tip b { display: block; font-family: 'Playfair Display', serif; color: var(--brown-dark); line-height: 1.2; }
+.tip span { display: block; font-size: 0.8rem; color: var(--brown-light); line-height: 1.35; }
+
+/* map */
+#philosophers-map { height: 480px; border-radius: 4px; background: #e9dcb8; }
+#philosophers-map .leaflet-tile-pane { filter: sepia(0.45) saturate(0.7) brightness(1.03) contrast(0.95); }
+.leaflet-container { font-family: 'EB Garamond', Georgia, serif; }
+.leaflet-popup-content-wrapper { background: #fbf3df; border-radius: 4px; }
+.leaflet-popup-tip { background: #fbf3df; }
+.map-pop h4 { font-family: 'Playfair Display', serif; font-style: normal; font-size: 0.95rem; margin: 0 0 0.4rem; color: var(--brown-dark); }
+.map-pop a { display: flex; align-items: center; gap: 0.5rem; padding: 0.2rem 0; color: var(--brown-dark); font-size: 0.92rem; }
+.map-pop a:hover { color: var(--gold); }
+.map-pop img, .map-pop .mp-blank { width: 28px; height: 34px; object-fit: cover; border-radius: 2px; flex-shrink: 0; background: var(--parchment-dark); }
+.map-pop small { display: block; color: var(--brown-light); font-size: 0.78rem; line-height: 1.2; }
+
+/* graph */
+#graph-panel { overflow: hidden; }
+#graph-svg { display: block; width: 100%; height: 600px; cursor: grab; touch-action: none; }
+#graph-svg:active { cursor: grabbing; }
+#graph-svg .hull-label { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+#graph-svg .node { cursor: pointer; }
+#graph-svg .node text { font-size: 12.5px; fill: var(--ink); paint-order: stroke; stroke: #f6ebcf; stroke-width: 3.5px; stroke-linejoin: round; pointer-events: none; }
+#graph-svg .node circle { stroke: #fbf3df; stroke-width: 2; }
+#graph-svg .node.sel circle { stroke: var(--brown-dark); stroke-width: 3; }
+#graph-svg .edge { stroke: var(--brown-mid); stroke-opacity: 0.28; }
+#graph-svg .dim { opacity: 0.12; }
+#graph-svg .edge.hl { stroke-opacity: 0.85; stroke-width: 1.8; }
+.zoom-ctl { position: absolute; right: 10px; top: 10px; display: flex; flex-direction: column; gap: 4px; }
+.zoom-ctl button {
+  width: 32px; height: 32px; border: 1px solid var(--parchment-dark); border-radius: 4px;
+  background: #fbf3df; color: var(--brown-dark); font-size: 1.05rem; cursor: pointer; line-height: 1;
+}
+.zoom-ctl button:hover { border-color: var(--gold); color: var(--gold); }
+.term-card {
+  position: absolute; left: 10px; bottom: 10px; width: min(340px, calc(100% - 20px));
+  background: #fbf3df; border: 1px solid var(--gold); border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(59,26,8,0.18); padding: 0.85rem 1rem; display: none;
+}
+.term-card.show { display: block; }
+.term-card .tc-close { position: absolute; right: 8px; top: 4px; border: 0; background: none; font-size: 1.2rem; color: var(--brown-light); cursor: pointer; }
+.term-card h4 { font-style: normal; font-size: 1.15rem; margin: 0.3rem 0 0.1rem; }
+.term-card .tc-orig { font-style: italic; color: var(--brown-light); font-size: 0.85rem; }
+.term-card p { font-size: 0.9rem; line-height: 1.5; margin: 0.5rem 0; color: var(--ink); }
+.term-card .tc-rel { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.6rem; }
+.term-card .tc-rel button { border: 1px solid var(--parchment-dark); background: rgba(255,255,255,.4); border-radius: 999px; padding: 0.1rem 0.6rem; font-family: inherit; font-size: 0.82rem; color: var(--brown-dark); cursor: pointer; }
+.term-card .tc-rel button:hover { border-color: var(--gold); }
+.term-card .tc-go { font-weight: 600; }
+
+/* comparison */
+.cmp-wrap { overflow-x: auto; }
+.cmp { width: 100%; min-width: 640px; border-collapse: separate; border-spacing: 0; margin: 0; font-size: 0.92rem; }
+.cmp th, .cmp td { padding: 0.6rem 0.75rem; vertical-align: top; border-bottom: 1px solid var(--parchment-dark); background: none; }
+.cmp thead th { color: #fff; font-size: 0.85rem; border-bottom: 0; }
+.cmp thead th:first-child { background: none; }
+.cmp tbody th { font-family: 'Playfair Display', serif; color: var(--brown-dark); font-size: 0.88rem; width: 18%; text-align: left; }
+.cmp tr:nth-child(even) td { background: none; }
+.cmp td a { color: inherit; border-bottom: 1px dotted var(--gold); }
+.cmp td a:hover { color: var(--gold); }
 
 @media (max-width: 700px) {
   .stats-row { grid-template-columns: repeat(2, 1fr); }
-  .chart-row { flex-direction: column; }
-  .bar-label { min-width: 120px; }
-}
-@media (max-width: 480px) {
-  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  #graph-svg { height: 480px; }
+  #philosophers-map { height: 380px; }
 }
 </style>
 
 <div class="dash">
   <h1 class="dash-title">Обзорный дашборд</h1>
-  <p class="dash-sub">Три лекции · четыре традиции · 54 мыслителя в сравнительной перспективе</p>
+  <p class="dash-lead">Весь цикл на одной странице: кто, когда, где — и как связаны понятия четырёх традиций.</p>
 
-  <!-- 1. Stats row -->
-  <section class="dash-section">
-    <h2 class="dash-section-title">Обзор</h2>
-    <div class="stats-row">
-      <div class="stat-tile"><span class="stat-num">3</span><span class="stat-label">Лекции</span></div>
-      <div class="stat-tile"><span class="stat-num">54</span><span class="stat-label">Мыслителя</span></div>
-      <div class="stat-tile"><span class="stat-num">24</span><span class="stat-label">Раздела</span></div>
-      <div class="stat-tile"><span class="stat-num">~4.5</span><span class="stat-label">Часа</span></div>
-    </div>
+  <div class="stats-row">
+    <div class="panel stat-tile"><span class="stat-num">3</span><span class="stat-label">лекции</span></div>
+    <div class="panel stat-tile"><span class="stat-num">{{ n_sections }}</span><span class="stat-label">разделов</span></div>
+    <div class="panel stat-tile"><span class="stat-num">{{ site.data.philosophers.size }}</span><span class="stat-label">мыслителя</span></div>
+    <div class="panel stat-tile"><span class="stat-num">{{ site.data.glossary.size }}</span><span class="stat-label">понятий</span></div>
+  </div>
+
+  <div class="trad-bar" id="trad-bar">
+    <span class="trad-bar-label">Традиции:</span>
+    <button class="trad-chip" data-t="western"><span class="dot" style="background:var(--c-western)"></span>Западная философия <span class="cnt">{{ g_western.size }}</span></button>
+    <button class="trad-chip" data-t="patristic"><span class="dot" style="background:var(--c-patristic)"></span>Святоотеческая <span class="cnt">{{ g_patristic.size }}</span></button>
+    <button class="trad-chip" data-t="hindu"><span class="dot" style="background:var(--c-hindu)"></span>Индуизм <span class="cnt">{{ g_hindu.size }}</span></button>
+    <button class="trad-chip" data-t="buddhist"><span class="dot" style="background:var(--c-buddhist)"></span>Буддизм <span class="cnt">{{ g_buddhist.size }}</span></button>
+  </div>
+  <p class="dash-hint" style="margin-top:0.4rem">Нажмите на традицию, чтобы скрыть или показать её на хронологии и карте.</p>
+
+  <section class="dash-section" id="timeline">
+    <h2 class="dash-h">Хронология</h2>
+    <p class="dash-hint">Время активной деятельности каждого мыслителя. Шкала сжата до 1500 г., чтобы Новое время не слипалось. Клик по точке — карточка.</p>
+    <div class="panel" id="tl-panel"><svg id="tl-svg"></svg></div>
   </section>
 
-  <!-- 2. Timeline -->
-  <section class="dash-section">
-    <h2 class="dash-section-title">Хронология мыслителей</h2>
-    <div class="timeline-wrap" id="tl-wrap">
-      <svg id="tl-svg" height="130"></svg>
-    </div>
-    <div class="legend-row">
-      <span class="legend-item"><span class="legend-swatch" style="background:#6fa3d8"></span>Западная философия</span>
-      <span class="legend-item"><span class="legend-swatch" style="background:#e8b86d"></span>Святоотеческая аскетика</span>
-      <span class="legend-item"><span class="legend-swatch" style="background:#e87d4a"></span>Индуизм</span>
-      <span class="legend-item"><span class="legend-swatch" style="background:#5fbf8a"></span>Буддизм</span>
-    </div>
-  </section>
-
-  <!-- 3. Tradition breakdown -->
-  <section class="dash-section">
-    <h2 class="dash-section-title">Традиции</h2>
-    <div class="chart-row">
-      <div class="donut-wrap">
-        <svg id="donut-svg" width="140" height="140" viewBox="0 0 140 140"></svg>
-      </div>
-      <div class="bar-list">
-        <div class="bar-item">
-          <span class="bar-label">Западная философия</span>
-          <div class="bar-track"><div class="bar-fill" style="width:33.3%;background:#6fa3d8"></div></div>
-          <span class="bar-count">18</span>
-        </div>
-        <div class="bar-item">
-          <span class="bar-label">Святоотеческая аскетика</span>
-          <div class="bar-track"><div class="bar-fill" style="width:33.3%;background:#e8b86d"></div></div>
-          <span class="bar-count">18</span>
-        </div>
-        <div class="bar-item">
-          <span class="bar-label">Буддизм</span>
-          <div class="bar-track"><div class="bar-fill" style="width:20.4%;background:#5fbf8a"></div></div>
-          <span class="bar-count">11</span>
-        </div>
-        <div class="bar-item">
-          <span class="bar-label">Индуизм</span>
-          <div class="bar-track"><div class="bar-fill" style="width:13%;background:#e87d4a"></div></div>
-          <span class="bar-count">7</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. World map (Leaflet) -->
   <section class="dash-section" id="map">
-    <h2 class="dash-section-title">География мысли</h2>
-    <p class="dash-sub" style="margin-bottom:0.75rem;">Места основной деятельности 54 мыслителей</p>
-    <div id="philosophers-map" style="height:500px;border-radius:8px;overflow:hidden;"></div>
-    <div class="legend-row" style="margin-top:0.75rem;">
-      <span class="legend-item"><span class="legend-swatch" style="background:#6fa3d8;border-radius:50%"></span>Западная</span>
-      <span class="legend-item"><span class="legend-swatch" style="background:#e8b86d;border-radius:50%"></span>Святоотеческая</span>
-      <span class="legend-item"><span class="legend-swatch" style="background:#e87d4a;border-radius:50%"></span>Индуистская</span>
-      <span class="legend-item"><span class="legend-swatch" style="background:#5fbf8a;border-radius:50%"></span>Буддийская</span>
+    <h2 class="dash-h">География мысли</h2>
+    <p class="dash-hint">Места основной деятельности. Размер точки — число мыслителей в одном месте; клик открывает список.</p>
+    <div class="panel"><div id="philosophers-map"></div></div>
+  </section>
+
+  <section class="dash-section" id="graph">
+    <h2 class="dash-h">Граф понятий</h2>
+    <p class="dash-hint">Понятия группируются по традициям, общие — в центре; линии — смысловые связи из словаря. Наведите, чтобы увидеть соседей, нажмите — чтобы прочитать определение. Колесо или кнопки — масштаб.</p>
+    <div class="panel" id="graph-panel">
+      <svg id="graph-svg"></svg>
+      <div class="zoom-ctl">
+        <button type="button" id="zin" title="Приблизить">+</button>
+        <button type="button" id="zout" title="Отдалить">−</button>
+        <button type="button" id="zfit" title="Показать всё">⟲</button>
+      </div>
+      <div class="term-card" id="term-card" aria-live="polite">
+        <button class="tc-close" type="button" aria-label="Закрыть">×</button>
+        <span class="gloss-badge" id="tc-badge"></span>
+        <h4 id="tc-term"></h4>
+        <div class="tc-orig" id="tc-orig"></div>
+        <p id="tc-def"></p>
+        <div class="tc-rel" id="tc-rel"></div>
+        <a class="tc-go" id="tc-go" href="#">Открыть страницу понятия →</a>
+      </div>
     </div>
   </section>
 
-  <!-- 5. Concept matrix -->
-  <section class="dash-section">
-    <h2 class="dash-section-title">Сравнение традиций по ключевым вопросам</h2>
-    <div style="overflow-x:auto;">
-    <table class="matrix-table">
-      <thead>
-        <tr>
-          <th>Традиция</th>
-          <th>Что есть сознание?</th>
-          <th>Роль тела</th>
-          <th>Язык и опыт</th>
-          <th>Путь трансформации</th>
-          <th>Что невыразимо?</th>
-        </tr>
-      </thead>
+  <section class="dash-section" id="compare">
+    <h2 class="dash-h">Четыре ответа на пять вопросов</h2>
+    <p class="dash-hint">Сжатая сводка шестого раздела третьей лекции. Подчёркнутые слова ведут в словарь.</p>
+    {% capture gl %}{{ '/glossary/' | relative_url }}{% endcapture %}
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <thead><tr>
+        <th></th>
+        <th style="background:var(--c-western)">Западная философия</th>
+        <th style="background:var(--c-patristic)">Святоотеческая</th>
+        <th style="background:var(--c-hindu)">Индуизм</th>
+        <th style="background:var(--c-buddhist)">Буддизм</th>
+      </tr></thead>
       <tbody>
-        <tr>
-          <td style="color:#6fa3d8">Западная</td>
-          <td>Интенциональность, квалиа</td>
-          <td>Воплощённость, схема тела</td>
-          <td>Язык формирует опыт</td>
-          <td>Рефлексия, феноменология</td>
-          <td>Субъективный квалиа</td>
-        </tr>
-        <tr>
-          <td style="color:#e8b86d">Святоотеческая</td>
-          <td>Нус, сердце, дух</td>
-          <td>Аскеза, очищение страстей</td>
-          <td>Молитва как трансформация</td>
-          <td>Исихазм, умная молитва</td>
-          <td>Божественная сущность</td>
-        </tr>
-        <tr>
-          <td style="color:#e87d4a">Индуистская</td>
-          <td>Атман = Брахман, Читта</td>
-          <td>Пранаяма, йога</td>
-          <td>Шабда-Брахман, Спанда</td>
-          <td>Самадхи, джняна</td>
-          <td>Нети-нети, Тат твам аси</td>
-        </tr>
-        <tr>
-          <td style="color:#5fbf8a">Буддийская</td>
-          <td>Пустота, Виджняна, Читта</td>
-          <td>Медитация, осознанность</td>
-          <td>Пустота концептов</td>
-          <td>Випассана, коан, Дзен</td>
-          <td>Шуньята, Нирвана</td>
-        </tr>
+        <tr><th>Что есть сознание?</th>
+          <td>Интенциональный поток опыта; «трудная проблема» <a href="{{ gl }}kvalia/">квалиа</a></td>
+          <td><a href="{{ gl }}nus/">Нус</a> — «око души», чей центр в <a href="{{ gl }}serdtse/">сердце</a></td>
+          <td><a href="{{ gl }}atman/">Атман</a>, тождественный <a href="{{ gl }}brahman/">Брахману</a>; чистое свидетельствование</td>
+          <td>Поток мгновений; <a href="{{ gl }}alayavijnyana/">алаявиджняна</a> как хранилище следов</td></tr>
+        <tr><th>Роль тела</th>
+          <td>От машины Декарта к <a href="{{ gl }}voploshchennost/">воплощённому</a> разуму Мерло-Понти</td>
+          <td>Соучастник молитвы; тело тоже преображается</td>
+          <td>Инструмент практики: асана, пранаяма</td>
+          <td>Одна из скандх; опора осознанности</td></tr>
+        <tr><th>Язык и опыт</th>
+          <td>Язык структурирует и конструирует опыт</td>
+          <td><a href="{{ gl }}logos/">Логос</a> и молитвенное слово меняют восприятие</td>
+          <td><a href="{{ gl }}shabda_brahman/">Шабда-брахман</a>: звук как основа реальности</td>
+          <td>Понятия — условные обозначения, сами <a href="{{ gl }}pustota/">пусты</a></td></tr>
+        <tr><th>Путь трансформации</th>
+          <td>Рефлексия, феноменологическая редукция, наука</td>
+          <td><a href="{{ gl }}isihiya/">Исихия</a>, <a href="{{ gl }}umnaya_molitva/">умная молитва</a>, <a href="{{ gl }}obozhenie/">обожение</a></td>
+          <td>Йога, <a href="{{ gl }}samadhi/">самадхи</a>, <a href="{{ gl }}moksha/">мокша</a></td>
+          <td>Медитация, прозрение в пустоту, <a href="{{ gl }}nirvana/">нирвана</a></td></tr>
+        <tr><th>Что невыразимо?</th>
+          <td><a href="{{ gl }}kvalia/">Квалиа</a> — «каково это» быть собой</td>
+          <td>Божественная сущность (апофатика)</td>
+          <td>Турия; «нети, нети» — «не то, не то»</td>
+          <td>Шуньята, «таковость»</td></tr>
       </tbody>
     </table>
     </div>
   </section>
-
-  <!-- 6. Concept graph -->
-  <section class="dash-section">
-    <h2 class="dash-section-title">Граф ключевых понятий</h2>
-    <div class="concept-graph-wrap" id="concept-graph-wrap">
-      <svg id="concept-graph-svg" height="700"></svg>
-    </div>
-  </section>
-  <p style="text-align:center;color:var(--brown-light);font-size:0.78rem;margin-top:0.5rem;">Прокрутка — масштаб · перетаскивание — перемещение · клик на узел — в словарь</p>
-
 </div>
 
-<div class="tl-tooltip" id="tl-tooltip">
-  <span class="tl-tooltip-name" id="tl-tip-name"></span>
-  <span class="tl-tooltip-trad" id="tl-tip-trad"></span>
-  <span class="tl-tooltip-year" id="tl-tip-year"></span>
-</div>
+<div class="tip" id="tip"></div>
 
+<script>
+var DASH = (function () {
+  var B = window.SITE_BASE || '';
+  var TRAD = {
+    western:   { ru: 'Западная философия', c: '#2e5f8f' },
+    patristic: { ru: 'Святоотеческая традиция', c: '#9b2d24' },
+    hindu:     { ru: 'Индуизм', c: '#c76a12' },
+    buddhist:  { ru: 'Буддизм', c: '#3d7a55' },
+    shared:    { ru: 'Общее понятие', c: '#6e5a45' }
+  };
+  var YEAR = {
+    descartes:1637, leibniz:1700, spinoza:1670, locke:1690, berkeley:1715, hume:1745, kant:1785,
+    brentano:1874, husserl:1913, merleau_ponty:1945, russell:1915, sellars:1956, wittgenstein:1935,
+    churchland:1986, putnam:1975, chalmers:1996, barrett:2015, friston:2010,
+    justin_martyr:150, origen:230, evagrius:390, macarius:360, cassian:425, mark_ascetic:430,
+    diadochus:455, dorotheos:560, john_climacus:620, isaac_syrian:680, theodore_studite:810,
+    symeon_theologian:1010, nikitas_stithatos:1050, nikiphoros:1280, nikodim:1790, ignaty:1855,
+    theophan:1870, silouan:1920,
+    patanjali:200, bhartrhari:470, shankara:800, abhinavagupta:1000, ramanuja:1100,
+    ramana_maharshi:1925, nisargadatta:1960,
+    nagasena:-150, nagarjuna:180, asanga:370, vasubandhu:400, buddhaghosa:430, dignaga:500,
+    chandrakirti:620, dharmakirti:640, linji_yixuan:850, tilopa:1000, dogen:1240
+  };
+  var P = [];
+  {% for id in g_western %}{% assign p = site.data.philosophers[id] %}P.push({id:{{ id | jsonify }},t:'western',name:{{ p.name | jsonify }},dates:{{ p.dates | jsonify }},loc:{{ p.location | jsonify }},lat:{{ p.lat | default: 0 }},lon:{{ p.lon | default: 0 }},img:{% if p.portrait %}{{ p.portrait | relative_url | jsonify }}{% else %}null{% endif %}});
+  {% endfor %}{% for id in g_patristic %}{% assign p = site.data.philosophers[id] %}P.push({id:{{ id | jsonify }},t:'patristic',name:{{ p.name | jsonify }},dates:{{ p.dates | jsonify }},loc:{{ p.location | jsonify }},lat:{{ p.lat | default: 0 }},lon:{{ p.lon | default: 0 }},img:{% if p.portrait %}{{ p.portrait | relative_url | jsonify }}{% else %}null{% endif %}});
+  {% endfor %}{% for id in g_hindu %}{% assign p = site.data.philosophers[id] %}P.push({id:{{ id | jsonify }},t:'hindu',name:{{ p.name | jsonify }},dates:{{ p.dates | jsonify }},loc:{{ p.location | jsonify }},lat:{{ p.lat | default: 0 }},lon:{{ p.lon | default: 0 }},img:{% if p.portrait %}{{ p.portrait | relative_url | jsonify }}{% else %}null{% endif %}});
+  {% endfor %}{% for id in g_buddhist %}{% assign p = site.data.philosophers[id] %}P.push({id:{{ id | jsonify }},t:'buddhist',name:{{ p.name | jsonify }},dates:{{ p.dates | jsonify }},loc:{{ p.location | jsonify }},lat:{{ p.lat | default: 0 }},lon:{{ p.lon | default: 0 }},img:{% if p.portrait %}{{ p.portrait | relative_url | jsonify }}{% else %}null{% endif %}});
+  {% endfor %}
+  P.forEach(function (p) { p.year = YEAR[p.id]; p.url = B + '/philosopher/' + p.id + '/'; });
+
+  var G = [];
+  {% for e in site.data.glossary %}G.push({id:{{ e.id | jsonify }},term:{{ e.term | jsonify }},orig:{{ e.original | default: "" | jsonify }},t:{{ e.tradition | jsonify }},def:{{ e.definition | strip_newlines | strip | jsonify }},rel:{{ e.related | default: "" | jsonify }}});
+  {% endfor %}
+
+  var hidden = {};
+  var listeners = [];
+  document.querySelectorAll('.trad-chip').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = b.dataset.t;
+      hidden[t] = !hidden[t];
+      b.classList.toggle('off', hidden[t]);
+      listeners.forEach(function (fn) { fn(); });
+    });
+  });
+
+  var tip = document.getElementById('tip');
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function showTip(p, e) {
+    tip.innerHTML = (p.img ? '<img src="' + esc(p.img) + '" alt="">' : '<div class="tip-blank"></div>') +
+      '<div><b>' + esc(p.name) + '</b><span>' + esc(p.dates) + '</span><span style="color:' + TRAD[p.t].c + '">' + TRAD[p.t].ru + '</span><span>' + esc(p.loc) + '</span></div>';
+    tip.style.opacity = 1; moveTip(e);
+  }
+  function moveTip(e) {
+    var x = e.clientX + 16, y = e.clientY + 12, w = tip.offsetWidth, h = tip.offsetHeight;
+    if (x + w > innerWidth - 8) x = e.clientX - w - 12;
+    if (y + h > innerHeight - 8) y = e.clientY - h - 12;
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+  function hideTip() { tip.style.opacity = 0; }
+
+  return { B: B, TRAD: TRAD, P: P, G: G, hidden: hidden, onFilter: function (fn) { listeners.push(fn); },
+           esc: esc, showTip: showTip, moveTip: moveTip, hideTip: hideTip,
+           params: new URLSearchParams(location.search) };
+})();
+</script>
+
+<script>
+/* ── Timeline ── */
+(function (D) {
+  var NS = 'http://www.w3.org/2000/svg';
+  var svg = document.getElementById('tl-svg');
+  var panel = document.getElementById('tl-panel');
+  var ORDER = ['western', 'patristic', 'hindu', 'buddhist'];
+  var DOM = [-300, 1500, 1800, 2030], FR = [0, 0.56, 0.74, 1];
+  var R = 6.5, LABEL_W = 132, PAD_R = 18, TOP = 34, AXIS_H = 26, LANE_GAP = 6;
+
+  function el(tag, attrs, parent) {
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    (parent || svg).appendChild(n); return n;
+  }
+
+  function draw() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var W = Math.max(panel.clientWidth, 680), inner = W - LABEL_W - PAD_R;
+    function x(y) {
+      for (var i = 0; i < DOM.length - 1; i++) {
+        if (y <= DOM[i + 1]) return LABEL_W + inner * (FR[i] + (y - DOM[i]) / (DOM[i + 1] - DOM[i]) * (FR[i + 1] - FR[i]));
+      }
+      return LABEL_W + inner;
+    }
+
+    var lanes = [], yCur = TOP;
+    ORDER.forEach(function (t) {
+      var ps = D.P.filter(function (p) { return p.t === t; }).sort(function (a, b) { return a.year - b.year; });
+      var rows = [];
+      ps.forEach(function (p) {
+        p.x = x(p.year);
+        var r = 0;
+        while (rows[r] !== undefined && p.x - rows[r] < R * 2 + 2) r++;
+        rows[r] = p.x; p.row = r;
+      });
+      var h = Math.max(rows.length, 1) * (R * 2 + 3) + 14;
+      lanes.push({ t: t, ps: ps, y: yCur, h: h });
+      yCur += h + LANE_GAP;
+    });
+    var H = yCur + AXIS_H;
+    svg.setAttribute('width', W); svg.setAttribute('height', H);
+
+    var eras = [[-300, 500, 'Античность'], [500, 1500, 'Средние века'], [1500, 1900, 'Новое время'], [1900, 2030, 'XX–XXI вв.']];
+    eras.forEach(function (e, i) {
+      var x0 = x(e[0]), x1 = x(e[1]);
+      el('rect', { x: x0, y: TOP - 4, width: x1 - x0, height: yCur - TOP, fill: i % 2 ? 'rgba(139,105,20,0.06)' : 'rgba(255,255,255,0.18)' });
+      var t = el('text', { x: (x0 + x1) / 2, y: 20, 'text-anchor': 'middle', class: 'era-label' }); t.textContent = e[2];
+    });
+
+    lanes.forEach(function (L) {
+      var c = D.TRAD[L.t].c, off = D.hidden[L.t];
+      el('line', { x1: LABEL_W, x2: W - PAD_R, y1: L.y + L.h / 2, y2: L.y + L.h / 2, stroke: c, 'stroke-opacity': off ? 0.08 : 0.25, 'stroke-width': 1 });
+      var lbl = el('text', { x: 10, y: L.y + L.h / 2 + 4, class: 'lane-label', fill: c, opacity: off ? 0.35 : 1 });
+      lbl.textContent = D.TRAD[L.t].ru.replace(' традиция', '');
+      L.ps.forEach(function (p) {
+        var cy = L.y + 9 + R + p.row * (R * 2 + 3);
+        var g = el('a', { class: 'ph', href: p.url, opacity: off ? 0.12 : 1 });
+        el('circle', { cx: p.x, cy: cy, r: R, fill: c }, g);
+        g.setAttribute('aria-label', p.name + ', ' + p.dates);
+        if (!off) {
+          g.addEventListener('mouseenter', function (e) { D.showTip(p, e); });
+          g.addEventListener('mousemove', D.moveTip);
+          g.addEventListener('mouseleave', D.hideTip);
+        }
+      });
+    });
+
+    var ay = yCur + 2;
+    el('line', { x1: LABEL_W, x2: W - PAD_R, y1: ay, y2: ay, stroke: '#9c6240', 'stroke-width': 1 });
+    [-200, 0, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1700, 1800, 1900, 2000].forEach(function (yr) {
+      var xx = x(yr);
+      el('line', { x1: xx, x2: xx, y1: ay, y2: ay + 5, stroke: '#9c6240' });
+      var t = el('text', { x: xx, y: ay + 18, 'text-anchor': 'middle', class: 'tick-label' });
+      t.textContent = yr < 0 ? (-yr) + ' до н.э.' : yr;
+    });
+  }
+
+  draw();
+  D.onFilter(draw);
+  var rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(draw, 150); });
+})(DASH);
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
-(function() {
-  var map = L.map('philosophers-map', {
-    center: [30, 40],
-    zoom: 2,
-    minZoom: 1,
-    maxZoom: 10
-  });
-
+/* ── Map ── */
+(function (D) {
+  if (!window.L) return;
+  var map = L.map('philosophers-map', { minZoom: 1, maxZoom: 9, worldCopyJump: true, scrollWheelZoom: false });
+  map.on('click', function () { map.scrollWheelZoom.enable(); });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '\u00a9 <a href="https://openstreetmap.org">OpenStreetMap</a>',
-    maxZoom: 19
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>', maxZoom: 19
   }).addTo(map);
 
-  var COLORS = {western:'#6fa3d8', patristic:'#e8b86d', hindu:'#e87d4a', buddhist:'#5fbf8a'};
-
-  var philosophers = [
-    {id:'descartes', name:'Декарт', lat:48.9, lon:2.3, location:'Париж, Франция', tradition:'western'},
-    {id:'leibniz', name:'Лейбниц', lat:52.4, lon:9.7, location:'Ганновер, Германия', tradition:'western'},
-    {id:'spinoza', name:'Спиноза', lat:52.4, lon:4.9, location:'Амстердам, Нидерланды', tradition:'western'},
-    {id:'locke', name:'Локк', lat:51.7, lon:-1.2, location:'Оксфорд, Англия', tradition:'western'},
-    {id:'berkeley', name:'Беркли', lat:53.3, lon:-6.3, location:'Дублин, Ирландия', tradition:'western'},
-    {id:'hume', name:'Юм', lat:55.9, lon:-3.2, location:'Эдинбург, Шотландия', tradition:'western'},
-    {id:'kant', name:'Кант', lat:54.7, lon:20.5, location:'Кёнигсберг (Калининград)', tradition:'western'},
-    {id:'brentano', name:'Брентано', lat:48.2, lon:16.4, location:'Вена, Австрия', tradition:'western'},
-    {id:'husserl', name:'Гуссерль', lat:47.9, lon:7.8, location:'Фрайбург, Германия', tradition:'western'},
-    {id:'merleau_ponty', name:'Мерло-Понти', lat:48.9, lon:2.3, location:'Париж, Франция', tradition:'western'},
-    {id:'russell', name:'Рассел', lat:51.5, lon:-0.1, location:'Лондон, Англия', tradition:'western'},
-    {id:'sellars', name:'Селларс', lat:40.4, lon:-80.0, location:'Питтсбург, США', tradition:'western'},
-    {id:'wittgenstein', name:'Витгенштейн', lat:48.2, lon:16.4, location:'Вена / Кембридж', tradition:'western'},
-    {id:'churchland', name:'Чёрчленд', lat:32.7, lon:-117.2, location:'Сан-Диего, США', tradition:'western'},
-    {id:'putnam', name:'Патнэм', lat:42.4, lon:-71.1, location:'Бостон, США', tradition:'western'},
-    {id:'chalmers', name:'Чалмерс', lat:-35.3, lon:149.1, location:'Канберра, Австралия', tradition:'western'},
-    {id:'barrett', name:'Барретт', lat:42.4, lon:-71.1, location:'Бостон, США', tradition:'western'},
-    {id:'friston', name:'Фристон', lat:51.5, lon:-0.1, location:'Лондон, Англия', tradition:'western'},
-    {id:'justin_martyr', name:'Иустин Мученик', lat:41.9, lon:12.5, location:'Рим, Италия', tradition:'patristic'},
-    {id:'evagrius', name:'Евагрий', lat:29.9, lon:31.2, location:'Египет (Нитрийская пустыня)', tradition:'patristic'},
-    {id:'mark_ascetic', name:'Марк Подвижник', lat:36.2, lon:36.2, location:'Сирия / Галатия', tradition:'patristic'},
-    {id:'diadochus', name:'Диадох', lat:39.7, lon:20.7, location:'Эпир, Греция', tradition:'patristic'},
-    {id:'cassian', name:'Кассиан', lat:43.3, lon:5.4, location:'Марсель, Франция', tradition:'patristic'},
-    {id:'dorotheos', name:'Дорофей', lat:31.5, lon:34.5, location:'Газа, Палестина', tradition:'patristic'},
-    {id:'isaac_syrian', name:'Исаак Сирин', lat:36.3, lon:43.1, location:'Ниневия (Мосул, Ирак)', tradition:'patristic'},
-    {id:'john_climacus', name:'Иоанн Лествичник', lat:28.5, lon:33.9, location:'Синай, Египет', tradition:'patristic'},
-    {id:'nikiphoros', name:'Никифор', lat:41.0, lon:29.0, location:'Константинополь', tradition:'patristic'},
-    {id:'nikitas_stithatos', name:'Никита Стифат', lat:41.0, lon:29.0, location:'Константинополь', tradition:'patristic'},
-    {id:'theodore_studite', name:'Феодор Студит', lat:41.0, lon:29.0, location:'Константинополь', tradition:'patristic'},
-    {id:'symeon_theologian', name:'Симеон Богослов', lat:41.0, lon:29.0, location:'Константинополь', tradition:'patristic'},
-    {id:'origen', name:'Ориген', lat:31.2, lon:29.9, location:'Александрия, Египет', tradition:'patristic'},
-    {id:'macarius', name:'Макарий', lat:29.9, lon:31.2, location:'Египет (Скитская пустыня)', tradition:'patristic'},
-    {id:'nikodim', name:'Никодим', lat:40.6, lon:20.5, location:'Афон, Греция', tradition:'patristic'},
-    {id:'silouan', name:'Силуан', lat:40.6, lon:20.5, location:'Афон, Греция', tradition:'patristic'},
-    {id:'theophan', name:'Феофан Затворник', lat:54.6, lon:40.6, location:'Вышенский монастырь, Россия', tradition:'patristic'},
-    {id:'ignaty', name:'Игнатий Брянчанинов', lat:59.9, lon:30.3, location:'Санкт-Петербург, Россия', tradition:'patristic'},
-    {id:'patanjali', name:'Патанджали', lat:26.9, lon:79.9, location:'Северная Индия', tradition:'hindu'},
-    {id:'shankara', name:'Шанкара', lat:10.0, lon:76.6, location:'Керала, Индия', tradition:'hindu'},
-    {id:'bhartrhari', name:'Бхартрихари', lat:23.2, lon:75.8, location:'Удджайн, Индия', tradition:'hindu'},
-    {id:'abhinavagupta', name:'Абхинавагупта', lat:34.1, lon:74.8, location:'Кашмир, Индия', tradition:'hindu'},
-    {id:'ramanuja', name:'Рамануджа', lat:12.9, lon:79.8, location:'Шрипперумбудур, Индия', tradition:'hindu'},
-    {id:'ramana_maharshi', name:'Рамана Махарши', lat:11.1, lon:79.1, location:'Тируваннамалай, Индия', tradition:'hindu'},
-    {id:'nisargadatta', name:'Нисаргадатта', lat:19.1, lon:72.8, location:'Мумбаи, Индия', tradition:'hindu'},
-    {id:'nagarjuna', name:'Нагарджуна', lat:16.5, lon:79.3, location:'Андхра-Прадеш, Индия', tradition:'buddhist'},
-    {id:'vasubandhu', name:'Васубандху', lat:34.0, lon:71.5, location:'Гандхара (Пакистан)', tradition:'buddhist'},
-    {id:'asanga', name:'Асанга', lat:34.0, lon:71.5, location:'Гандхара (Пакистан)', tradition:'buddhist'},
-    {id:'dignaga', name:'Дигнага', lat:16.5, lon:79.3, location:'Южная Индия', tradition:'buddhist'},
-    {id:'dharmakirti', name:'Дхармакирти', lat:8.0, lon:80.0, location:'Шри-Ланка / Южная Индия', tradition:'buddhist'},
-    {id:'chandrakirti', name:'Чандракирти', lat:15.0, lon:79.9, location:'Южная Индия', tradition:'buddhist'},
-    {id:'buddhaghosa', name:'Буддхагхоша', lat:7.3, lon:80.0, location:'Шри-Ланка (Анурадхапура)', tradition:'buddhist'},
-    {id:'nagasena', name:'Нагасена', lat:33.6, lon:73.1, location:'Сагала (Сиалкот, Пакистан)', tradition:'buddhist'},
-    {id:'dogen', name:'Догэн', lat:35.9, lon:136.2, location:'Эйхэй-дзи, Япония', tradition:'buddhist'},
-    {id:'tilopa', name:'Тилопа', lat:23.7, lon:88.4, location:'Бенгалия, Индия', tradition:'buddhist'},
-    {id:'linji_yixuan', name:'Линьцзи Исюань', lat:34.8, lon:114.3, location:'Хэнань, Китай', tradition:'buddhist'},
-  ];
-
-  philosophers.forEach(function(p) {
-    var color = COLORS[p.tradition] || '#a09080';
-    var marker = L.circleMarker([p.lat, p.lon], {
-      radius: 7,
-      fillColor: color,
-      color: '#fff',
-      weight: 1.5,
-      opacity: 1,
-      fillOpacity: 0.85
-    }).addTo(map);
-
-    marker.bindPopup(
-      '<strong style="color:' + color + '">' + p.name + '</strong><br>' +
-      '<small>' + p.location + '</small><br>' +
-      '<a href="/philosopher/' + p.id + '/" style="color:' + color + '">Открыть карточку \u2192</a>'
-    );
+  var places = {};
+  D.P.forEach(function (p) {
+    var k = p.lat.toFixed(2) + ',' + p.lon.toFixed(2);
+    (places[k] = places[k] || { lat: p.lat, lon: p.lon, loc: p.loc, ps: [] }).ps.push(p);
   });
 
-  // Handle sessionStorage focus from loc-link clicks
-  var focus = null;
-  try { focus = sessionStorage.getItem('mapFocus'); } catch(e) {}
-  if (focus) {
-    try {
-      var f = JSON.parse(focus);
-      try { sessionStorage.removeItem('mapFocus'); } catch(e) {}
-      setTimeout(function() {
-        map.setView([f.lat, f.lon], 7);
-        map.eachLayer(function(layer) {
-          if (layer instanceof L.CircleMarker) {
-            var ll = layer.getLatLng();
-            if (Math.abs(ll.lat - f.lat) < 0.1 && Math.abs(ll.lng - f.lon) < 0.1) {
-              layer.openPopup();
-            }
-          }
-        });
-      }, 300);
-    } catch(e) {}
-  }
-
-  // Handle loc-link clicks
-  document.querySelectorAll('.loc-link').forEach(function(link) {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      try {
-        sessionStorage.setItem('mapFocus', JSON.stringify({
-          lat: parseFloat(this.dataset.lat),
-          lon: parseFloat(this.dataset.lon),
-          name: this.dataset.name
-        }));
-      } catch(e) {}
-      window.location.href = '/dashboard/#map';
+  var layer = L.layerGroup().addTo(map), byId = {};
+  function draw() {
+    layer.clearLayers();
+    Object.keys(places).forEach(function (k) {
+      var pl = places[k];
+      var ps = pl.ps.filter(function (p) { return !D.hidden[p.t]; });
+      if (!ps.length) return;
+      var c = D.TRAD[ps[0].t].c;
+      var m = L.circleMarker([pl.lat, pl.lon], {
+        radius: 6 + 2.5 * (ps.length - 1), fillColor: c, fillOpacity: 0.9, color: '#fbf3df', weight: 2
+      }).addTo(layer);
+      var html = '<div class="map-pop"><h4>' + D.esc(pl.loc) + '</h4>' + ps.map(function (p) {
+        return '<a href="' + p.url + '">' + (p.img ? '<img src="' + D.esc(p.img) + '" alt="">' : '<span class="mp-blank"></span>') +
+          '<span>' + D.esc(p.name) + '<small>' + D.esc(p.dates) + '</small></span></a>';
+      }).join('') + '</div>';
+      m.bindPopup(html, { maxWidth: 260 });
+      m.bindTooltip(ps.length > 1 ? D.esc(pl.loc) + ' · ' + ps.length : D.esc(ps[0].name), { direction: 'top', offset: [0, -6] });
+      ps.forEach(function (p) { byId[p.id] = m; });
     });
-  });
-})();
+  }
+  draw();
+  D.onFilter(draw);
+
+  var all = [];
+  Object.keys(places).forEach(function (k) { all.push([places[k].lat, places[k].lon]); });
+  map.fitBounds(L.latLngBounds(all).pad(0.05), { maxZoom: 4 });
+
+  var focus = D.params.get('phil');
+  if (focus && byId[focus]) {
+    var m = byId[focus];
+    setTimeout(function () {
+      document.getElementById('map').scrollIntoView();
+      map.setView(m.getLatLng(), 6);
+      m.openPopup();
+    }, 200);
+  }
+})(DASH);
 </script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script>
-(function(){
-  /* ── Colors ── */
-  const COLORS = {Western:"#6fa3d8", Patristic:"#e8b86d", Hindu:"#e87d4a", Buddhist:"#5fbf8a"};
-  const TRAD_RU = {Western:"Западная философия", Patristic:"Святоотеческая аскетика", Hindu:"Индуизм", Buddhist:"Буддизм"};
+/* ── Concept graph ── */
+(function (D) {
+  if (!window.d3) return;
+  var svg = d3.select('#graph-svg');
+  var box = document.getElementById('graph-svg');
+  var W = box.clientWidth || 760, H = box.clientHeight || 600;
+  svg.attr('viewBox', [0, 0, W, H]);
 
-  /* ── Philosopher data ── */
-  const phils = [
-    {n:"Патанджали",y:0,t:"Hindu",id:"patanjali"},
-    {n:"Шанкара",y:800,t:"Hindu",id:"shankara"},
-    {n:"Бхартрихари",y:450,t:"Hindu",id:"bhartrhari"},
-    {n:"Абхинавагупта",y:990,t:"Hindu",id:"abhinavagupta"},
-    {n:"Рамануджа",y:1080,t:"Hindu",id:"ramanuja"},
-    {n:"Рамана Махарши",y:1920,t:"Hindu",id:"ramana_maharshi"},
-    {n:"Нисаргадатта",y:1940,t:"Hindu",id:"nisargadatta"},
-    {n:"Нагарджуна",y:170,t:"Buddhist",id:"nagarjuna"},
-    {n:"Васубандху",y:400,t:"Buddhist",id:"vasubandhu"},
-    {n:"Асанга",y:370,t:"Buddhist",id:"asanga"},
-    {n:"Дигнага",y:500,t:"Buddhist",id:"dignaga"},
-    {n:"Дхармакирти",y:630,t:"Buddhist",id:"dharmakirti"},
-    {n:"Чандракирти",y:625,t:"Buddhist",id:"chandrakirti"},
-    {n:"Буддхагхоша",y:430,t:"Buddhist",id:"buddhaghosa"},
-    {n:"Нагасена",y:-150,t:"Buddhist",id:"nagasena"},
-    {n:"Догэн",y:1225,t:"Buddhist",id:"dogen"},
-    {n:"Тилопа",y:1020,t:"Buddhist",id:"tilopa"},
-    {n:"Линьцзи Исюань",y:838,t:"Buddhist",id:"linji_yixuan"},
-    {n:"Иустин Мученик",y:155,t:"Patristic",id:"justin_martyr"},
-    {n:"Евагрий",y:380,t:"Patristic",id:"evagrius"},
-    {n:"Марк Подвижник",y:430,t:"Patristic",id:"mark_ascetic"},
-    {n:"Диадох",y:450,t:"Patristic",id:"diadochus"},
-    {n:"Кассиан",y:420,t:"Patristic",id:"cassian"},
-    {n:"Дорофей",y:560,t:"Patristic",id:"dorotheos"},
-    {n:"Исаак Сирин",y:680,t:"Patristic",id:"isaac_syrian"},
-    {n:"Иоанн Лествичник",y:600,t:"Patristic",id:"john_climacus"},
-    {n:"Никифор",y:1290,t:"Patristic",id:"nikiphoros"},
-    {n:"Никита Стифат",y:1050,t:"Patristic",id:"nikitas_stithatos"},
-    {n:"Феодор Студит",y:800,t:"Patristic",id:"theodore_studite"},
-    {n:"Симеон Богослов",y:1010,t:"Patristic",id:"symeon_theologian"},
-    {n:"Ориген",y:230,t:"Patristic",id:"origen"},
-    {n:"Макарий",y:370,t:"Patristic",id:"macarius"},
-    {n:"Никодим",y:1795,t:"Patristic",id:"nikodim"},
-    {n:"Силуан",y:1920,t:"Patristic",id:"silouan"},
-    {n:"Феофан Затворник",y:1875,t:"Patristic",id:"theophan"},
-    {n:"Игнатий Брянчанинов",y:1850,t:"Patristic",id:"ignaty"},
-    {n:"Декарт",y:1650,t:"Western",id:"descartes"},
-    {n:"Лейбниц",y:1700,t:"Western",id:"leibniz"},
-    {n:"Спиноза",y:1680,t:"Western",id:"spinoza"},
-    {n:"Локк",y:1695,t:"Western",id:"locke"},
-    {n:"Беркли",y:1720,t:"Western",id:"berkeley"},
-    {n:"Юм",y:1745,t:"Western",id:"hume"},
-    {n:"Кант",y:1785,t:"Western",id:"kant"},
-    {n:"Брентано",y:1875,t:"Western",id:"brentano"},
-    {n:"Гуссерль",y:1910,t:"Western",id:"husserl"},
-    {n:"Мерло-Понти",y:1945,t:"Western",id:"merleau_ponty"},
-    {n:"Рассел",y:1920,t:"Western",id:"russell"},
-    {n:"Селларс",y:1960,t:"Western",id:"sellars"},
-    {n:"Витгенштейн",y:1950,t:"Western",id:"wittgenstein"},
-    {n:"Чёрчленд",y:1985,t:"Western",id:"churchland"},
-    {n:"Патнэм",y:1980,t:"Western",id:"putnam"},
-    {n:"Чалмерс",y:1995,t:"Western",id:"chalmers"},
-    {n:"Барретт",y:2010,t:"Western",id:"barrett"},
-    {n:"Фристон",y:2010,t:"Western",id:"friston"},
-  ];
+  var ids = {};
+  D.G.forEach(function (g) { ids[g.id] = g; });
+  var seen = {}, links = [];
+  D.G.forEach(function (g) {
+    (g.rel || []).forEach(function (r) {
+      if (!ids[r]) return;
+      var k = [g.id, r].sort().join('|');
+      if (seen[k]) return; seen[k] = 1;
+      links.push({ source: g.id, target: r });
+    });
+  });
+  var deg = {};
+  links.forEach(function (l) { deg[l.source] = (deg[l.source] || 0) + 1; deg[l.target] = (deg[l.target] || 0) + 1; });
+  var nodes = D.G.map(function (g) { return Object.assign({ r: 6 + Math.sqrt(deg[g.id] || 1) * 3.2 }, g); });
 
-  /* ════════════════════════════════════════
-     TIMELINE
-  ════════════════════════════════════════ */
-  const wrap = document.getElementById('tl-wrap');
-  const svg  = document.getElementById('tl-svg');
-  const tooltip = document.getElementById('tl-tooltip');
-  const tipName = document.getElementById('tl-tip-name');
-  const tipTrad = document.getElementById('tl-tip-trad');
-  const tipYear = document.getElementById('tl-tip-year');
+  var sx = Math.min(W * 0.3, 300), sy = Math.min(H * 0.3, 190);
+  var ANCHOR = { western: [-sx, -sy], patristic: [sx, -sy], hindu: [-sx, sy], buddhist: [sx, sy], shared: [0, 0] };
 
-  const MIN_YEAR = -300, MAX_YEAR = 2050;
-  const PAD_L = 44, PAD_R = 20, SVG_H = 130;
-  const AXIS_Y = 65;
-  const totalW = Math.max(wrap.clientWidth || 760, 760);
-  const innerW = totalW - PAD_L - PAD_R;
+  var sim = d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(links).id(function (d) { return d.id; }).distance(function (l) { return l.source.t === l.target.t ? 55 : 120; }).strength(function (l) { return l.source.t === l.target.t ? 0.6 : 0.12; }))
+    .force('charge', d3.forceManyBody().strength(-260))
+    .force('x', d3.forceX(function (d) { return W / 2 + ANCHOR[d.t][0]; }).strength(0.14))
+    .force('y', d3.forceY(function (d) { return H / 2 + ANCHOR[d.t][1]; }).strength(0.14))
+    .force('collide', d3.forceCollide().radius(function (d) { return Math.max(d.r + 16, d.term.replace(/\s*\(.*\)$/, '').length * 3.4); }).iterations(3))
+    .stop();
+  for (var i = 0; i < 400; i++) sim.tick();
 
-  svg.setAttribute('width', totalW);
-  svg.setAttribute('height', SVG_H);
+  var root = svg.append('g');
+  var hullG = root.append('g');
+  var edgeG = root.append('g');
+  var nodeG = root.append('g');
 
-  function xOf(year) { return PAD_L + (year - MIN_YEAR) / (MAX_YEAR - MIN_YEAR) * innerW; }
-
-  // Dark background
-  const bg = document.createElementNS('http://www.w3.org/2000/svg','rect');
-  bg.setAttribute('width', totalW); bg.setAttribute('height', SVG_H);
-  bg.setAttribute('fill','#1a1510'); svg.appendChild(bg);
-
-  // Subtle vertical grid lines every 200 years
-  for (let yr = -200; yr <= 2000; yr += 200) {
-    const x = xOf(yr);
-    const grid = document.createElementNS('http://www.w3.org/2000/svg','line');
-    grid.setAttribute('x1',x); grid.setAttribute('y1',0);
-    grid.setAttribute('x2',x); grid.setAttribute('y2',SVG_H);
-    grid.setAttribute('stroke','rgba(255,255,255,0.04)'); grid.setAttribute('stroke-width','1');
-    svg.appendChild(grid);
+  var hullLine = d3.line().curve(d3.curveCatmullRomClosed.alpha(0.6));
+  function hullPath(pts) {
+    var exp = [];
+    pts.forEach(function (p) { for (var a = 0; a < 8; a++) exp.push([p.x + (p.r + 26) * Math.cos(a * Math.PI / 4), p.y + (p.r + 26) * Math.sin(a * Math.PI / 4)]); });
+    return hullLine(d3.polygonHull(exp));
+  }
+  var hulls, hullLabels;
+  function drawHulls() {
+    var groups = ['western', 'patristic', 'hindu', 'buddhist', 'shared'].map(function (t) {
+      return { t: t, ns: nodes.filter(function (n) { return n.t === t; }) };
+    });
+    hulls = hullG.selectAll('path').data(groups).join('path')
+      .attr('d', function (g) { return hullPath(g.ns); })
+      .attr('fill', function (g) { return D.TRAD[g.t].c; }).attr('fill-opacity', 0.07)
+      .attr('stroke', function (g) { return D.TRAD[g.t].c; }).attr('stroke-opacity', 0.25).attr('stroke-dasharray', '4 4');
+    hullLabels = hullG.selectAll('text').data(groups).join('text')
+      .attr('class', 'hull-label').attr('text-anchor', 'middle')
+      .attr('fill', function (g) { return D.TRAD[g.t].c; })
+      .attr('x', function (g) { return d3.mean(g.ns, function (n) { return n.x; }); })
+      .attr('y', function (g) {
+        if (g.t === 'hindu' || g.t === 'buddhist') return d3.max(g.ns, function (n) { return n.y + n.r; }) + 50;
+        if (g.t === 'shared') return d3.min(g.ns, function (n) { return n.y - n.r; }) - 28;
+        return d3.min(g.ns, function (n) { return n.y - n.r; }) - 34;
+      })
+      .text(function (g) { return g.t === 'shared' ? 'Общие' : D.TRAD[g.t].ru.replace(' традиция', '').replace(' философия', ''); });
   }
 
-  // Axis line
-  const axisLine = document.createElementNS('http://www.w3.org/2000/svg','line');
-  axisLine.setAttribute('x1',PAD_L); axisLine.setAttribute('y1',AXIS_Y);
-  axisLine.setAttribute('x2',PAD_L+innerW); axisLine.setAttribute('y2',AXIS_Y);
-  axisLine.setAttribute('stroke','#4a3e2e'); axisLine.setAttribute('stroke-width','1');
-  svg.appendChild(axisLine);
+  var edges = edgeG.selectAll('line').data(links).join('line').attr('class', 'edge');
+  var node = nodeG.selectAll('g').data(nodes).join('g').attr('class', 'node')
+    .attr('tabindex', 0).attr('role', 'button').attr('aria-label', function (d) { return d.term; });
+  node.append('circle').attr('r', function (d) { return d.r; }).attr('fill', function (d) { return D.TRAD[d.t].c; });
+  node.append('text').attr('text-anchor', 'middle').attr('dy', function (d) { return d.r + 14; })
+    .text(function (d) { return d.term.replace(/\s*\(.*\)$/, ''); });
 
-  // Century ticks + labels
-  for (let yr = -200; yr <= 2000; yr += 200) {
-    const x = xOf(yr);
-    const tick = document.createElementNS('http://www.w3.org/2000/svg','line');
-    tick.setAttribute('x1',x); tick.setAttribute('y1',AXIS_Y-4);
-    tick.setAttribute('x2',x); tick.setAttribute('y2',AXIS_Y+4);
-    tick.setAttribute('stroke','#6a5a3e'); tick.setAttribute('stroke-width','1');
-    svg.appendChild(tick);
-    const lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
-    lbl.setAttribute('x',x); lbl.setAttribute('y',AXIS_Y+15);
-    lbl.setAttribute('text-anchor','middle'); lbl.setAttribute('font-size','8');
-    lbl.setAttribute('fill','#7a6a50'); lbl.setAttribute('font-family','EB Garamond, serif');
-    lbl.textContent = yr < 0 ? Math.abs(yr)+'до н.э.' : yr === 0 ? '0' : yr;
-    svg.appendChild(lbl);
+  function render() {
+    edges.attr('x1', function (d) { return d.source.x; }).attr('y1', function (d) { return d.source.y; })
+         .attr('x2', function (d) { return d.target.x; }).attr('y2', function (d) { return d.target.y; });
+    node.attr('transform', function (d) { return 'translate(' + d.x + ',' + d.y + ')'; });
+    drawHulls();
+  }
+  render();
+
+  var nb = {};
+  links.forEach(function (l) {
+    (nb[l.source.id] = nb[l.source.id] || {})[l.target.id] = 1;
+    (nb[l.target.id] = nb[l.target.id] || {})[l.source.id] = 1;
+  });
+  var selected = null;
+  function highlight(d) {
+    if (!d) { node.classed('dim', false); edges.classed('dim', false).classed('hl', false); return; }
+    node.classed('dim', function (n) { return n !== d && !(nb[d.id] || {})[n.id]; });
+    edges.classed('hl', function (l) { return l.source === d || l.target === d; })
+         .classed('dim', function (l) { return l.source !== d && l.target !== d; });
   }
 
-  // Lane Y positions (above/below axis)
-  const laneY = {Western: AXIS_Y - 25, Patristic: AXIS_Y - 12, Hindu: AXIS_Y + 12, Buddhist: AXIS_Y + 25};
-
-  phils.forEach(p => {
-    const x = xOf(p.y);
-    const y = laneY[p.t];
-    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
-    g.setAttribute('cursor','pointer');
-
-    const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    circle.setAttribute('cx',x); circle.setAttribute('cy',y); circle.setAttribute('r','7');
-    circle.setAttribute('fill',COLORS[p.t]);
-    circle.setAttribute('stroke','rgba(255,255,255,0.7)'); circle.setAttribute('stroke-width','1');
-    circle.setAttribute('opacity','0.92');
-    g.appendChild(circle);
-
-    g.addEventListener('mouseenter', function(e){
-      tipName.textContent = p.n;
-      tipTrad.textContent = TRAD_RU[p.t];
-      tipYear.textContent = p.y < 0 ? Math.abs(p.y) + ' до н.э.' : p.y + ' г.';
-      tooltip.style.opacity = '1';
+  var card = document.getElementById('term-card');
+  function select(d, center) {
+    selected = d;
+    node.classed('sel', function (n) { return n === d; });
+    highlight(d);
+    if (!d) { card.classList.remove('show'); return; }
+    var badge = document.getElementById('tc-badge');
+    badge.className = 'gloss-badge gloss-badge--' + d.t; badge.textContent = D.TRAD[d.t].ru;
+    document.getElementById('tc-term').textContent = d.term;
+    document.getElementById('tc-orig').textContent = d.orig;
+    var def = d.def.length > 260 ? d.def.slice(0, 260).replace(/\s\S*$/, '') + '…' : d.def;
+    document.getElementById('tc-def').textContent = def;
+    var rel = document.getElementById('tc-rel'); rel.innerHTML = '';
+    Object.keys(nb[d.id] || {}).forEach(function (id) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = ids[id].term.replace(/\s*\(.*\)$/, '');
+      b.addEventListener('click', function () { select(nodes.find(function (n) { return n.id === id; }), true); });
+      rel.appendChild(b);
     });
-    g.addEventListener('mousemove', function(e){
-      tooltip.style.left = (e.clientX + 14) + 'px';
-      tooltip.style.top  = (e.clientY - 48) + 'px';
-    });
-    g.addEventListener('mouseleave', function(){ tooltip.style.opacity = '0'; });
-    g.addEventListener('click', function(){ window.location.href = '/philosopher/' + p.id + '/'; });
-    svg.appendChild(g);
-  });
-
-  /* ════════════════════════════════════════
-     DONUT CHART
-  ════════════════════════════════════════ */
-  const donutSvg = document.getElementById('donut-svg');
-  const donutData = [
-    {label:'Западная', count:18, color:'#6fa3d8'},
-    {label:'Святоотеческая', count:18, color:'#e8b86d'},
-    {label:'Буддизм', count:11, color:'#5fbf8a'},
-    {label:'Индуизм', count:7, color:'#e87d4a'},
-  ];
-  const total = donutData.reduce((s,d)=>s+d.count,0);
-  const cx=70,cy=70,R=55,r=32;
-  let startAngle = -Math.PI/2;
-  donutData.forEach(d => {
-    const angle = (d.count/total)*2*Math.PI;
-    const endAngle = startAngle + angle;
-    const x1=cx+R*Math.cos(startAngle),y1=cy+R*Math.sin(startAngle);
-    const x2=cx+R*Math.cos(endAngle),  y2=cy+R*Math.sin(endAngle);
-    const xi1=cx+r*Math.cos(startAngle),yi1=cy+r*Math.sin(startAngle);
-    const xi2=cx+r*Math.cos(endAngle),  yi2=cy+r*Math.sin(endAngle);
-    const large = angle > Math.PI ? 1 : 0;
-    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
-    path.setAttribute('d', `M${x1},${y1} A${R},${R},0,${large},1,${x2},${y2} L${xi2},${yi2} A${r},${r},0,${large},0,${xi1},${yi1} Z`);
-    path.setAttribute('fill',d.color);
-    path.setAttribute('stroke','#f2e4c1'); path.setAttribute('stroke-width','1.5');
-    donutSvg.appendChild(path);
-    startAngle = endAngle;
-  });
-  const centerText = document.createElementNS('http://www.w3.org/2000/svg','text');
-  centerText.setAttribute('x',cx); centerText.setAttribute('y',cy+4);
-  centerText.setAttribute('text-anchor','middle'); centerText.setAttribute('font-size','18');
-  centerText.setAttribute('font-weight','700'); centerText.setAttribute('fill','#3b1a08');
-  centerText.textContent = '54';
-  donutSvg.appendChild(centerText);
-  const centerSub = document.createElementNS('http://www.w3.org/2000/svg','text');
-  centerSub.setAttribute('x',cx); centerSub.setAttribute('y',cy+16);
-  centerSub.setAttribute('text-anchor','middle'); centerSub.setAttribute('font-size','8');
-  centerSub.setAttribute('fill','#6b3d1e'); centerSub.textContent = 'мыслителей';
-  donutSvg.appendChild(centerSub);
-
-
-
-  /* ════════════════════════════════════════
-     D3 FORCE GRAPH
-  ════════════════════════════════════════ */
-  const NODE_COLORS = {western:'#6fa3d8', patristic:'#e8b86d', hindu:'#e87d4a', buddhist:'#5fbf8a', shared:'#a09080'};
-  const NODE_R = {3:22, 2:15, 1:10};
-  const CLUSTER_XY = {western:[-150,-100], patristic:[150,-100], hindu:[-150,100], buddhist:[150,100], shared:[0,0]};
-
-  const nodes = [
-    {id:'квалиа', cluster:'western', size:3, en:'qualia'},
-    {id:'интенциональность', cluster:'western', size:3, en:'intentionality'},
-    {id:'феноменология', cluster:'western', size:3, en:'phenomenology'},
-    {id:'воплощённость', cluster:'western', size:2, en:'embodiment'},
-    {id:'предиктивное кодирование', cluster:'western', size:2, en:'predictive coding'},
-    {id:'конструированная эмоция', cluster:'western', size:2, en:'constructed emotion'},
-    {id:'физикализм', cluster:'western', size:1, en:'physicalism'},
-    {id:'язык как форма жизни', cluster:'western', size:2, en:'language game'},
-    {id:'нус', cluster:'patristic', size:3, en:'nous'},
-    {id:'исихазм', cluster:'patristic', size:3, en:'hesychasm'},
-    {id:'умная молитва', cluster:'patristic', size:2, en:'prayer of the heart'},
-    {id:'сердце', cluster:'patristic', size:3, en:'kardia'},
-    {id:'логос', cluster:'patristic', size:2, en:'logos'},
-    {id:'синергия', cluster:'patristic', size:2, en:'synergy'},
-    {id:'исихия', cluster:'patristic', size:2, en:'hesychia'},
-    {id:'брахман', cluster:'hindu', size:3, en:'brahman'},
-    {id:'атман', cluster:'hindu', size:3, en:'atman'},
-    {id:'читта', cluster:'hindu', size:3, en:'chitta'},
-    {id:'вритти', cluster:'hindu', size:2, en:'vritti'},
-    {id:'самадхи', cluster:'hindu', size:3, en:'samadhi'},
-    {id:'шабда-брахман', cluster:'hindu', size:2, en:'shabda-brahman'},
-    {id:'спанда', cluster:'hindu', size:2, en:'spanda'},
-    {id:'майя', cluster:'hindu', size:2, en:'maya'},
-    {id:'пустота', cluster:'buddhist', size:3, en:'sunyata'},
-    {id:'алаявиджняна', cluster:'buddhist', size:3, en:'alayavijnana'},
-    {id:'дхармы', cluster:'buddhist', size:2, en:'dharmas'},
-    {id:'нирвана', cluster:'buddhist', size:2, en:'nirvana'},
-    {id:'анатта', cluster:'buddhist', size:2, en:'anatman'},
-    {id:'зависимое возникновение', cluster:'buddhist', size:2, en:'pratitya-samutpada'},
-    {id:'сознание', cluster:'shared', size:3, en:'consciousness'},
-    {id:'опыт', cluster:'shared', size:3, en:'experience'},
-    {id:'тело', cluster:'shared', size:2, en:'body'},
-    {id:'трансформация', cluster:'shared', size:2, en:'transformation'},
-    {id:'невыразимое', cluster:'shared', size:2, en:'ineffable'},
-    {id:'язык', cluster:'shared', size:3, en:'language'},
-  ];
-
-  const links = [
-    {source:'квалиа', target:'интенциональность'},
-    {source:'феноменология', target:'интенциональность'},
-    {source:'феноменология', target:'воплощённость'},
-    {source:'предиктивное кодирование', target:'конструированная эмоция'},
-    {source:'воплощённость', target:'тело'},
-    {source:'нус', target:'сердце'},
-    {source:'исихазм', target:'умная молитва'},
-    {source:'умная молитва', target:'сердце'},
-    {source:'исихия', target:'исихазм'},
-    {source:'логос', target:'нус'},
-    {source:'синергия', target:'нус'},
-    {source:'брахман', target:'атман'},
-    {source:'читта', target:'вритти'},
-    {source:'самадхи', target:'читта'},
-    {source:'шабда-брахман', target:'язык'},
-    {source:'спанда', target:'брахман'},
-    {source:'майя', target:'брахман'},
-    {source:'пустота', target:'зависимое возникновение'},
-    {source:'алаявиджняна', target:'дхармы'},
-    {source:'анатта', target:'пустота'},
-    {source:'нирвана', target:'самадхи'},
-    {source:'сознание', target:'квалиа'},
-    {source:'сознание', target:'нус'},
-    {source:'сознание', target:'брахман'},
-    {source:'сознание', target:'алаявиджняна'},
-    {source:'опыт', target:'феноменология'},
-    {source:'опыт', target:'сердце'},
-    {source:'опыт', target:'самадхи'},
-    {source:'опыт', target:'пустота'},
-    {source:'тело', target:'воплощённость'},
-    {source:'тело', target:'сердце'},
-    {source:'трансформация', target:'самадхи'},
-    {source:'трансформация', target:'исихазм'},
-    {source:'трансформация', target:'нирвана'},
-    {source:'невыразимое', target:'квалиа'},
-    {source:'невыразимое', target:'исихия'},
-    {source:'невыразимое', target:'пустота'},
-    {source:'язык', target:'язык как форма жизни'},
-    {source:'язык', target:'шабда-брахман'},
-    {source:'язык', target:'логос'},
-    {source:'предиктивное кодирование', target:'алаявиджняна'},
-    {source:'нус', target:'атман'},
-    {source:'атман', target:'брахман'},
-    {source:'читта', target:'алаявиджняна'},
-  ];
-
-  const graphWrap = document.getElementById('concept-graph-wrap');
-  const graphSvg = d3.select('#concept-graph-svg');
-  const GW = graphWrap.clientWidth || 700;
-  const GH = 700;
-  graphSvg.attr('width', GW).attr('height', GH);
-
-  const simulation = d3.forceSimulation(nodes)
-    .force('link', d3.forceLink(links).id(d => d.id).distance(80))
-    .force('charge', d3.forceManyBody().strength(-200))
-    .force('center', d3.forceCenter(GW/2, GH/2))
-    .force('collide', d3.forceCollide().radius(d => NODE_R[d.size] + 8))
-    .force('clusterX', d3.forceX(d => GW/2 + (CLUSTER_XY[d.cluster]||[0,0])[0]).strength(0.08))
-    .force('clusterY', d3.forceY(d => GH/2 + (CLUSTER_XY[d.cluster]||[0,0])[1]).strength(0.08));
-
-  // Zoom support
-  const g = graphSvg.append('g');
-
-  const zoom = d3.zoom()
-    .scaleExtent([0.3, 3])
-    .on('zoom', function(event) {
-      g.attr('transform', event.transform);
-    });
-  graphSvg.call(zoom);
-
-  const link = g.append('g')
-    .selectAll('line')
-    .data(links)
-    .join('line')
-    .attr('stroke','rgba(255,255,255,0.1)')
-    .attr('stroke-width', 1);
-
-  const node = g.append('g')
-    .selectAll('g')
-    .data(nodes)
-    .join('g')
-    .attr('cursor','pointer')
-    .call(d3.drag()
-      .on('start', (event,d) => { if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; })
-      .on('drag',  (event,d) => { d.fx=event.x; d.fy=event.y; })
-      .on('end',   (event,d) => { if (!event.active) simulation.alphaTarget(0); d.fx=null; d.fy=null; })
-    );
-
-  node.append('circle')
-    .attr('r', d => NODE_R[d.size])
-    .attr('fill', d => NODE_COLORS[d.cluster])
-    .attr('stroke','rgba(255,255,255,0.4)')
-    .attr('stroke-width', 1.5);
-
-  node.append('text')
-    .attr('class','node-label')
-    .attr('dy', d => NODE_R[d.size] + 12)
-    .attr('text-anchor','middle')
-    .attr('font-size','11')
-    .attr('fill','#d4c4a8')
-    .attr('font-family','EB Garamond, serif')
-    .text(d => d.id);
-
-  // Hover: highlight connected nodes (D3 mutates source/target to objects)
-  function isLinked(a, b) {
-    return links.some(l => {
-      const sid = typeof l.source === 'object' ? l.source.id : l.source;
-      const tid = typeof l.target === 'object' ? l.target.id : l.target;
-      return (sid === a && tid === b) || (sid === b && tid === a);
-    });
+    document.getElementById('tc-go').href = D.B + '/glossary/' + d.id + '/';
+    card.classList.add('show');
+    if (center) svg.transition().duration(500).call(zoom.translateTo, d.x, d.y);
   }
 
-  node.on('mouseenter', function(event, d) {
-    node.selectAll('circle').attr('opacity', n => n.id === d.id || isLinked(d.id, n.id) ? 1 : 0.15);
-    node.selectAll('text').attr('opacity', n => n.id === d.id || isLinked(d.id, n.id) ? 1 : 0.15);
-    link.attr('opacity', l => {
-      const sid = typeof l.source === 'object' ? l.source.id : l.source;
-      const tid = typeof l.target === 'object' ? l.target.id : l.target;
-      return sid === d.id || tid === d.id ? 0.7 : 0.05;
-    });
-  }).on('mouseleave', function() {
-    node.selectAll('circle').attr('opacity', 1);
-    node.selectAll('text').attr('opacity', 1);
-    link.attr('opacity', 1);
-  }).on('click', function(event, d) {
-    var idMap = {
-      'квалиа':'kvalia','интенциональность':'intentionalnost','феноменология':'phenomenologiya',
-      'воплощённость':'voploshchennost','предиктивное кодирование':'prediktivnoe_kodirovanie',
-      'конструированная эмоция':'konstruirovannaya_emotsiya','физикализм':'fizikalizm',
-      'язык как форма жизни':'yazyk_igra','нус':'nus','исихазм':'isihazm',
-      'умная молитва':'umnaya_molitva','сердце':'serdtse','логос':'logos',
-      'синергия':'sinergiya','исихия':'isihiya','брахман':'brahman','атман':'atman',
-      'читта':'chitta_vritti','вритти':'chitta_vritti','самадхи':'samadhi',
-      'шабда-брахман':'shabda_brahman','спанда':'spanda','майя':'maya',
-      'пустота':'pustota','алаявиджняна':'alayvijnyanabuddhist','дхармы':'dharmy',
-      'нирвана':'nirvana','анатта':'anatman','зависимое возникновение':'zavisimoye_vozniknoveniye',
-      'сознание':'soznaniye','опыт':'opyt','тело':'telo','трансформация':'transformatsiya',
-      'невыразимое':'nevyrazimoe','язык':'yazyk'
-    };
-    var termId = idMap[d.id];
-    if (termId) {
-      window.location.href = '/glossary/' + termId + '/';
-    } else {
-      window.location.href = '/glossary/';
-    }
-  });
+  node.on('mouseenter', function (e, d) { if (!selected) highlight(d); })
+      .on('mouseleave', function () { if (!selected) highlight(null); })
+      .on('click', function (e, d) { e.stopPropagation(); select(d === selected ? null : d); })
+      .on('dblclick', function (e, d) { location.href = D.B + '/glossary/' + d.id + '/'; })
+      .on('keydown', function (e, d) { if (e.key === 'Enter') select(d, true); });
+  card.querySelector('.tc-close').addEventListener('click', function () { select(null); });
+  svg.on('click', function () { select(null); });
 
-  simulation.on('tick', () => {
-    link
-      .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
-      .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
-    node.attr('transform', d => `translate(${d.x},${d.y})`);
-  });
+  node.call(d3.drag()
+    .on('start', function (e, d) { d.fx = d.x; d.fy = d.y; })
+    .on('drag', function (e, d) { d.x = d.fx = e.x; d.y = d.fy = e.y; render(); })
+    .on('end', function (e, d) { d.fx = d.fy = null; }));
 
-})();
+  var zoom = d3.zoom().scaleExtent([0.4, 4]).on('zoom', function (e) { root.attr('transform', e.transform); });
+  svg.call(zoom).on('dblclick.zoom', null);
+  function fit(dur) {
+    var b = root.node().getBBox(), k = Math.min(W / (b.width + 40), H / (b.height + 40), 1.4);
+    svg.transition().duration(dur).call(zoom.transform, d3.zoomIdentity.translate(W / 2, H / 2).scale(k).translate(-(b.x + b.width / 2), -(b.y + b.height / 2)));
+  }
+  fit(0);
+  document.getElementById('zin').onclick = function () { svg.transition().duration(250).call(zoom.scaleBy, 1.4); };
+  document.getElementById('zout').onclick = function () { svg.transition().duration(250).call(zoom.scaleBy, 1 / 1.4); };
+  document.getElementById('zfit').onclick = function () { select(null); fit(400); };
+
+  var f = D.params.get('focus');
+  if (f) {
+    var n = nodes.find(function (x) { return x.id === f; });
+    if (n) setTimeout(function () { document.getElementById('graph').scrollIntoView(); select(n, true); }, 200);
+  }
+})(DASH);
 </script>

@@ -20,8 +20,8 @@
         <div class="key-work">{{ p.key_work }}</div>
         {% if p.lat %}
         <div class="philosopher-location">
-          <a href="{{ '/dashboard/#map' | relative_url }}" class="loc-link" data-lat="{{ p.lat }}" data-lon="{{ p.lon }}" data-name="{{ p.name }}">
-            📍 {{ p.location }}
+          <a href="{{ '/dashboard/' | relative_url }}?phil={{ include.id }}#map" class="loc-link" title="Показать на карте">
+            <span class="loc-pin">⌖</span> {{ p.location }}
           </a>
         </div>
         {% endif %}

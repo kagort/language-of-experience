@@ -17,10 +17,10 @@ collections:
     permalink: /lecture3/:name/
   philosophers_all:
     output: true
-    permalink: /philosopher/:name/
+    permalink: /philosopher/:path/
   glossary_terms:
     output: true
-    permalink: /glossary/:name/
+    permalink: /glossary/:path/
 
 defaults:
   - scope:

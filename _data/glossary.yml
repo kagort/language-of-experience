@@ -60,7 +60,7 @@
     регистрация, а активное конструирование гипотез. Теория сближается с буддийской
     концепцией алаявиджняны как «хранилища отпечатков», формирующих опыт, и с
     идеями Абхинавагупты о самораскрытии сознания.
-  related: [konstruirovannaya_emotsiya, alayvijnyanabuddhist]
+  related: [konstruirovannaya_emotsiya, alayavijnyana]
 
 - id: konstruirovannaya_emotsiya
   term: "Конструированная эмоция"
@@ -73,7 +73,7 @@
     влияя на само переживание. Теория опирается на предиктивное кодирование: мозг
     «изобретает» эмоцию, опираясь на прошлый опыт и социальные категории. Перекликается
     с буддийским анализом санкхара (ментальных формаций) и ведантийской концепцией майи.
-  related: [prediktivnoe_kodirovanie, vritti]
+  related: [prediktivnoe_kodirovanie, chitta_vritti]
 
 - id: fizikalizm
   term: "Физикализм"
@@ -233,7 +233,7 @@
     бодрствования, сна со сновидениями и глубокого сна. Рамана Махарши предлагал
     «само-исследование» (вичара): «кто я?» — как прямой путь к реализации Атмана.
     Буддизм противопоставляет этому концепцию анатты.
-  related: [brahman, anatta, samadhi]
+  related: [brahman, anatman, samadhi]
 
 - id: chitta_vritti
   term: "Читта-вритти"
@@ -245,7 +245,7 @@
     Патанджали определяет йогу как «читта-вритти-ниродха» — прекращение, усмирение
     колебаний ума. Когда вритти утихают, Атман сияет в своей истинной природе.
     Сравнимо с исихастской концепцией усмирения помыслов и буддийской шаматхой.
-  related: [samadhi, atman, alayvijnyanabuddhist]
+  related: [samadhi, atman, alayavijnyana]
 
 - id: samadhi
   term: "Самадхи"
@@ -321,7 +321,7 @@
     одно и то же.
   related: [zavisimoye_vozniknoveniye, anatman, maya]
 
-- id: alayvijnyanabuddhist
+- id: alayavijnyana
   term: "Алаявиджняна"
   original: "ālayavijñāna (санскр.) — сознание-хранилище"
   tradition: buddhist
@@ -343,7 +343,7 @@
     иллюзию постоянного «я» и вещи — всё лишь поток дхарм. Мадхьямака Нагарджуны
     критикует «дхарматеорию»: сами дхармы пусты от самобытия. Различие реального
     (pāramārtha) и номинального (saṃvṛti) уровней истины.
-  related: [pustota, alayvijnyanabuddhist, anatman]
+  related: [pustota, alayavijnyana, anatman]
 
 - id: nirvana
   term: "Нирвана"
@@ -392,7 +392,7 @@
     онтологически первично, тождественно Брахману. Буддизм: сознание (виджняна/читта)
     — поток без постоянного субъекта. Общий вопрос: что означает «каково это быть
     собой»? И возможен ли ответ изнутри самого сознания?
-  related: [kvalia, nus, atman, alayvijnyanabuddhist]
+  related: [kvalia, nus, atman, alayavijnyana]
 
 - id: opyt
   term: "Опыт"

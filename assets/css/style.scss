@@ -17,6 +17,15 @@
   --gold-light:      #c9a227;
   --gold-pale:       #e8d4a0;
   --sidebar-w:       280px;
+  --text:            var(--ink);
+  --text-muted:      var(--brown-light);
+  --border:          var(--parchment-dark);
+  /* tradition palette — ink-like hues readable on parchment */
+  --c-western:       #2e5f8f;
+  --c-patristic:     #9b2d24;
+  --c-hindu:         #c76a12;
+  --c-buddhist:      #3d7a55;
+  --c-shared:        #6e5a45;
   --transition:      0.25s ease;
 }
 
@@ -1293,66 +1302,115 @@ hr {
 .discussion-questions li { margin-bottom: 0.75rem; font-size: 0.95rem; }
 
 /* ============================================================
-   COLLAPSIBLE LECTURE NAV
+   SIDEBAR — GLOBAL LINKS + COLLAPSIBLE LECTURES
    ============================================================ */
+.sidebar-global {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 0.75rem 0.9rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(201,162,39,0.2);
+}
+.global-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 4px;
+  color: var(--gold-pale);
+  font-size: 0.92rem;
+  &:hover { background: rgba(201,162,39,0.15); color: #fff; }
+  &.is-active { background: rgba(201,162,39,0.22); color: #fff; }
+  .gl-icon { width: 1.4rem; text-align: center; color: var(--gold-light); font-size: 1rem; }
+}
+
 .lecture-nav-details {
-  margin-bottom: 0.25rem;
-  & + & { border-top: 1px solid var(--border, rgba(255,255,255,0.08)); }
+  border-radius: 4px;
+  & + & { margin-top: 0.35rem; }
+  &[open] { background: rgba(0,0,0,0.12); padding-bottom: 0.5rem; }
 }
 .lecture-nav-summary {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.45rem 0.25rem;
+  gap: 0.6rem;
+  padding: 0.55rem 0.65rem;
   cursor: pointer;
   list-style: none;
-  color: var(--gold, #c9a96e);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  color: var(--gold-pale);
+  font-family: 'Playfair Display', serif;
+  font-size: 0.86rem;
+  line-height: 1.3;
+  border-radius: 4px;
   user-select: none;
   &::-webkit-details-marker { display: none; }
-  &::marker { display: none; }
-  &:hover { color: var(--gold-light, #e0c084); }
+  &::marker { content: ''; }
+  &:hover { background: rgba(201,162,39,0.12); color: #fff; }
   .lec-num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.4rem;
-    height: 1.4rem;
-    border: 1px solid currentColor;
-    border-radius: 2px;
-    font-size: 0.7rem;
     flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 1.6rem; height: 1.6rem;
+    border: 1px solid var(--gold-light);
+    border-radius: 3px;
+    color: var(--gold-light);
+    font-size: 0.72rem; font-weight: 700;
   }
   .lec-title { flex: 1; }
+  .lec-chevron { color: var(--gold-light); font-size: 1.1rem; transition: transform var(--transition); }
 }
 details[open] > .lecture-nav-summary {
-  color: var(--gold-light, #e0c084);
+  color: #fff;
+  .lec-num { background: var(--gold); color: #fff; }
+  .lec-chevron { transform: rotate(90deg); }
+}
+.lecture-nav-details .section-list { padding: 0.25rem 0.25rem 0 0.5rem; }
+.lecture-extra {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.5rem 0.5rem 0 0.75rem;
+}
+.lecture-extra-link {
+  flex: 1;
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.4rem;
+  border: 1px solid rgba(201,162,39,0.35);
+  border-radius: 4px;
+  color: var(--gold-light);
+  &:hover, &.is-active { background: rgba(201,162,39,0.18); color: #fff; }
+}
+.all-lectures-link {
+  display: block;
+  margin: 0.9rem 0.65rem 0;
+  font-size: 0.82rem;
+  color: var(--gold-light);
+  &:hover { color: #fff; }
 }
 
-/* ============================================================
-   DASHBOARD ENTRY (home page)
-   ============================================================ */
-.dashboard-entry {
+/* Home: compact tool links under search */
+.home-tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
   margin: 0 0 2rem;
 }
-.dashboard-link {
+.home-tool {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
-  border: 1px solid var(--gold, #c9a96e);
-  border-radius: 6px;
-  text-decoration: none;
-  color: inherit;
-  transition: background 0.2s;
-  &:hover { background: rgba(201,169,110,0.07); }
-  .dashboard-icon { font-size: 1.5rem; color: var(--gold); flex-shrink: 0; }
-  .dashboard-text { flex: 1; display: flex; flex-direction: column; gap: 0.2rem; strong { color: var(--gold); } span { font-size: 0.82rem; color: var(--text-muted, #a09080); } }
-  .dashboard-arrow { color: var(--gold); font-size: 1.2rem; }
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--parchment-dark);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.18);
+  color: var(--brown-dark);
+  transition: border-color var(--transition), background var(--transition);
+  &:hover { border-color: var(--gold); background: rgba(255,255,255,0.35); color: var(--brown-dark); }
+  .ht-icon { font-size: 1.3rem; color: var(--gold); width: 1.5rem; text-align: center; }
+  .ht-text { display: flex; flex-direction: column; line-height: 1.3; }
+  strong { font-family: 'Playfair Display', serif; font-size: 0.95rem; }
+  small { font-size: 0.8rem; color: var(--brown-light); }
 }
+@media (max-width: 600px) { .home-tools { grid-template-columns: 1fr; } }
 
 /* ============================================================
    GLOSSARY
@@ -1374,12 +1432,23 @@ details[open] > .lecture-nav-summary {
 .gloss-term { font-size: 1.2rem; color: var(--gold); margin: 0; }
 .gloss-original { font-style: italic; color: var(--brown-light); font-size: 0.9rem; }
 .gloss-badge {
-  font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em;
-  &--western { background: rgba(111,163,216,0.2); color: #6fa3d8; }
-  &--patristic { background: rgba(232,184,109,0.2); color: #e8b86d; }
-  &--hindu { background: rgba(232,125,74,0.2); color: #e87d4a; }
-  &--buddhist { background: rgba(95,191,138,0.2); color: #5fbf8a; }
-  &--shared { background: rgba(160,144,128,0.2); color: #a09080; }
+  display: inline-block;
+  font-size: 0.68rem; padding: 0.15rem 0.55rem; border-radius: 3px;
+  text-transform: uppercase; letter-spacing: 0.06em; color: #fff;
+  &--western { background: var(--c-western); }
+  &--patristic { background: var(--c-patristic); }
+  &--hindu { background: var(--c-hindu); }
+  &--buddhist { background: var(--c-buddhist); }
+  &--shared { background: var(--c-shared); }
+}
+.gloss-assoc-card {
+  border-left-width: 3px !important;
+  &--western { border-left-color: var(--c-western) !important; }
+  &--patristic { border-left-color: var(--c-patristic) !important; }
+  &--hindu { border-left-color: var(--c-hindu) !important; }
+  &--buddhist { border-left-color: var(--c-buddhist) !important; }
+  &--shared { border-left-color: var(--c-shared) !important; }
+  .gloss-assoc-trad { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--brown-light); }
 }
 .gloss-def { color: var(--ink); line-height: 1.7; }
 .gloss-related { margin-top: 0.75rem; font-size: 0.85rem; color: var(--brown-light); }
@@ -1402,7 +1471,7 @@ details[open] > .lecture-nav-summary {
   }
   .main-content {
     margin-left: 0;
-    padding: 1.5rem 1.25rem 3rem;
+    padding: 4.25rem 1.25rem 3rem;
   }
   .position-grid { grid-template-columns: 1fr; }
   .section-numeral { font-size: 3.5rem; }
@@ -1456,4 +1525,43 @@ details[open] > .lecture-nav-summary {
     flex-wrap: wrap;
     gap: 0.2rem;
   }
+}
+
+/* ============================================================
+   GLOSSARY TERM PAGE — extras
+   ============================================================ */
+.term-crumbs {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+  font-size: 0.9rem; margin-bottom: 1.5rem;
+}
+.term-graph-link { color: var(--gold); }
+.gloss-term-header .gloss-badge { margin-bottom: 0.6rem; }
+.gloss-term-header .gloss-original { font-style: italic; color: var(--brown-light); margin: 0; }
+.term-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.term-chip {
+  padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.88rem;
+  border: 1px solid currentColor; background: rgba(255,255,255,0.25);
+  &--western { color: var(--c-western); }
+  &--patristic { color: var(--c-patristic); }
+  &--hindu { color: var(--c-hindu); }
+  &--buddhist { color: var(--c-buddhist); }
+  &--shared { color: var(--c-shared); }
+  &:hover { background: rgba(255,255,255,0.6); }
+}
+.term-sections {
+  list-style: none;
+  li { border-bottom: 1px solid var(--parchment-dark); }
+  a { display: flex; gap: 0.9rem; align-items: baseline; padding: 0.45rem 0; color: var(--brown-dark); }
+  a:hover { color: var(--gold); }
+  .ts-lec { flex-shrink: 0; min-width: 7.5rem; font-size: 0.78rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05em; }
+}
+.term-people { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.term-person {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.25rem 0.75rem 0.25rem 0.25rem;
+  border: 1px solid var(--parchment-dark); border-radius: 999px;
+  color: var(--brown-dark); font-size: 0.88rem;
+  img, .tp-blank { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .tp-blank { display: flex; align-items: center; justify-content: center; background: var(--parchment-dark); color: var(--brown-mid); }
+  &:hover { border-color: var(--gold); color: var(--gold); }
 }

@@ -3,42 +3,92 @@ layout: default
 ---
 {% assign entry = site.data.glossary | where: "id", page.term_id | first %}
 {% if entry %}
-<article class="glossary-term-page">
-  <a href="{{ '/glossary/' | relative_url }}" class="phil-back">← Словарь</a>
+{% capture trad_ru %}{% case entry.tradition %}{% when 'western' %}Западная философия{% when 'patristic' %}Святоотеческая традиция{% when 'hindu' %}Индуистская традиция{% when 'buddhist' %}Буддийская традиция{% else %}Общее понятие{% endcase %}{% endcapture %}
+{% assign word = entry.term | downcase | split: " " | first | split: "(" | first %}
+{% assign stem_len = word.size | minus: 2 %}{% if stem_len < 4 %}{% assign stem_len = word.size %}{% endif %}
+{% assign stem = word | slice: 0, stem_len %}
 
-  <div class="gloss-term-header">
+<article class="glossary-term-page">
+  <nav class="term-crumbs">
+    <a href="{{ '/glossary/' | relative_url }}">← Словарь понятий</a>
+    <a href="{{ '/dashboard/' | relative_url }}?focus={{ entry.id }}#graph" class="term-graph-link">◉ Показать в графе</a>
+  </nav>
+
+  <header class="gloss-term-header">
+    <span class="gloss-badge gloss-badge--{{ entry.tradition }}">{{ trad_ru | strip }}</span>
     <h1 class="gloss-term-title">{{ entry.term }}</h1>
     {% if entry.original %}<p class="gloss-original">{{ entry.original }}</p>{% endif %}
-    <span class="gloss-badge gloss-badge--{{ entry.tradition }}">
-      {% case entry.tradition %}
-        {% when 'western' %}Западная философия
-        {% when 'patristic' %}Святоотеческая
-        {% when 'hindu' %}Индуистская
-        {% when 'buddhist' %}Буддийская
-        {% when 'shared' %}Общее понятие
-      {% endcase %}
-    </span>
-  </div>
+  </header>
 
   <div class="gloss-term-definition">{{ entry.definition }}</div>
 
   {% if entry.related %}
-  <div class="gloss-associations">
+  <section class="gloss-associations">
     <h3>Ассоциативные связи</h3>
     <div class="gloss-assoc-grid">
       {% for rel_id in entry.related %}
         {% assign rel = site.data.glossary | where: "id", rel_id | first %}
         {% if rel %}
-        <a href="{{ '/glossary/' | append: rel_id | append: '/' | relative_url }}" class="gloss-assoc-card">
+        <a href="{{ '/glossary/' | append: rel_id | append: '/' | relative_url }}" class="gloss-assoc-card gloss-assoc-card--{{ rel.tradition }}">
           <span class="gloss-assoc-term">{{ rel.term }}</span>
-          <span class="gloss-assoc-badge gloss-badge gloss-badge--{{ rel.tradition }}"></span>
-          <span class="gloss-assoc-excerpt">{{ rel.definition | truncatewords: 20 }}</span>
+          <span class="gloss-assoc-excerpt">{{ rel.definition | strip_html | truncatewords: 18 }}</span>
         </a>
         {% endif %}
       {% endfor %}
     </div>
-  </div>
+  </section>
   {% endif %}
 
+  {% assign backlinks = "" | split: "" %}
+  {% for g in site.data.glossary %}
+    {% if g.related contains entry.id %}{% unless entry.related contains g.id %}{% assign backlinks = backlinks | push: g %}{% endunless %}{% endif %}
+  {% endfor %}
+  {% if backlinks.size > 0 %}
+  <section class="gloss-associations">
+    <h3>На это понятие ссылаются</h3>
+    <div class="term-chips">
+      {% for g in backlinks %}
+      <a href="{{ '/glossary/' | append: g.id | append: '/' | relative_url }}" class="term-chip term-chip--{{ g.tradition }}">{{ g.term }}</a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% assign all_sections = site.sections | concat: site.sections2 | concat: site.sections3 %}
+  {% assign hits = "" | split: "" %}
+  {% for s in all_sections %}
+    {% assign body = s.content | strip_html | downcase %}
+    {% if body contains stem %}{% assign hits = hits | push: s %}{% endif %}
+  {% endfor %}
+  {% if hits.size > 0 %}
+  <section class="gloss-associations">
+    <h3>Где встречается в лекциях</h3>
+    <ul class="term-sections">
+      {% for s in hits %}
+      {% capture lec %}{% case s.collection %}{% when 'sections' %}I{% when 'sections2' %}II{% else %}III{% endcase %}{% endcapture %}
+      <li><a href="{{ s.url | relative_url }}"><span class="ts-lec">Лекция {{ lec | strip }} · {{ s.order }}</span>{{ s.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% assign people = "" | split: "" %}
+  {% for pair in site.data.philosophers %}
+    {% assign txt = pair[1].contribution | append: " " | append: pair[1].language | append: " " | append: pair[1].biography | strip_html | downcase %}
+    {% if txt contains stem %}{% assign people = people | push: pair %}{% endif %}
+  {% endfor %}
+  {% if people.size > 0 %}
+  <section class="gloss-associations">
+    <h3>Мыслители</h3>
+    <div class="term-people">
+      {% for pair in people %}
+      <a href="{{ '/philosopher/' | append: pair[0] | append: '/' | relative_url }}" class="term-person">
+        {% if pair[1].portrait %}<img src="{{ pair[1].portrait | relative_url }}" alt="" loading="lazy">{% else %}<span class="tp-blank">{{ pair[1].name | slice: 0 }}</span>{% endif %}
+        <span>{{ pair[1].name }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
 </article>
 {% endif %}

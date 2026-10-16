@@ -11,33 +11,22 @@ title: "Лекторий"
 </div>
 
 <div class="global-search-wrap">
-  <input type="search" id="global-search" class="global-search" placeholder="Поиск по картотеке: имя, традиция, даты…" autocomplete="off">
+  <input type="search" id="global-search" class="global-search" placeholder="Поиск: мыслитель или понятие…" autocomplete="off">
   <ul class="global-search-results" id="global-search-results" hidden></ul>
 </div>
 
+<div class="home-tools">
+  <a href="{{ '/dashboard/' | relative_url }}" class="home-tool">
+    <span class="ht-icon">◉</span>
+    <span class="ht-text"><strong>Обзорный дашборд</strong><small>Хронология, карта, граф понятий</small></span>
+  </a>
+  <a href="{{ '/glossary/' | relative_url }}" class="home-tool">
+    <span class="ht-icon">α</span>
+    <span class="ht-text"><strong>Словарь понятий</strong><small>{{ site.data.glossary.size }} терминов с перекрёстными связями</small></span>
+  </a>
+</div>
+
 <div class="divider">— ❦ —</div>
-
-<div class="dashboard-entry">
-  <a href="{{ '/dashboard/' | relative_url }}" class="dashboard-link">
-    <span class="dashboard-icon">◉</span>
-    <span class="dashboard-text">
-      <strong>Обзорный дашборд</strong>
-      <span>Хронология · карта · тематика · сравнение традиций</span>
-    </span>
-    <span class="dashboard-arrow">→</span>
-  </a>
-</div>
-
-<div class="dashboard-entry" style="margin-top:0.75rem;">
-  <a href="{{ '/glossary/' | relative_url }}" class="dashboard-link">
-    <span class="dashboard-icon">α</span>
-    <span class="dashboard-text">
-      <strong>Словарь понятий</strong>
-      <span>Квалиа · нус · читта · пустота — 30 ключевых терминов с определениями</span>
-    </span>
-    <span class="dashboard-arrow">→</span>
-  </a>
-</div>
 
 <div class="lectures-list">
 

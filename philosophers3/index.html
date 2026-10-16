@@ -9,6 +9,11 @@ title: "Персоналии"
     18 мыслителей от Патанджали до Нисаргадатты — биографии, вклад в тему и любопытные факты.
   </p>
 
+  <div class="global-search-wrap">
+    <input type="search" id="global-search" class="global-search" placeholder="Поиск: мыслитель или понятие…" autocomplete="off">
+    <ul class="global-search-results" id="global-search-results" hidden></ul>
+  </div>
+
   <div class="divider" style="margin: 1.5rem 0;">— ❦ —</div>
 
   <div class="philosophers-grid">
@@ -18,3 +23,5 @@ title: "Персоналии"
     {% endfor %}
   </div>
 </div>
+
+{% include global-search.html %}

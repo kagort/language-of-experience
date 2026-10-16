@@ -1,0 +1,65 @@
+{% assign url = page.url %}
+{% assign cur = 0 %}
+{% if page.collection == 'sections' or url == '/qa/' or url == '/philosophers/' %}{% assign cur = 1 %}{% endif %}
+{% if page.collection == 'sections2' or url == '/qa2/' or url == '/philosophers2/' %}{% assign cur = 2 %}{% endif %}
+{% if page.collection == 'sections3' or url == '/qa3/' or url == '/philosophers3/' %}{% assign cur = 3 %}{% endif %}
+
+{% assign lectures = "1|Сознание, тело, язык|sections||I;2|Чувство, слово, внутренний человек|sections2|2|II;3|Академическая философия, отцы Церкви, Восток|sections3|3|III" | split: ";" %}
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-inner">
+    <header class="sidebar-header">
+      <a href="{{ '/' | relative_url }}" class="site-brand">
+        <div class="brand-ornament">❧</div>
+        <p class="brand-series">Серия лекций</p>
+        <p class="brand-title">Сознание · Тело · Язык</p>
+        <p class="brand-subtitle">{{ site.subtitle }}</p>
+      </a>
+    </header>
+
+    <nav class="sidebar-global" aria-label="Разделы сайта">
+      <a href="{{ '/' | relative_url }}" class="global-link{% if url == '/' %} is-active{% endif %}"><span class="gl-icon">⌂</span>Главная</a>
+      <a href="{{ '/dashboard/' | relative_url }}" class="global-link{% if url == '/dashboard/' %} is-active{% endif %}"><span class="gl-icon">◉</span>Обзорный дашборд</a>
+      <a href="{{ '/glossary/' | relative_url }}" class="global-link{% if url contains '/glossary/' %} is-active{% endif %}"><span class="gl-icon">α</span>Словарь понятий</a>
+    </nav>
+
+    <nav class="lecture-nav" aria-label="Лекции">
+      <p class="nav-heading">{% if cur > 0 %}Ход лекции{% else %}Лекции{% endif %}</p>
+      {% for lec in lectures %}
+        {% assign parts = lec | split: "|" %}
+        {% assign n = parts[0] | plus: 0 %}
+        {% if cur == 0 or cur == n %}
+        {% assign coll_obj = site.collections | where: 'label', parts[2] | first %}{% assign coll = coll_obj.docs | sort: 'order' %}
+        <details class="lecture-nav-details"{% if cur == n %} open{% endif %}>
+          <summary class="lecture-nav-summary">
+            <span class="lec-num">{{ parts[4] }}</span>
+            <span class="lec-title">{{ parts[1] }}</span>
+            <span class="lec-chevron" aria-hidden="true">›</span>
+          </summary>
+          <ol class="section-list">
+            {% for section in coll %}
+            <li class="section-item{% if url == section.url %} is-active{% endif %}">
+              <a href="{{ section.url | relative_url }}" class="section-link">
+                <span class="section-num">{{ section.order }}</span>
+                <span class="section-info">
+                  <span class="section-name">{{ section.short_title | default: section.title }}</span>
+                </span>
+              </a>
+            </li>
+            {% endfor %}
+          </ol>
+          <div class="lecture-extra">
+            {% assign qa = '/qa' | append: parts[3] | append: '/' %}
+            {% assign ph = '/philosophers' | append: parts[3] | append: '/' %}
+            <a href="{{ ph | relative_url }}" class="lecture-extra-link{% if url == ph %} is-active{% endif %}">☰ Персоналии</a>
+            <a href="{{ qa | relative_url }}" class="lecture-extra-link{% if url == qa %} is-active{% endif %}">✦ Вопросы</a>
+          </div>
+        </details>
+        {% endif %}
+      {% endfor %}
+      {% if cur > 0 %}
+      <a href="{{ '/' | relative_url }}" class="all-lectures-link">← Все лекции</a>
+      {% endif %}
+    </nav>
+  </div>
+</aside>
