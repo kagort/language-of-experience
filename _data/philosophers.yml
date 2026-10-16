@@ -548,6 +548,7 @@ patanjali:
   tradition: "Йога, Санкхья"
   key_work: "«Йога-сутры»"
   num: 37
+  portrait: "/assets/images/philosophers/patanjali.jpg"
   lecture: 3
   biography: >
     Патанджали — имя, под которым дошла кодификация традиции йоги, датируемая приблизительно
@@ -574,6 +575,7 @@ shankara:
   tradition: "Адвайта-Веданта"
   key_work: "Комментарии на Брахма-сутры, Упанишады и Бхагавадгиту; «Вивека-чудамани»"
   num: 38
+  portrait: "/assets/images/philosophers/shankara.jpg"
   lecture: 3
   biography: >
     Родился в Калади (Керала), в брахманской семье. По преданию, в восемь лет знал наизусть
@@ -602,6 +604,7 @@ bhartrhari:
   tradition: "Грамматическая философия, Веданта"
   key_work: "«Вакьяпадия» («О предложении и слове»)"
   num: 39
+  portrait: "/assets/images/philosophers/bhartrhari.jpg"
   lecture: 3
   biography: >
     Санскритский грамматист и философ, жил предположительно в V в. н.э. Некоторые учёные
@@ -629,6 +632,7 @@ abhinavagupta:
   tradition: "Кашмирский шиваизм, эстетика"
   key_work: "«Тантралока»; «Абхинавабхарати»; «Пратьябхиджняхридая»"
   num: 40
+  portrait: "/assets/images/philosophers/abhinavagupta.webp"
   lecture: 3
   biography: >
     Крупнейший философ Кашмирского шиваизма, мистик, поэт и теоретик эстетики. Родился в
@@ -656,6 +660,7 @@ ramanuja:
   tradition: "Вишиштадвайта-Веданта"
   key_work: "«Шри-бхашья» (комментарий на Брахма-сутры); «Гитабхашья»"
   num: 41
+  portrait: "/assets/images/philosophers/ramanuja.jpg"
   lecture: 3
   biography: >
     Родился в Тамилнаду, в семье брахманов-вайшнавов. Учился у Ядавапракаши, с которым
@@ -683,6 +688,7 @@ ramana_maharshi:
   tradition: "Адвайта-Веданта, само-исследование"
   key_work: "«Кто я?»; «Упадеша-сарам»; «Nan Yar?»"
   num: 42
+  portrait: "/assets/images/philosophers/ramana_maharshi.jpg"
   lecture: 3
   biography: >
     Родился Венкатараман Айер в Тируччули (Тамилнаду). В 1896 году, в шестнадцать лет,
@@ -710,6 +716,7 @@ nagarjuna:
   tradition: "Мадхьямака-буддизм"
   key_work: "«Муламадхьямака-карика»; «Виграхавьявартани»; «Ратнавали»"
   num: 43
+  portrait: "/assets/images/philosophers/nagarjuna.jpeg"
   lecture: 3
   biography: >
     Основатель школы Мадхьямака, один из наиболее значительных философов в истории человечества.
@@ -738,6 +745,7 @@ vasubandhu:
   tradition: "Йогачара-буддизм, Абхидхарма"
   key_work: "«Абхидхармакоша»; «Виджняптиматрататасиддхи»; «Тримшика»"
   num: 44
+  portrait: "/assets/images/philosophers/vasubandhu.jpg"
   lecture: 3
   biography: >
     Один из двух основателей школы Йогачара (вместе со старшим братом Асангой). Родился,
@@ -764,6 +772,7 @@ asanga:
   tradition: "Йогачара-буддизм"
   key_work: "«Йогачарабхуми»; «Абхисамаяланкара»; «Махаяна-сутраланкара»"
   num: 45
+  portrait: "/assets/images/philosophers/asanga.jpg"
   lecture: 3
   biography: >
     Старший брат Васубандху, один из основателей школы Йогачара. По преданию, медитировал
@@ -790,6 +799,7 @@ dignaga:
   tradition: "Буддийская эпистемология, Йогачара"
   key_work: "«Прамана-самуччая» («Собрание источников достоверного знания»)"
   num: 46
+  portrait: "/assets/images/philosophers/dignaga.jpg"
   lecture: 3
   biography: >
     Основатель буддийской эпистемологии (прамана-вады). Родился в Кanchипураме (Южная
@@ -817,6 +827,7 @@ dharmakirti:
   tradition: "Буддийская эпистемология"
   key_work: "«Прамана-варттика» («Толкование источников знания»)"
   num: 47
+  portrait: "/assets/images/philosophers/dharmakirti.jpg"
   lecture: 3
   biography: >
     Крупнейший буддийский эпистемолог, продолжатель Дигнаги. Родился в Тамилнаду в
@@ -845,6 +856,7 @@ chandrakirti:
   tradition: "Мадхьямака-буддизм, прасангика"
   key_work: "«Мадхьямааватара» («Введение в срединный путь»); «Прасаннапада»"
   num: 48
+  portrait: "/assets/images/philosophers/chandrakirti.jpg"
   lecture: 3
   biography: >
     Монах и философ традиции Мадхьямака, игумен монастыря Наланда. Главный комментатор
@@ -897,6 +909,7 @@ nagasena:
   tradition: "Ранний буддизм, Тхеравада"
   key_work: "«Милиндапаньха» («Вопросы царя Милинды»)"
   num: 50
+  portrait: "/assets/images/philosophers/nagasena.jpg"
   lecture: 3
   biography: >
     Буддийский монах, живший в Северо-Западной Индии (Гандхара). Известен прежде всего
@@ -924,6 +937,7 @@ dogen:
   tradition: "Сото-дзен, японский буддизм"
   key_work: "«Сёбогэндзо» («Сокровищница ока истинного закона»)"
   num: 51
+  portrait: "/assets/images/philosophers/dogen.png"
   lecture: 3
   biography: >
     Основатель японской школы Сото-дзен. Родился в Киото в аристократической семье, рано
@@ -951,6 +965,7 @@ tilopa:
   tradition: "Ваджраяна, Махамудра"
   key_work: "«Ганга-маха-мудра» («Наставление у Ганга»)"
   num: 52
+  portrait: "/assets/images/philosophers/tilopa.jpg"
   lecture: 3
   biography: >
     Один из 84 махасиддхов — «великих совершенных» индийского тантрического буддизма. По
@@ -978,6 +993,7 @@ linji_yixuan:
   tradition: "Чань (Линьцзи), китайский буддизм"
   key_work: "«Линьцзи лу» («Записи Линьцзи»)"
   num: 53
+  portrait: "/assets/images/philosophers/linji_yixuan.jpg"
   lecture: 3
   biography: >
     Основатель школы Линьцзи (яп. Риндзай) — одной из двух главных школ дзен-буддизма.
@@ -1005,6 +1021,7 @@ nisargadatta:
   tradition: "Адвайта-Веданта, Навнатх-сампрадая"
   key_work: "«Я есть То» (I Am That, 1973)"
   num: 54
+  portrait: "/assets/images/philosophers/nisargadatta_maharaj.jpg"
   lecture: 3
   biography: >
     Родился Маратхой Маруто Камалем в Мумбаи (Бомбей), с юности работал торговцем. В 1933
