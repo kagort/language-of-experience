@@ -14,6 +14,12 @@ var PHIL_DATA = [
   {% endfor %}
 ];
 
+var GLOSS_DATA = [
+  {% for entry in site.data.glossary %}
+  { id: {{ entry.id | jsonify }}, term: {{ entry.term | jsonify }}, original: {{ entry.original | default: "" | jsonify }}, tradition: {{ entry.tradition | jsonify }} },
+  {% endfor %}
+];
+
 (function() {
   var input   = document.getElementById('global-search');
   var results = document.getElementById('global-search-results');
@@ -24,21 +30,32 @@ var PHIL_DATA = [
     results.innerHTML = '';
     if (!q) { results.hidden = true; return; }
 
-    var matches = PHIL_DATA.filter(function(p) {
+    var philMatches = PHIL_DATA.filter(function(p) {
       return (p.name + ' ' + p.dates + ' ' + p.tradition).toLowerCase().indexOf(q) !== -1;
     });
+    var glossMatches = GLOSS_DATA.filter(function(g) {
+      return (g.term + ' ' + g.original).toLowerCase().indexOf(q) !== -1;
+    });
 
-    if (!matches.length) {
+    if (!philMatches.length && !glossMatches.length) {
       results.innerHTML = '<li class="gsr-empty">Ничего не найдено</li>';
     } else {
-      matches.forEach(function(p) {
-        var base = '{{ "/" | relative_url }}'.replace(/\/$/, '');
-        var href = base + '/philosopher/' + p.id + '/';
+      var base = '{{ "/" | relative_url }}'.replace(/\/$/, '');
+      philMatches.forEach(function(p) {
         var li = document.createElement('li');
         li.className = 'gsr-item';
-        li.innerHTML = '<a href="' + href + '" class="gsr-link">'
+        li.innerHTML = '<a href="' + base + '/philosopher/' + p.id + '/" class="gsr-link">'
           + '<span class="gsr-name">' + p.name + '</span>'
           + '<span class="gsr-meta">' + p.dates + ' · ' + p.tradition + ' · Лекция ' + p.lecture + '</span>'
+          + '</a>';
+        results.appendChild(li);
+      });
+      glossMatches.forEach(function(g) {
+        var li = document.createElement('li');
+        li.className = 'gsr-item';
+        li.innerHTML = '<a href="' + base + '/glossary/' + g.id + '/" class="gsr-link">'
+          + '<span class="gsr-name">' + g.term + '</span>'
+          + '<span class="gsr-meta">' + g.original + ' · Словарь</span>'
           + '</a>';
         results.appendChild(li);
       });
