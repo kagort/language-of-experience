@@ -1,0 +1,121 @@
+---
+layout: default
+title: "Литература"
+---
+{% assign bib = site.data.bibliography %}
+{% assign romans = "I,II,III" | split: "," %}
+{% assign kinds = "source,study" | split: "," %}
+{% assign langs = "ru,en" | split: "," %}
+{% assign lec_titles = "Сознание, тело, язык в истории западноевропейской мысли;Чувство, слово и внутренний человек;Сознание, реальность и язык: академическая философия, отцы Церкви и учения Востока" | split: ";" %}
+
+<div class="bib-page">
+  <h1 class="bib-title">Литература</h1>
+  <p class="bib-lead">
+    Первоисточники и исследования ко всем трём лекциям цикла — на русском и английском.
+    Если у книги есть хороший русский перевод, он указан первым. Выходные данные приведены
+    для ориентира: перед цитированием сверяйтесь с конкретным изданием.
+  </p>
+
+  <div class="bib-filters" role="group" aria-label="Фильтры">
+    <div class="bib-filter-row">
+      <span class="bib-filter-label">Лекция</span>
+      <button class="bib-chip active" data-f="lec" data-v="all">Все</button>
+      <button class="bib-chip" data-f="lec" data-v="1">I</button>
+      <button class="bib-chip" data-f="lec" data-v="2">II</button>
+      <button class="bib-chip" data-f="lec" data-v="3">III</button>
+    </div>
+    <div class="bib-filter-row">
+      <span class="bib-filter-label">Язык</span>
+      <button class="bib-chip active" data-f="lang" data-v="all">Все</button>
+      <button class="bib-chip" data-f="lang" data-v="ru">Русский</button>
+      <button class="bib-chip" data-f="lang" data-v="en">Английский</button>
+    </div>
+    <div class="bib-filter-row">
+      <span class="bib-filter-label">Тип</span>
+      <button class="bib-chip active" data-f="kind" data-v="all">Все</button>
+      <button class="bib-chip" data-f="kind" data-v="source">Первоисточники</button>
+      <button class="bib-chip" data-f="kind" data-v="study">Исследования</button>
+    </div>
+    <input type="search" class="bib-search" id="bib-search" placeholder="Автор, название, мыслитель…" autocomplete="off">
+    <p class="bib-count" id="bib-count" aria-live="polite"></p>
+  </div>
+
+  {% for r in romans %}
+    {% assign lec = forloop.index %}
+    <section class="bib-lecture" data-group="{{ lec }}">
+      <h2 class="bib-lec-title"><span class="bib-lec-num">{{ r }}</span>{{ lec_titles[forloop.index0] }}</h2>
+      {% for kind in kinds %}
+        {% capture items %}
+          {% for lang in langs %}
+            {% for e in bib %}
+              {% if e.lectures contains lec and e.kind == kind and e.lang == lang %}
+              <li class="bib-item" data-group="{{ lec }}" data-primary="{% if e.lectures.first == lec %}1{% else %}0{% endif %}" data-lang="{{ e.lang }}" data-kind="{{ e.kind }}">
+                <span class="bib-ref">{{ e.ref }}</span>
+                <span class="bib-meta">
+                  <span class="bib-lang bib-lang--{{ e.lang }}">{% if e.lang == 'ru' %}рус{% else %}англ{% endif %}</span>
+                  {% for l in e.lectures %}{% assign li = l | minus: 1 %}<span class="bib-lec">Лекция {{ romans[li] }}</span>{% endfor %}
+                  {% for pid in e.persons %}{% assign ph = site.data.philosophers[pid] %}{% if ph %}<a class="bib-person" href="{{ '/philosopher/' | append: pid | append: '/' | relative_url }}">{{ ph.name }}</a>{% endif %}{% endfor %}
+                </span>
+                {% if e.note %}<span class="bib-note">{{ e.note }}</span>{% endif %}
+              </li>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        {% endcapture %}
+        {% if items contains "bib-item" %}
+        <div class="bib-kind" data-kind="{{ kind }}">
+          <h3 class="bib-kind-title">{% if kind == 'source' %}Первоисточники{% else %}Исследования{% endif %}</h3>
+          <ol class="bib-list">{{ items }}</ol>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </section>
+  {% endfor %}
+  <p class="bib-empty" id="bib-empty" hidden>Ничего не найдено — попробуйте ослабить фильтры.</p>
+</div>
+
+<script>
+(function () {
+  var state = { lec: 'all', lang: 'all', kind: 'all', q: '' };
+  var items = Array.prototype.slice.call(document.querySelectorAll('.bib-item'));
+  var count = document.getElementById('bib-count');
+  var empty = document.getElementById('bib-empty');
+  var search = document.getElementById('bib-search');
+  var total = items.filter(function (li) { return li.dataset.primary === '1'; }).length;
+
+  function apply() {
+    var n = 0;
+    items.forEach(function (li) {
+      var ok = (state.lec === 'all' ? li.dataset.primary === '1' : li.dataset.group === state.lec) &&
+               (state.lang === 'all' || li.dataset.lang === state.lang) &&
+               (state.kind === 'all' || li.dataset.kind === state.kind) &&
+               (!state.q || li.textContent.toLowerCase().indexOf(state.q) !== -1);
+      li.hidden = !ok; if (ok) n++;
+    });
+    document.querySelectorAll('.bib-kind').forEach(function (k) {
+      k.hidden = !k.querySelector('.bib-item:not([hidden])');
+    });
+    document.querySelectorAll('.bib-lecture').forEach(function (s) {
+      s.hidden = !s.querySelector('.bib-item:not([hidden])');
+    });
+    count.textContent = 'Показано: ' + n + ' из ' + total;
+    empty.hidden = n > 0;
+  }
+
+  function setChip(f, v) {
+    state[f] = v;
+    document.querySelectorAll('.bib-chip[data-f="' + f + '"]').forEach(function (c) {
+      c.classList.toggle('active', c.dataset.v === v);
+    });
+  }
+
+  document.querySelectorAll('.bib-chip').forEach(function (c) {
+    c.addEventListener('click', function () { setChip(c.dataset.f, c.dataset.v); apply(); });
+  });
+  search.addEventListener('input', function () { state.q = search.value.trim().toLowerCase(); apply(); });
+
+  var p = new URLSearchParams(location.search);
+  if (/^[123]$/.test(p.get('lec') || '')) setChip('lec', p.get('lec'));
+  apply();
+})();
+</script>

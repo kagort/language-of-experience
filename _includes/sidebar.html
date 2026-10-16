@@ -21,6 +21,7 @@
       <a href="{{ '/' | relative_url }}" class="global-link{% if url == '/' %} is-active{% endif %}"><span class="gl-icon">⌂</span>Главная</a>
       <a href="{{ '/dashboard/' | relative_url }}" class="global-link{% if url == '/dashboard/' %} is-active{% endif %}"><span class="gl-icon">◉</span>Обзорный дашборд</a>
       <a href="{{ '/glossary/' | relative_url }}" class="global-link{% if url contains '/glossary/' %} is-active{% endif %}"><span class="gl-icon">α</span>Словарь понятий</a>
+      <a href="{{ '/bibliography/' | relative_url }}" class="global-link{% if url == '/bibliography/' %} is-active{% endif %}"><span class="gl-icon">§</span>Литература</a>
     </nav>
 
     <nav class="lecture-nav" aria-label="Лекции">
@@ -53,6 +54,7 @@
             {% assign ph = '/philosophers' | append: parts[3] | append: '/' %}
             <a href="{{ ph | relative_url }}" class="lecture-extra-link{% if url == ph %} is-active{% endif %}">☰ Персоналии</a>
             <a href="{{ qa | relative_url }}" class="lecture-extra-link{% if url == qa %} is-active{% endif %}">✦ Вопросы</a>
+            <a href="{{ '/bibliography/' | relative_url }}?lec={{ n }}" class="lecture-extra-link lecture-extra-link--wide">§ Литература к лекции</a>
           </div>
         </details>
         {% endif %}

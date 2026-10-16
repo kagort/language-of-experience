@@ -1366,11 +1366,13 @@ details[open] > .lecture-nav-summary {
 .lecture-nav-details .section-list { padding: 0.25rem 0.25rem 0 0.5rem; }
 .lecture-extra {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.4rem;
   padding: 0.5rem 0.5rem 0 0.75rem;
 }
 .lecture-extra-link {
-  flex: 1;
+  flex: 1 1 40%;
+  &--wide { flex-basis: 100%; }
   text-align: center;
   font-size: 0.8rem;
   padding: 0.3rem 0.4rem;
@@ -1390,9 +1392,9 @@ details[open] > .lecture-nav-summary {
 /* Home: compact tool links under search */
 .home-tools {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.75rem;
-  margin: 0 0 2rem;
+  margin: 1.25rem 0 2rem;
 }
 .home-tool {
   display: flex;
@@ -1564,4 +1566,55 @@ details[open] > .lecture-nav-summary {
   img, .tp-blank { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
   .tp-blank { display: flex; align-items: center; justify-content: center; background: var(--parchment-dark); color: var(--brown-mid); }
   &:hover { border-color: var(--gold); color: var(--gold); }
+}
+
+/* ============================================================
+   BIBLIOGRAPHY
+   ============================================================ */
+.bib-title { font-size: 2.1rem; margin-bottom: 0.3rem; }
+.bib-lead { color: var(--brown-light); font-style: italic; margin-bottom: 1.5rem; }
+.bib-filters {
+  position: sticky; top: 0; z-index: 5;
+  background: var(--parchment); padding: 0.75rem 0 0.5rem;
+  border-bottom: 1px solid var(--parchment-dark); margin-bottom: 1.5rem;
+}
+.bib-filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin-bottom: 0.45rem; }
+.bib-filter-label { width: 4.5rem; font-size: 0.85rem; color: var(--brown-light); }
+.bib-chip {
+  padding: 0.2rem 0.8rem; border-radius: 999px; border: 1px solid var(--parchment-dark);
+  background: rgba(255,255,255,0.3); color: var(--brown-dark); font-family: inherit; font-size: 0.88rem; cursor: pointer;
+  &:hover { border-color: var(--gold); }
+  &.active { background: var(--brown-dark); border-color: var(--brown-dark); color: #fff; }
+}
+.bib-search {
+  width: 100%; margin-top: 0.3rem; padding: 0.45rem 0.75rem; font-family: inherit; font-size: 0.95rem;
+  border: 1px solid var(--parchment-dark); border-radius: 4px; background: rgba(255,255,255,0.4); color: var(--ink);
+  &:focus { outline: none; border-color: var(--gold); }
+}
+.bib-count { font-size: 0.8rem; color: var(--brown-light); margin: 0.35rem 0 0; }
+.bib-lecture { margin-bottom: 2.5rem; }
+.bib-lec-title {
+  display: flex; align-items: baseline; gap: 0.75rem;
+  font-size: 1.35rem; padding-bottom: 0.4rem; border-bottom: 2px solid var(--gold); margin-bottom: 1rem;
+}
+.bib-lec-num { font-size: 2rem; color: var(--gold-light); flex-shrink: 0; }
+.bib-kind-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin: 1.25rem 0 0.5rem; font-style: normal; }
+.bib-list { list-style: none; }
+.bib-item {
+  padding: 0.6rem 0 0.6rem 0.9rem; border-left: 2px solid var(--parchment-dark); margin-bottom: 0.35rem;
+  &:hover { border-left-color: var(--gold); }
+}
+.bib-ref { display: block; line-height: 1.5; }
+.bib-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.3rem; font-size: 0.78rem; }
+.bib-lang, .bib-lec { padding: 0 0.45rem; border-radius: 3px; border: 1px solid var(--parchment-dark); color: var(--brown-light); }
+.bib-lang--ru { background: rgba(155,45,36,0.08); }
+.bib-lang--en { background: rgba(46,95,143,0.08); }
+.bib-person { color: var(--gold); &:hover { color: var(--brown-dark); } }
+.bib-note { display: block; font-size: 0.88rem; font-style: italic; color: var(--brown-mid); margin-top: 0.2rem; }
+.phil-lit-list { list-style: none; margin: 0.5rem 0; li { padding: 0.35rem 0; border-bottom: 1px dotted var(--parchment-dark); font-size: 0.95rem; } }
+.phil-lit-note { font-style: italic; color: var(--brown-light); }
+.phil-lit-all { font-size: 0.9rem; }
+@media (max-width: 600px) {
+  .bib-filter-label { width: 100%; }
+  .bib-filters { position: static; }
 }

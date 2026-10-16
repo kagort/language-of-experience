@@ -58,6 +58,17 @@ layout: default
           <div class="contribution-text">{{ p.fact }}</div>
         </div>
 
+        {% assign lit = site.data.bibliography | where_exp: "b", "b.persons contains page.phil_id" %}
+        {% if lit.size > 0 %}
+        <div class="contribution-block phil-lit" style="margin-top:1.5rem;">
+          <h4 class="contribution-heading">Литература</h4>
+          <ul class="phil-lit-list">
+            {% for b in lit %}<li>{{ b.ref }}{% if b.note %} <span class="phil-lit-note">— {{ b.note }}</span>{% endif %}</li>{% endfor %}
+          </ul>
+          <a href="{{ '/bibliography/' | relative_url }}" class="phil-lit-all">Весь список литературы →</a>
+        </div>
+        {% endif %}
+
       </div>
     </div>
   </div>

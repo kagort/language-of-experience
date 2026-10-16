@@ -1,0 +1,504 @@
+# Список литературы цикла.
+# lectures: номера лекций; lang: ru | en; kind: source (первоисточник) | study (исследование)
+# persons: id из philosophers.yml — книга появится на странице мыслителя
+
+# ───────────── Лекция I. Западная философия ─────────────
+- ref: "Декарт Р. Размышления о первой философии // Декарт Р. Сочинения: в 2 т. Т. 2. — М.: Мысль, 1994."
+  lectures: [1]
+  lang: ru
+  kind: source
+  persons: [descartes]
+  note: "Cogito, сомнение и дуализм мыслящей и протяжённой вещи."
+- ref: "Descartes R. Meditations on First Philosophy / transl. J. Cottingham. Rev. ed. — Cambridge: Cambridge University Press, 1996."
+  lectures: [1]
+  lang: en
+  kind: source
+  persons: [descartes]
+- ref: "Лейбниц Г. В. Монадология // Лейбниц Г. В. Сочинения: в 4 т. Т. 1. — М.: Мысль, 1982."
+  lectures: [1]
+  lang: ru
+  kind: source
+  persons: [leibniz]
+  note: "Монады и «малые перцепции» — восприятие ниже порога осознания."
+- ref: "Спиноза Б. Этика // Спиноза Б. Избранные произведения: в 2 т. Т. 1. — М.: Госполитиздат, 1957."
+  lectures: [1]
+  lang: ru
+  kind: source
+  persons: [spinoza]
+- ref: "Локк Дж. Опыт о человеческом разумении // Локк Дж. Сочинения: в 3 т. Т. 1–2. — М.: Мысль, 1985."
+  lectures: [1]
+  lang: ru
+  kind: source
+  persons: [locke]
+  note: "Первичные и вторичные качества; идеи ощущения и рефлексии."
+- ref: "Беркли Дж. Трактат о принципах человеческого знания // Беркли Дж. Сочинения. — М.: Мысль, 1978."
+  lectures: [1, 3]
+  lang: ru
+  kind: source
+  persons: [berkeley]
+  note: "Esse est percipi — в лекции III сопоставляется с Васубандху."
+- ref: "Юм Д. Трактат о человеческой природе // Юм Д. Сочинения: в 2 т. Т. 1. — М.: Мысль, 1996."
+  lectures: [1, 3]
+  lang: ru
+  kind: source
+  persons: [hume]
+  note: "Кн. I, ч. 4, разд. 6: «я» как пучок восприятий."
+- ref: "Hume D. A Treatise of Human Nature / ed. D. F. Norton, M. J. Norton. — Oxford: Oxford University Press, 2000."
+  lectures: [1, 3]
+  lang: en
+  kind: source
+  persons: [hume]
+- ref: "Кант И. Критика чистого разума. — М.: Мысль, 1994."
+  lectures: [1]
+  lang: ru
+  kind: source
+  persons: [kant]
+- ref: "Брентано Ф. Психология с эмпирической точки зрения // Брентано Ф. Избранные работы. — М.: Дом интеллектуальной книги, 1996."
+  lectures: [1]
+  lang: ru
+  kind: source
+  persons: [brentano]
+  note: "Интенциональность как признак психического."
+- ref: "Гуссерль Э. Идеи к чистой феноменологии и феноменологической философии. Кн. 1. — М.: Академический проект, 2009."
+  lectures: [1, 3]
+  lang: ru
+  kind: source
+  persons: [husserl]
+  note: "Феноменологическая редукция и трансцендентальное эго."
+- ref: "Мерло-Понти М. Феноменология восприятия. — СПб.: Ювента; Наука, 1999."
+  lectures: [1, 3]
+  lang: ru
+  kind: source
+  persons: [merleau_ponty]
+- ref: "Merleau-Ponty M. Phenomenology of Perception / transl. D. A. Landes. — London; New York: Routledge, 2012."
+  lectures: [1, 3]
+  lang: en
+  kind: source
+  persons: [merleau_ponty]
+- ref: "Рассел Б. Человеческое познание: его сфера и границы. — М.: Издательство иностранной литературы, 1957."
+  lectures: [1]
+  lang: ru
+  kind: source
+  persons: [russell]
+- ref: "Sellars W. Empiricism and the Philosophy of Mind / introd. R. Rorty, study guide R. Brandom. — Cambridge, MA: Harvard University Press, 1997."
+  lectures: [1]
+  lang: en
+  kind: source
+  persons: [sellars]
+  note: "Критика «мифа о данном»."
+- ref: "Витгенштейн Л. Логико-философский трактат; Философские исследования // Витгенштейн Л. Философские работы. Ч. 1. — М.: Гнозис, 1994."
+  lectures: [1, 2, 3]
+  lang: ru
+  kind: source
+  persons: [wittgenstein]
+  note: "Языковые игры, значение как употребление, аргумент против «личного языка»."
+- ref: "Wittgenstein L. Philosophical Investigations / transl. G. E. M. Anscombe, P. M. S. Hacker, J. Schulte. 4th ed. — Chichester: Wiley-Blackwell, 2009."
+  lectures: [1, 2, 3]
+  lang: en
+  kind: source
+  persons: [wittgenstein]
+- ref: "Churchland P. M. Matter and Consciousness. — Cambridge, MA: MIT Press, 1984."
+  lectures: [1]
+  lang: en
+  kind: source
+  persons: [churchland]
+  note: "Элиминативный материализм."
+- ref: "Патнэм Х. Разум, истина и история. — М.: Праксис, 2002."
+  lectures: [1]
+  lang: ru
+  kind: source
+  persons: [putnam]
+- ref: "Putnam H. The Nature of Mental States // Putnam H. Mind, Language and Reality. Philosophical Papers. Vol. 2. — Cambridge: Cambridge University Press, 1975."
+  lectures: [1]
+  lang: en
+  kind: source
+  persons: [putnam]
+  note: "Классическая статья функционализма."
+- ref: "Чалмерс Д. Сознающий ум: в поисках фундаментальной теории. — М.: УРСС; Либроком, 2013."
+  lectures: [1, 2, 3]
+  lang: ru
+  kind: source
+  persons: [chalmers]
+- ref: "Chalmers D. Facing Up to the Problem of Consciousness // Journal of Consciousness Studies. 1995. Vol. 2, no. 3. P. 200–219."
+  lectures: [1, 3]
+  lang: en
+  kind: source
+  persons: [chalmers]
+  note: "Статья, где впервые сформулирована «трудная проблема»."
+- ref: "Nagel T. What Is It Like to Be a Bat? // The Philosophical Review. 1974. Vol. 83, no. 4. P. 435–450."
+  lectures: [1]
+  lang: en
+  kind: source
+  note: "«Каково это» — исходная формула для понятия квалиа."
+- ref: "James W. The Principles of Psychology. Vol. 1–2. — New York: Henry Holt, 1890."
+  lectures: [1, 3]
+  lang: en
+  kind: source
+  note: "Глава IX: «поток сознания»."
+- ref: "Барретт Л. Ф. Как рождаются эмоции: революция в понимании мозга и управлении эмоциями. — М.: Манн, Иванов и Фербер, 2018."
+  lectures: [1, 2, 3]
+  lang: ru
+  kind: source
+  persons: [barrett]
+- ref: "Barrett L. F. How Emotions Are Made: The Secret Life of the Brain. — Boston: Houghton Mifflin Harcourt, 2017."
+  lectures: [1, 2, 3]
+  lang: en
+  kind: source
+  persons: [barrett]
+- ref: "Friston K. The Free-Energy Principle: A Unified Brain Theory? // Nature Reviews Neuroscience. 2010. Vol. 11, no. 2. P. 127–138."
+  lectures: [1, 3]
+  lang: en
+  kind: source
+  persons: [friston]
+- ref: "Васильев В. В. Трудная проблема сознания. — М.: Прогресс-Традиция, 2009."
+  lectures: [1]
+  lang: ru
+  kind: study
+  persons: [chalmers]
+  note: "Лучшее русскоязычное введение в современную философию сознания."
+- ref: "Clark A. Surfing Uncertainty: Prediction, Action, and the Embodied Mind. — Oxford: Oxford University Press, 2016."
+  lectures: [1, 3]
+  lang: en
+  kind: study
+  persons: [friston]
+  note: "Доступное изложение теории предиктивной обработки."
+- ref: "Varela F. J., Thompson E., Rosch E. The Embodied Mind: Cognitive Science and Human Experience. — Cambridge, MA: MIT Press, 1991."
+  lectures: [1, 3]
+  lang: en
+  kind: study
+  note: "Книга, соединившая когнитивную науку, феноменологию и буддийскую медитацию."
+
+# ───────────── Лекция II. Святоотеческая аскетика ─────────────
+- ref: "Добротолюбие: в 5 т. / пер. свт. Феофана Затворника. — М., 1877–1889; многочисленные переиздания."
+  lectures: [2, 3]
+  lang: ru
+  kind: source
+  persons: [theophan, nikodim, nikiphoros, nikitas_stithatos, mark_ascetic, diadochus, evagrius, cassian, macarius, theodore_studite]
+  note: "Главное собрание аскетических текстов; основной источник лекции II."
+- ref: "The Philokalia: The Complete Text / transl. G. E. H. Palmer, P. Sherrard, K. Ware. Vol. 1–4. — London: Faber and Faber, 1979–1995."
+  lectures: [2, 3]
+  lang: en
+  kind: source
+  persons: [nikodim, nikiphoros, nikitas_stithatos, mark_ascetic, diadochus, evagrius, cassian, macarius, theodore_studite]
+- ref: "Евагрий Понтийский. Слово о молитве; Практик // Творения аввы Евагрия: аскетические и богословские трактаты / пер. А. И. Сидорова. — М.: Мартис, 1994."
+  lectures: [2, 3]
+  lang: ru
+  kind: source
+  persons: [evagrius]
+  note: "Учение о помыслах и «чистой молитве»."
+- ref: "Evagrius Ponticus. The Praktikos and Chapters on Prayer / transl. J. E. Bamberger. — Kalamazoo: Cistercian Publications, 1981."
+  lectures: [2]
+  lang: en
+  kind: source
+  persons: [evagrius]
+- ref: "Иустин Философ, мч. Творения. — М.: Паломник; Благовест, 1995."
+  lectures: [2, 3]
+  lang: ru
+  kind: source
+  persons: [justin_martyr]
+  note: "Апологии: учение о «семенах Логоса»."
+- ref: "Ориген. О началах. — Многочисленные издания."
+  lectures: [2]
+  lang: ru
+  kind: source
+  persons: [origen]
+- ref: "Дорофей, авва. Душеполезные поучения. — Многочисленные издания."
+  lectures: [2]
+  lang: ru
+  kind: source
+  persons: [dorotheos]
+- ref: "Иоанн Лествичник, прп. Лествица, возводящая на небо. — Многочисленные издания."
+  lectures: [2, 3]
+  lang: ru
+  kind: source
+  persons: [john_climacus]
+- ref: "Исаак Сирин, прп. Слова подвижнические. — М.: Правило веры, 1993."
+  lectures: [2, 3]
+  lang: ru
+  kind: source
+  persons: [isaac_syrian]
+- ref: "Симеон Новый Богослов, прп. Творения: в 3 т. / пер. еп. Феофана. — М., 1890–1892; репринт: Свято-Троицкая Сергиева лавра, 1993."
+  lectures: [2, 3]
+  lang: ru
+  kind: source
+  persons: [symeon_theologian]
+  note: "«Огласительные слова»: рассказ о видении света (слово 22)."
+- ref: "Symeon the New Theologian. The Discourses / transl. C. J. deCatanzaro. — New York: Paulist Press, 1980. (Classics of Western Spirituality)."
+  lectures: [2, 3]
+  lang: en
+  kind: source
+  persons: [symeon_theologian]
+- ref: "Григорий Палама, свт. Триады в защиту священно-безмолвствующих / пер. В. Вениаминова. — М.: Канон, 1995."
+  lectures: [2, 3]
+  lang: ru
+  kind: source
+  note: "Ответ Варлааму: энергии Бога и участие тела в молитве."
+- ref: "Gregory Palamas. The Triads / ed. J. Meyendorff, transl. N. Gendle. — New York: Paulist Press, 1983."
+  lectures: [2, 3]
+  lang: en
+  kind: source
+- ref: "Дионисий Ареопагит. О мистическом богословии // Дионисий Ареопагит. Сочинения. — СПб.: Алетейя, 2002."
+  lectures: [2, 3]
+  lang: ru
+  kind: source
+  note: "Классический текст апофатики."
+- ref: "Феофан Затворник, свт. Что есть духовная жизнь и как на неё настроиться? — Многочисленные издания."
+  lectures: [2]
+  lang: ru
+  kind: source
+  persons: [theophan]
+- ref: "Игнатий (Брянчанинов), свт. Аскетические опыты. — Многочисленные издания."
+  lectures: [2]
+  lang: ru
+  kind: source
+  persons: [ignaty]
+- ref: "Софроний (Сахаров), архим. Старец Силуан Афонский. — Многочисленные издания (1-е изд. — Париж, 1952)."
+  lectures: [2]
+  lang: ru
+  kind: source
+  persons: [silouan]
+- ref: "Лосский В. Н. Очерк мистического богословия Восточной Церкви. — М.: Центр «СЭИ», 1991. (1-е изд. на фр. — Париж, 1944)."
+  lectures: [2, 3]
+  lang: ru
+  kind: study
+  note: "Апофатика как путь, а не только как предел познания."
+- ref: "Lossky V. The Mystical Theology of the Eastern Church. — Crestwood, NY: St Vladimir's Seminary Press, 1976."
+  lectures: [2, 3]
+  lang: en
+  kind: study
+- ref: "Хоружий С. С. К феноменологии аскезы. — М.: Издательство гуманитарной литературы, 1998."
+  lectures: [2, 3]
+  lang: ru
+  kind: study
+  note: "Исихазм, прочитанный средствами феноменологии."
+- ref: "Хоружий С. С. Диптих безмолвия: аскетическое учение о человеке в богословском и философском освещении. — М.: Центр психологии и психотерапии, 1991."
+  lectures: [2]
+  lang: ru
+  kind: study
+- ref: "Мейендорф И., прот. Жизнь и труды святителя Григория Паламы: введение в изучение. — СПб.: Византинороссика, 1997."
+  lectures: [2, 3]
+  lang: ru
+  kind: study
+- ref: "Meyendorff J. A Study of Gregory Palamas. — London: Faith Press, 1964."
+  lectures: [2, 3]
+  lang: en
+  kind: study
+- ref: "Stăniloae D. Orthodox Spirituality. — South Canaan, PA: St. Tikhon's Seminary Press, 2002."
+  lectures: [2]
+  lang: en
+  kind: study
+- ref: "Ware K. The Orthodox Way. — Crestwood, NY: St Vladimir's Seminary Press, 1979."
+  lectures: [2]
+  lang: en
+  kind: study
+
+# ───────────── Лекция III. Индия и буддизм ─────────────
+- ref: "Диоген Лаэртский. О жизни, учениях и изречениях знаменитых философов. — М.: Мысль, 1979."
+  lectures: [3]
+  lang: ru
+  kind: source
+  note: "Кн. IX: Пиррон и «гимнософисты»."
+- ref: "Упанишады: в 3 кн. / пер. А. Я. Сыркина. — М.: Наука, 1991–1992."
+  lectures: [3]
+  lang: ru
+  kind: source
+  note: "Мандукья-упанишада (турья), Чхандогья (tat tvam asi)."
+- ref: "Классическая йога: «Йога-сутры» Патанджали и «Вьяса-бхашья» / пер. Е. П. Островской, В. И. Рудого. — М.: Наука, 1992."
+  lectures: [3]
+  lang: ru
+  kind: source
+  persons: [patanjali]
+  note: "Академический перевод с комментарием Вьясы."
+- ref: "Bryant E. F. The Yoga Sūtras of Patañjali. — New York: North Point Press, 2009."
+  lectures: [3]
+  lang: en
+  kind: source
+  persons: [patanjali]
+- ref: "Śaṅkara. A Thousand Teachings: Upadeśasāhasrī / transl. S. Mayeda. — Albany: SUNY Press, 1992."
+  lectures: [3]
+  lang: en
+  kind: source
+  persons: [shankara]
+- ref: "Carman J. B. The Theology of Rāmānuja: An Essay in Interreligious Understanding. — New Haven: Yale University Press, 1974."
+  lectures: [3]
+  lang: en
+  kind: study
+  persons: [ramanuja]
+- ref: "Dyczkowski M. S. G. The Doctrine of Vibration: An Analysis of the Doctrines and Practices of Kashmir Shaivism. — Albany: SUNY Press, 1987."
+  lectures: [3]
+  lang: en
+  kind: study
+  persons: [abhinavagupta]
+  note: "Спанда и пратьябхиджня."
+- ref: "Huntington C. W., Wangchen G. N. The Emptiness of Emptiness: An Introduction to Early Indian Mādhyamika. — Honolulu: University of Hawaii Press, 1989."
+  lectures: [3]
+  lang: en
+  kind: source
+  persons: [chandrakirti]
+  note: "Перевод «Мадхьямакаватары» Чандракирти."
+- ref: "Iyer K. A. S. The Vākyapadīya of Bhartṛhari. Chapter I. — Poona: Deccan College, 1965."
+  lectures: [3]
+  lang: en
+  kind: source
+  persons: [bhartrhari]
+  note: "Перевод первой книги «Вакьяпадии» с комментарием."
+- ref: "Нисаргадатта Махарадж. Я есть То. — Многочисленные издания (англ. — I Am That. Bombay: Chetana, 1973)."
+  lectures: [3]
+  lang: ru
+  kind: source
+  persons: [nisargadatta]
+- ref: "Рамана Махарши. Кто я? (Nān Yār?). — Многочисленные издания."
+  lectures: [3]
+  lang: ru
+  kind: source
+  persons: [ramana_maharshi]
+- ref: "Вопросы Милинды (Милиндапаньха) / пер. А. В. Парибка. — М.: Наука, 1989."
+  lectures: [3]
+  lang: ru
+  kind: source
+  persons: [nagasena]
+  note: "Диалоги о колеснице и о пламени светильника."
+- ref: "Андросов В. П. Нагарджуна и его учение. — М.: Наука, 1990."
+  lectures: [3]
+  lang: ru
+  kind: study
+  persons: [nagarjuna]
+  note: "Содержит переводы текстов Нагарджуны."
+- ref: "Андросов В. П. Учение Нагарджуны о срединности. — М.: Восточная литература, 2006."
+  lectures: [3]
+  lang: ru
+  kind: study
+  persons: [nagarjuna]
+- ref: "Garfield J. L. The Fundamental Wisdom of the Middle Way: Nāgārjuna's Mūlamadhyamakakārikā. — New York: Oxford University Press, 1995."
+  lectures: [3]
+  lang: en
+  kind: source
+  persons: [nagarjuna]
+  note: "Перевод «Муламадхьямака-карики» с философским комментарием."
+- ref: "Buddhaghosa. The Path of Purification (Visuddhimagga) / transl. Bhikkhu Ñāṇamoli. — Kandy: Buddhist Publication Society, 1991."
+  lectures: [3]
+  lang: en
+  kind: source
+  persons: [buddhaghosa]
+  note: "Гл. XVI: «есть страдание, но нет страдающего»."
+- ref: "Anacker S. Seven Works of Vasubandhu. — Delhi: Motilal Banarsidass, 1984."
+  lectures: [3]
+  lang: en
+  kind: source
+  persons: [vasubandhu]
+  note: "В том числе «Двадцать строф» и «Тридцать строф»."
+- ref: "Щербатской Ф. И. Теория познания и логика по учению позднейших буддистов. Ч. 1–2. — СПб., 1903–1909."
+  lectures: [3]
+  lang: ru
+  kind: study
+  persons: [dignaga, dharmakirti]
+  note: "Классический труд русской буддологии о Дигнаге и Дхармакирти."
+- ref: "Stcherbatsky Th. Buddhist Logic. Vol. 1–2. — Leningrad: Academy of Sciences of the USSR, 1930–1932."
+  lectures: [3]
+  lang: en
+  kind: study
+  persons: [dignaga, dharmakirti]
+- ref: "Dunne J. D. Foundations of Dharmakīrti's Philosophy. — Boston: Wisdom Publications, 2004."
+  lectures: [3]
+  lang: en
+  kind: study
+  persons: [dharmakirti]
+- ref: "Yampolsky P. B. The Platform Sutra of the Sixth Patriarch. — New York: Columbia University Press, 1967."
+  lectures: [3]
+  lang: en
+  kind: source
+  note: "Стихи Шэньсю и Хуэйнэна о зеркале."
+- ref: "Watson B. The Zen Teachings of Master Lin-chi. — Boston: Shambhala, 1993."
+  lectures: [3]
+  lang: en
+  kind: source
+  persons: [linji_yixuan]
+- ref: "Dōgen. Treasury of the True Dharma Eye: Zen Master Dogen's Shobo Genzo / ed. K. Tanahashi. — Boston: Shambhala, 2010."
+  lectures: [3]
+  lang: en
+  kind: source
+  persons: [dogen]
+  note: "В том числе «Гэндзё-коан» и «Удзи»."
+- ref: "Шохин В. К. Брахманистская философия: начальный и раннеклассический периоды. — М.: Восточная литература, 1994."
+  lectures: [3]
+  lang: ru
+  kind: study
+- ref: "Торчинов Е. А. Введение в буддологию. — СПб.: Санкт-Петербургское философское общество, 2000."
+  lectures: [3]
+  lang: ru
+  kind: study
+- ref: "Торчинов Е. А. Религии мира: опыт запредельного. — СПб.: Петербургское востоковедение, 1997."
+  lectures: [2, 3]
+  lang: ru
+  kind: study
+  note: "Сравнительное исследование мистического опыта в разных традициях."
+- ref: "Пятигорский А. М. Введение в изучение буддийской философии. — М.: Новое литературное обозрение, 2007."
+  lectures: [3]
+  lang: ru
+  kind: study
+- ref: "Matilal B. K. The Word and the World: India's Contribution to the Study of Language. — Delhi: Oxford University Press, 1990."
+  lectures: [3]
+  lang: en
+  kind: study
+  persons: [bhartrhari, dignaga]
+  note: "Бхартрихари, спхота и апоха глазами аналитической философии."
+- ref: "Matilal B. K. Perception: An Essay on Classical Indian Theories of Knowledge. — Oxford: Clarendon Press, 1986."
+  lectures: [3]
+  lang: en
+  kind: study
+- ref: "Siderits M. Buddhism as Philosophy: An Introduction. — Aldershot: Ashgate, 2007."
+  lectures: [3]
+  lang: en
+  kind: study
+- ref: "Gethin R. The Foundations of Buddhism. — Oxford: Oxford University Press, 1998."
+  lectures: [3]
+  lang: en
+  kind: study
+- ref: "Waldron W. S. The Buddhist Unconscious: The ālaya-vijñāna in the Context of Indian Buddhist Thought. — London: RoutledgeCurzon, 2003."
+  lectures: [3]
+  lang: en
+  kind: study
+  persons: [asanga, vasubandhu]
+- ref: "Ganeri J. The Self: Naturalism, Consciousness, and the First-Person Stance. — Oxford: Oxford University Press, 2012."
+  lectures: [3]
+  lang: en
+  kind: study
+- ref: "Thompson E. Waking, Dreaming, Being: Self and Consciousness in Neuroscience, Meditation, and Philosophy. — New York: Columbia University Press, 2015."
+  lectures: [3]
+  lang: en
+  kind: study
+  note: "Глубокий сон, сновидения и «я» — Веданта, буддизм и нейронаука."
+- ref: "Beckwith C. I. Greek Buddha: Pyrrho's Encounter with Early Buddhism in Central Asia. — Princeton: Princeton University Press, 2015."
+  lectures: [3]
+  lang: en
+  kind: study
+  note: "Спорная, но яркая гипотеза о буддийских корнях скептицизма Пиррона."
+- ref: "Gopnik A. Could David Hume Have Known about Buddhism? Charles François Dolu, the Royal College of La Flèche, and the Global Jesuit Intellectual Network // Hume Studies. 2009. Vol. 35, no. 1–2. P. 5–28."
+  lectures: [3]
+  lang: en
+  kind: study
+  persons: [hume]
+- ref: "Parfit D. Reasons and Persons. — Oxford: Clarendon Press, 1984."
+  lectures: [3]
+  lang: en
+  kind: study
+  note: "Личная идентичность; прил. J — о сходстве с буддизмом."
+- ref: "Merton T. Zen and the Birds of Appetite. — New York: New Directions, 1968."
+  lectures: [2, 3]
+  lang: en
+  kind: study
+  note: "Включает диалог Мертона с Д. Т. Судзуки."
+- ref: "Varela F. J. Neurophenomenology: A Methodological Remedy for the Hard Problem // Journal of Consciousness Studies. 1996. Vol. 3, no. 4. P. 330–349."
+  lectures: [1, 3]
+  lang: en
+  kind: study
+- ref: "Lutz A., Slagter H. A., Dunne J. D., Davidson R. J. Attention Regulation and Monitoring in Meditation // Trends in Cognitive Sciences. 2008. Vol. 12, no. 4. P. 163–169."
+  lectures: [3]
+  lang: en
+  kind: study
+  note: "Обзор нейронаучных исследований медитации."
+- ref: "Keller H. The Story of My Life. — New York: Doubleday, Page & Co., 1903."
+  lectures: [3]
+  lang: en
+  kind: source
+  note: "Эпизод у колонки: слово «water» и рождение мира понятий."
