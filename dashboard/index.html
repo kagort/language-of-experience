@@ -505,7 +505,7 @@ var DASH = (function () {
       .attr('x', function (g) { return d3.mean(g.ns, function (n) { return n.x; }); })
       .attr('y', function (g) {
         if (g.t === 'hindu' || g.t === 'buddhist') return d3.max(g.ns, function (n) { return n.y + n.r; }) + 50;
-        if (g.t === 'shared') return d3.min(g.ns, function (n) { return n.y - n.r; }) - 28;
+        if (g.t === 'shared') return d3.max(g.ns, function (n) { return n.y + n.r; }) + 44;
         return d3.min(g.ns, function (n) { return n.y - n.r; }) - 34;
       })
       .text(function (g) { return g.t === 'shared' ? 'Общие' : D.TRAD[g.t].ru.replace(' традиция', '').replace(' философия', ''); });
