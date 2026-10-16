@@ -18,6 +18,13 @@
           <span class="tradition">{{ p.tradition }}</span>
         </div>
         <div class="key-work">{{ p.key_work }}</div>
+        {% if p.lat %}
+        <div class="philosopher-location">
+          <a href="{{ '/dashboard/#map' | relative_url }}" class="loc-link" data-lat="{{ p.lat }}" data-lon="{{ p.lon }}" data-name="{{ p.name }}">
+            📍 {{ p.location }}
+          </a>
+        </div>
+        {% endif %}
       </div>
     </div>
 

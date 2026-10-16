@@ -1408,6 +1408,28 @@ details[open] > .lecture-nav-summary {
   .section-numeral { font-size: 3.5rem; }
 }
 
+/* ── Glossary Term Page ── */
+.glossary-term-page { max-width: 760px; }
+.gloss-term-header { margin: 1.5rem 0 1rem; }
+.gloss-term-title { font-size: 2rem; color: var(--gold); margin: 0 0 0.3rem; }
+.gloss-term-definition { line-height: 1.8; font-size: 1.05rem; margin: 1.5rem 0; }
+.gloss-associations h3 { color: var(--gold); font-size: 1rem; margin: 2rem 0 1rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.gloss-assoc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.gloss-assoc-card {
+  display: flex; flex-direction: column; gap: 0.4rem;
+  padding: 1rem; border: 1px solid var(--parchment-dark); border-radius: 6px;
+  text-decoration: none; color: inherit; transition: border-color 0.2s;
+  &:hover { border-color: var(--gold); }
+  .gloss-assoc-term { font-size: 1rem; color: var(--gold); font-weight: 600; }
+  .gloss-assoc-excerpt { font-size: 0.82rem; color: var(--brown-light); line-height: 1.5; }
+}
+
+/* ── Philosopher location ── */
+.philosopher-location { margin-top: 0.25rem; }
+.loc-link { font-size: 0.78rem; color: var(--brown-light); text-decoration: none;
+  &:hover { color: var(--gold); }
+}
+
 @media (max-width: 600px) {
   .section-title { font-size: 1.65rem; }
   .section-nav { grid-template-columns: 1fr 1fr; gap: 0.5rem; }

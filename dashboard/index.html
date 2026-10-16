@@ -3,6 +3,8 @@ layout: default
 title: "Обзорный дашборд"
 ---
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+
 <style>
 /* ── Dashboard base ── */
 .dash { max-width: 820px; font-family: 'EB Garamond', Georgia, serif; }
@@ -246,20 +248,16 @@ title: "Обзорный дашборд"
     </div>
   </section>
 
-  <!-- 4. World map -->
-  <section class="dash-section">
-    <h2 class="dash-section-title">Географическое распределение</h2>
-    <div class="map-wrap">
-      <svg id="world-map-svg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
-        <rect width="800" height="400" fill="#111009"/>
-        <!-- continents, graticule, dots drawn by JS -->
-      </svg>
-    </div>
+  <!-- 4. World map (Leaflet) -->
+  <section class="dash-section" id="map">
+    <h2 class="dash-section-title">География мысли</h2>
+    <p class="dash-sub" style="margin-bottom:0.75rem;">Места основной деятельности 54 мыслителей</p>
+    <div id="philosophers-map" style="height:500px;border-radius:8px;overflow:hidden;"></div>
     <div class="legend-row" style="margin-top:0.75rem;">
-      <span class="legend-item"><span class="legend-swatch" style="background:#6fa3d8"></span>Западная философия</span>
-      <span class="legend-item"><span class="legend-swatch" style="background:#e8b86d"></span>Святоотеческая</span>
-      <span class="legend-item"><span class="legend-swatch" style="background:#e87d4a"></span>Индуизм</span>
-      <span class="legend-item"><span class="legend-swatch" style="background:#5fbf8a"></span>Буддизм</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#6fa3d8;border-radius:50%"></span>Западная</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#e8b86d;border-radius:50%"></span>Святоотеческая</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#e87d4a;border-radius:50%"></span>Индуистская</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#5fbf8a;border-radius:50%"></span>Буддийская</span>
     </div>
   </section>
 
@@ -323,6 +321,7 @@ title: "Обзорный дашборд"
       <svg id="concept-graph-svg" height="700"></svg>
     </div>
   </section>
+  <p style="text-align:center;color:var(--brown-light);font-size:0.78rem;margin-top:0.5rem;">Прокрутка — масштаб · перетаскивание — перемещение · клик на узел — в словарь</p>
 
 </div>
 
@@ -331,8 +330,137 @@ title: "Обзорный дашборд"
   <span class="tl-tooltip-trad" id="tl-tip-trad"></span>
   <span class="tl-tooltip-year" id="tl-tip-year"></span>
 </div>
-<div class="map-tooltip" id="map-tooltip"></div>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+(function() {
+  var map = L.map('philosophers-map', {
+    center: [30, 40],
+    zoom: 2,
+    minZoom: 1,
+    maxZoom: 10
+  });
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '\u00a9 <a href="https://openstreetmap.org">OpenStreetMap</a>',
+    maxZoom: 19
+  }).addTo(map);
+
+  var COLORS = {western:'#6fa3d8', patristic:'#e8b86d', hindu:'#e87d4a', buddhist:'#5fbf8a'};
+
+  var philosophers = [
+    {id:'descartes', name:'Декарт', lat:48.9, lon:2.3, location:'Париж, Франция', tradition:'western'},
+    {id:'leibniz', name:'Лейбниц', lat:52.4, lon:9.7, location:'Ганновер, Германия', tradition:'western'},
+    {id:'spinoza', name:'Спиноза', lat:52.4, lon:4.9, location:'Амстердам, Нидерланды', tradition:'western'},
+    {id:'locke', name:'Локк', lat:51.7, lon:-1.2, location:'Оксфорд, Англия', tradition:'western'},
+    {id:'berkeley', name:'Беркли', lat:53.3, lon:-6.3, location:'Дублин, Ирландия', tradition:'western'},
+    {id:'hume', name:'Юм', lat:55.9, lon:-3.2, location:'Эдинбург, Шотландия', tradition:'western'},
+    {id:'kant', name:'Кант', lat:54.7, lon:20.5, location:'Кёнигсберг (Калининград)', tradition:'western'},
+    {id:'brentano', name:'Брентано', lat:48.2, lon:16.4, location:'Вена, Австрия', tradition:'western'},
+    {id:'husserl', name:'Гуссерль', lat:47.9, lon:7.8, location:'Фрайбург, Германия', tradition:'western'},
+    {id:'merleau_ponty', name:'Мерло-Понти', lat:48.9, lon:2.3, location:'Париж, Франция', tradition:'western'},
+    {id:'russell', name:'Рассел', lat:51.5, lon:-0.1, location:'Лондон, Англия', tradition:'western'},
+    {id:'sellars', name:'Селларс', lat:40.4, lon:-80.0, location:'Питтсбург, США', tradition:'western'},
+    {id:'wittgenstein', name:'Витгенштейн', lat:48.2, lon:16.4, location:'Вена / Кембридж', tradition:'western'},
+    {id:'churchland', name:'Чёрчленд', lat:32.7, lon:-117.2, location:'Сан-Диего, США', tradition:'western'},
+    {id:'putnam', name:'Патнэм', lat:42.4, lon:-71.1, location:'Бостон, США', tradition:'western'},
+    {id:'chalmers', name:'Чалмерс', lat:-35.3, lon:149.1, location:'Канберра, Австралия', tradition:'western'},
+    {id:'barrett', name:'Барретт', lat:42.4, lon:-71.1, location:'Бостон, США', tradition:'western'},
+    {id:'friston', name:'Фристон', lat:51.5, lon:-0.1, location:'Лондон, Англия', tradition:'western'},
+    {id:'justin_martyr', name:'Иустин Мученик', lat:41.9, lon:12.5, location:'Рим, Италия', tradition:'patristic'},
+    {id:'evagrius', name:'Евагрий', lat:29.9, lon:31.2, location:'Египет (Нитрийская пустыня)', tradition:'patristic'},
+    {id:'mark_ascetic', name:'Марк Подвижник', lat:36.2, lon:36.2, location:'Сирия / Галатия', tradition:'patristic'},
+    {id:'diadochus', name:'Диадох', lat:39.7, lon:20.7, location:'Эпир, Греция', tradition:'patristic'},
+    {id:'cassian', name:'Кассиан', lat:43.3, lon:5.4, location:'Марсель, Франция', tradition:'patristic'},
+    {id:'dorotheos', name:'Дорофей', lat:31.5, lon:34.5, location:'Газа, Палестина', tradition:'patristic'},
+    {id:'isaac_syrian', name:'Исаак Сирин', lat:36.3, lon:43.1, location:'Ниневия (Мосул, Ирак)', tradition:'patristic'},
+    {id:'john_climacus', name:'Иоанн Лествичник', lat:28.5, lon:33.9, location:'Синай, Египет', tradition:'patristic'},
+    {id:'nikiphoros', name:'Никифор', lat:41.0, lon:29.0, location:'Константинополь', tradition:'patristic'},
+    {id:'nikitas_stithatos', name:'Никита Стифат', lat:41.0, lon:29.0, location:'Константинополь', tradition:'patristic'},
+    {id:'theodore_studite', name:'Феодор Студит', lat:41.0, lon:29.0, location:'Константинополь', tradition:'patristic'},
+    {id:'symeon_theologian', name:'Симеон Богослов', lat:41.0, lon:29.0, location:'Константинополь', tradition:'patristic'},
+    {id:'origen', name:'Ориген', lat:31.2, lon:29.9, location:'Александрия, Египет', tradition:'patristic'},
+    {id:'macarius', name:'Макарий', lat:29.9, lon:31.2, location:'Египет (Скитская пустыня)', tradition:'patristic'},
+    {id:'nikodim', name:'Никодим', lat:40.6, lon:20.5, location:'Афон, Греция', tradition:'patristic'},
+    {id:'silouan', name:'Силуан', lat:40.6, lon:20.5, location:'Афон, Греция', tradition:'patristic'},
+    {id:'theophan', name:'Феофан Затворник', lat:54.6, lon:40.6, location:'Вышенский монастырь, Россия', tradition:'patristic'},
+    {id:'ignaty', name:'Игнатий Брянчанинов', lat:59.9, lon:30.3, location:'Санкт-Петербург, Россия', tradition:'patristic'},
+    {id:'patanjali', name:'Патанджали', lat:26.9, lon:79.9, location:'Северная Индия', tradition:'hindu'},
+    {id:'shankara', name:'Шанкара', lat:10.0, lon:76.6, location:'Керала, Индия', tradition:'hindu'},
+    {id:'bhartrhari', name:'Бхартрихари', lat:23.2, lon:75.8, location:'Удджайн, Индия', tradition:'hindu'},
+    {id:'abhinavagupta', name:'Абхинавагупта', lat:34.1, lon:74.8, location:'Кашмир, Индия', tradition:'hindu'},
+    {id:'ramanuja', name:'Рамануджа', lat:12.9, lon:79.8, location:'Шрипперумбудур, Индия', tradition:'hindu'},
+    {id:'ramana_maharshi', name:'Рамана Махарши', lat:11.1, lon:79.1, location:'Тируваннамалай, Индия', tradition:'hindu'},
+    {id:'nisargadatta', name:'Нисаргадатта', lat:19.1, lon:72.8, location:'Мумбаи, Индия', tradition:'hindu'},
+    {id:'nagarjuna', name:'Нагарджуна', lat:16.5, lon:79.3, location:'Андхра-Прадеш, Индия', tradition:'buddhist'},
+    {id:'vasubandhu', name:'Васубандху', lat:34.0, lon:71.5, location:'Гандхара (Пакистан)', tradition:'buddhist'},
+    {id:'asanga', name:'Асанга', lat:34.0, lon:71.5, location:'Гандхара (Пакистан)', tradition:'buddhist'},
+    {id:'dignaga', name:'Дигнага', lat:16.5, lon:79.3, location:'Южная Индия', tradition:'buddhist'},
+    {id:'dharmakirti', name:'Дхармакирти', lat:8.0, lon:80.0, location:'Шри-Ланка / Южная Индия', tradition:'buddhist'},
+    {id:'chandrakirti', name:'Чандракирти', lat:15.0, lon:79.9, location:'Южная Индия', tradition:'buddhist'},
+    {id:'buddhaghosa', name:'Буддхагхоша', lat:7.3, lon:80.0, location:'Шри-Ланка (Анурадхапура)', tradition:'buddhist'},
+    {id:'nagasena', name:'Нагасена', lat:33.6, lon:73.1, location:'Сагала (Сиалкот, Пакистан)', tradition:'buddhist'},
+    {id:'dogen', name:'Догэн', lat:35.9, lon:136.2, location:'Эйхэй-дзи, Япония', tradition:'buddhist'},
+    {id:'tilopa', name:'Тилопа', lat:23.7, lon:88.4, location:'Бенгалия, Индия', tradition:'buddhist'},
+    {id:'linji_yixuan', name:'Линьцзи Исюань', lat:34.8, lon:114.3, location:'Хэнань, Китай', tradition:'buddhist'},
+  ];
+
+  philosophers.forEach(function(p) {
+    var color = COLORS[p.tradition] || '#a09080';
+    var marker = L.circleMarker([p.lat, p.lon], {
+      radius: 7,
+      fillColor: color,
+      color: '#fff',
+      weight: 1.5,
+      opacity: 1,
+      fillOpacity: 0.85
+    }).addTo(map);
+
+    marker.bindPopup(
+      '<strong style="color:' + color + '">' + p.name + '</strong><br>' +
+      '<small>' + p.location + '</small><br>' +
+      '<a href="/philosopher/' + p.id + '/" style="color:' + color + '">Открыть карточку \u2192</a>'
+    );
+  });
+
+  // Handle sessionStorage focus from loc-link clicks
+  var focus = null;
+  try { focus = sessionStorage.getItem('mapFocus'); } catch(e) {}
+  if (focus) {
+    try {
+      var f = JSON.parse(focus);
+      try { sessionStorage.removeItem('mapFocus'); } catch(e) {}
+      setTimeout(function() {
+        map.setView([f.lat, f.lon], 7);
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.CircleMarker) {
+            var ll = layer.getLatLng();
+            if (Math.abs(ll.lat - f.lat) < 0.1 && Math.abs(ll.lng - f.lon) < 0.1) {
+              layer.openPopup();
+            }
+          }
+        });
+      }, 300);
+    } catch(e) {}
+  }
+
+  // Handle loc-link clicks
+  document.querySelectorAll('.loc-link').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      try {
+        sessionStorage.setItem('mapFocus', JSON.stringify({
+          lat: parseFloat(this.dataset.lat),
+          lon: parseFloat(this.dataset.lon),
+          name: this.dataset.name
+        }));
+      } catch(e) {}
+      window.location.href = '/dashboard/#map';
+    });
+  });
+})();
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script>
 (function(){
@@ -528,109 +656,7 @@ title: "Обзорный дашборд"
   centerSub.setAttribute('fill','#6b3d1e'); centerSub.textContent = 'мыслителей';
   donutSvg.appendChild(centerSub);
 
-  /* ════════════════════════════════════════
-     WORLD MAP
-  ════════════════════════════════════════ */
-  const MAP_W = 800, MAP_H = 400;
 
-  function ll2xy(lon, lat) {
-    return [(lon + 180) / 360 * MAP_W, (90 - lat) / 180 * MAP_H];
-  }
-
-  const CONTINENTS = [
-    { name:'Europe',        d:[[-10,35],[30,35],[40,40],[35,50],[25,55],[10,57],[0,57],[-5,52],[-10,45],[-10,35]] },
-    { name:'Asia',          d:[[30,35],[40,40],[50,40],[60,35],[70,30],[80,25],[100,20],[120,25],[135,35],[140,45],[135,55],[120,55],[100,50],[80,50],[60,50],[40,45],[35,50],[30,35]] },
-    { name:'Africa',        d:[[-18,15],[-18,5],[0,-35],[20,-35],[40,-25],[50,10],[45,15],[35,20],[30,30],[10,35],[-5,35],[-10,30],[-18,15]] },
-    { name:'NorthAmerica',  d:[[-170,60],[-140,60],[-120,50],[-100,45],[-80,40],[-70,45],[-60,50],[-65,55],[-80,55],[-100,55],[-120,60],[-140,65],[-160,65],[-170,60]] },
-    { name:'SouthAmerica',  d:[[-80,10],[-70,0],[-55,-5],[-45,-20],[-50,-35],[-65,-55],[-70,-55],[-75,-40],[-80,-25],[-85,-10],[-80,10]] },
-    { name:'Australia',     d:[[115,-20],[130,-15],[140,-15],[150,-25],[155,-30],[150,-38],[140,-38],[130,-33],[120,-30],[115,-25],[115,-20]] },
-    { name:'Greenland',     d:[[-55,60],[-45,65],[-40,70],[-45,75],[-55,75],[-60,70],[-55,60]] },
-  ];
-
-  const mapSvg = document.getElementById('world-map-svg');
-  const ns = 'http://www.w3.org/2000/svg';
-
-  // Graticule every 30 degrees
-  for (let lon = -180; lon <= 180; lon += 30) {
-    const [x1,y1] = ll2xy(lon, 90);
-    const [x2,y2] = ll2xy(lon, -90);
-    const gl = document.createElementNS(ns,'line');
-    gl.setAttribute('x1',x1); gl.setAttribute('y1',y1);
-    gl.setAttribute('x2',x2); gl.setAttribute('y2',y2);
-    gl.setAttribute('stroke','rgba(255,255,255,0.05)'); gl.setAttribute('stroke-width','0.5');
-    mapSvg.appendChild(gl);
-  }
-  for (let lat = -90; lat <= 90; lat += 30) {
-    const [x1,y1] = ll2xy(-180, lat);
-    const [x2,y2] = ll2xy(180, lat);
-    const gl = document.createElementNS(ns,'line');
-    gl.setAttribute('x1',x1); gl.setAttribute('y1',y1);
-    gl.setAttribute('x2',x2); gl.setAttribute('y2',y2);
-    gl.setAttribute('stroke','rgba(255,255,255,0.05)'); gl.setAttribute('stroke-width','0.5');
-    mapSvg.appendChild(gl);
-  }
-
-  // Continent polygons
-  CONTINENTS.forEach(cont => {
-    const pts = cont.d.map(([lon,lat]) => ll2xy(lon,lat).join(',')).join(' ');
-    const poly = document.createElementNS(ns,'polygon');
-    poly.setAttribute('points', pts);
-    poly.setAttribute('fill','#2a2218');
-    poly.setAttribute('stroke','#4a3e2e');
-    poly.setAttribute('stroke-width','0.8');
-    mapSvg.appendChild(poly);
-  });
-
-  // Philosopher coordinates [lon, lat]
-  const philCoords = {
-    descartes:[2.3,48.9], leibniz:[9.9,51.5], spinoza:[4.9,52.4],
-    locke:[-1.5,51.5], berkeley:[-6.3,53.3], hume:[-3.2,55.9],
-    kant:[20.5,54.7], brentano:[16.4,48.2], husserl:[16.4,48.2],
-    merleau_ponty:[2.3,48.9], wittgenstein:[16.4,48.2],
-    russell:[-0.1,51.5], sellars:[-80.0,40.4], churchland:[-117.2,32.7],
-    putnam:[-71.1,42.4], chalmers:[149.1,-35.3], barrett:[-71.1,42.4],
-    friston:[-0.1,51.5],
-    justin_martyr:[12.5,41.9], origen:[29.9,31.2], evagrius:[29.9,31.2],
-    mark_ascetic:[35.5,33.9], diadochus:[20.7,39.7], cassian:[5.4,43.3],
-    dorotheos:[35.5,33.9], isaac_syrian:[44.4,33.3], john_climacus:[33.5,30.0],
-    nikiphoros:[29.0,41.0], nikitas_stithatos:[29.0,41.0], theodore_studite:[29.0,41.0],
-    symeon_theologian:[29.0,41.0], macarius:[29.9,31.2], nikodim:[20.5,40.6],
-    silouan:[20.5,40.6], theophan:[37.6,55.8], ignaty:[37.6,55.8],
-    patanjali:[79.9,26.9], shankara:[76.6,10.0], bhartrhari:[75.8,26.9],
-    abhinavagupta:[74.8,34.1], ramanuja:[79.8,12.9], ramana_maharshi:[79.1,11.1],
-    nisargadatta:[72.8,19.1],
-    nagarjuna:[79.3,16.5], vasubandhu:[71.5,34.0], asanga:[71.5,34.0],
-    dignaga:[79.3,16.5], dharmakirti:[80.0,8.0], chandrakirti:[79.9,15.0],
-    buddhaghosa:[80.0,7.3], nagasena:[68.4,34.5], dogen:[136.9,35.5],
-    tilopa:[88.4,23.7], linji_yixuan:[114.3,34.8],
-  };
-
-  const mapTooltip = document.getElementById('map-tooltip');
-
-  phils.forEach(p => {
-    const coord = philCoords[p.id];
-    if (!coord) return;
-    const [mx, my] = ll2xy(coord[0], coord[1]);
-    const g = document.createElementNS(ns,'g');
-    g.setAttribute('cursor','pointer');
-    const circle = document.createElementNS(ns,'circle');
-    circle.setAttribute('cx',mx); circle.setAttribute('cy',my); circle.setAttribute('r','5');
-    circle.setAttribute('fill',COLORS[p.t]);
-    circle.setAttribute('stroke','rgba(255,255,255,0.6)'); circle.setAttribute('stroke-width','0.5');
-    circle.setAttribute('opacity','0.9');
-    g.appendChild(circle);
-    g.addEventListener('mouseenter', function(e){
-      mapTooltip.textContent = p.n;
-      mapTooltip.style.opacity = '1';
-    });
-    g.addEventListener('mousemove', function(e){
-      mapTooltip.style.left = (e.clientX + 14) + 'px';
-      mapTooltip.style.top  = (e.clientY - 32) + 'px';
-    });
-    g.addEventListener('mouseleave', function(){ mapTooltip.style.opacity = '0'; });
-    g.addEventListener('click', function(){ window.location.href = '/philosopher/' + p.id + '/'; });
-    mapSvg.appendChild(g);
-  });
 
   /* ════════════════════════════════════════
      D3 FORCE GRAPH
@@ -738,14 +764,24 @@ title: "Обзорный дашборд"
     .force('clusterX', d3.forceX(d => GW/2 + (CLUSTER_XY[d.cluster]||[0,0])[0]).strength(0.08))
     .force('clusterY', d3.forceY(d => GH/2 + (CLUSTER_XY[d.cluster]||[0,0])[1]).strength(0.08));
 
-  const link = graphSvg.append('g')
+  // Zoom support
+  const g = graphSvg.append('g');
+
+  const zoom = d3.zoom()
+    .scaleExtent([0.3, 3])
+    .on('zoom', function(event) {
+      g.attr('transform', event.transform);
+    });
+  graphSvg.call(zoom);
+
+  const link = g.append('g')
     .selectAll('line')
     .data(links)
     .join('line')
     .attr('stroke','rgba(255,255,255,0.1)')
     .attr('stroke-width', 1);
 
-  const node = graphSvg.append('g')
+  const node = g.append('g')
     .selectAll('g')
     .data(nodes)
     .join('g')
@@ -793,7 +829,26 @@ title: "Обзорный дашборд"
     node.selectAll('text').attr('opacity', 1);
     link.attr('opacity', 1);
   }).on('click', function(event, d) {
-    window.location.href = '/glossary/#term-' + d.id.replace(/\s+/g,'-');
+    var idMap = {
+      'квалиа':'kvalia','интенциональность':'intentionalnost','феноменология':'phenomenologiya',
+      'воплощённость':'voploshchennost','предиктивное кодирование':'prediktivnoe_kodirovanie',
+      'конструированная эмоция':'konstruirovannaya_emotsiya','физикализм':'fizikalizm',
+      'язык как форма жизни':'yazyk_igra','нус':'nus','исихазм':'isihazm',
+      'умная молитва':'umnaya_molitva','сердце':'serdtse','логос':'logos',
+      'синергия':'sinergiya','исихия':'isihiya','брахман':'brahman','атман':'atman',
+      'читта':'chitta_vritti','вритти':'chitta_vritti','самадхи':'samadhi',
+      'шабда-брахман':'shabda_brahman','спанда':'spanda','майя':'maya',
+      'пустота':'pustota','алаявиджняна':'alayvijnyanabuddhist','дхармы':'dharmy',
+      'нирвана':'nirvana','анатта':'anatman','зависимое возникновение':'zavisimoye_vozniknoveniye',
+      'сознание':'soznaniye','опыт':'opyt','тело':'telo','трансформация':'transformatsiya',
+      'невыразимое':'nevyrazimoe','язык':'yazyk'
+    };
+    var termId = idMap[d.id];
+    if (termId) {
+      window.location.href = '/glossary/' + termId + '/';
+    } else {
+      window.location.href = '/glossary/';
+    }
   });
 
   simulation.on('tick', () => {

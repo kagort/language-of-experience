@@ -18,6 +18,9 @@ collections:
   philosophers_all:
     output: true
     permalink: /philosopher/:name/
+  glossary_terms:
+    output: true
+    permalink: /glossary/:name/
 
 defaults:
   - scope:
@@ -40,6 +43,11 @@ defaults:
       type: "philosophers_all"
     values:
       layout: "philosopher-page"
+  - scope:
+      path: ""
+      type: "glossary_terms"
+    values:
+      layout: "glossary-term"
 
 markdown: kramdown
 highlighter: rouge

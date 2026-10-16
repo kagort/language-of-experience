@@ -1,0 +1,44 @@
+---
+layout: default
+---
+{% assign entry = site.data.glossary | where: "id", page.term_id | first %}
+{% if entry %}
+<article class="glossary-term-page">
+  <a href="{{ '/glossary/' | relative_url }}" class="phil-back">← Словарь</a>
+
+  <div class="gloss-term-header">
+    <h1 class="gloss-term-title">{{ entry.term }}</h1>
+    {% if entry.original %}<p class="gloss-original">{{ entry.original }}</p>{% endif %}
+    <span class="gloss-badge gloss-badge--{{ entry.tradition }}">
+      {% case entry.tradition %}
+        {% when 'western' %}Западная философия
+        {% when 'patristic' %}Святоотеческая
+        {% when 'hindu' %}Индуистская
+        {% when 'buddhist' %}Буддийская
+        {% when 'shared' %}Общее понятие
+      {% endcase %}
+    </span>
+  </div>
+
+  <div class="gloss-term-definition">{{ entry.definition }}</div>
+
+  {% if entry.related %}
+  <div class="gloss-associations">
+    <h3>Ассоциативные связи</h3>
+    <div class="gloss-assoc-grid">
+      {% for rel_id in entry.related %}
+        {% assign rel = site.data.glossary | where: "id", rel_id | first %}
+        {% if rel %}
+        <a href="{{ '/glossary/' | append: rel_id | append: '/' | relative_url }}" class="gloss-assoc-card">
+          <span class="gloss-assoc-term">{{ rel.term }}</span>
+          <span class="gloss-assoc-badge gloss-badge gloss-badge--{{ rel.tradition }}"></span>
+          <span class="gloss-assoc-excerpt">{{ rel.definition | truncatewords: 20 }}</span>
+        </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+</article>
+{% endif %}

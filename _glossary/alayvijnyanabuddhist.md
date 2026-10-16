@@ -1,0 +1,3 @@
+---
+term_id: alayvijnyanabuddhist
+---
