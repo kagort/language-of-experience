@@ -11,6 +11,11 @@ title: "Персоналии"
 
   <div class="divider" style="margin: 1.5rem 0;">— ❦ —</div>
 
+  <div class="global-search-wrap" style="max-width:100%;margin-bottom:1.5rem;">
+    <input type="search" id="global-search" class="global-search" placeholder="Поиск по картотеке: имя, традиция, даты…" autocomplete="off">
+    <ul class="global-search-results" id="global-search-results" hidden></ul>
+  </div>
+
   <div class="philosophers-grid">
     {% assign phil_list = "descartes,leibniz,spinoza,locke,berkeley,hume,kant,brentano,husserl,merleau_ponty,russell,sellars,wittgenstein,churchland,putnam,chalmers,barrett,friston" | split: "," %}
     {% for id in phil_list %}
@@ -18,3 +23,5 @@ title: "Персоналии"
     {% endfor %}
   </div>
 </div>
+
+{% include global-search.html %}
