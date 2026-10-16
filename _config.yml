@@ -12,6 +12,12 @@ collections:
   sections2:
     output: true
     permalink: /lecture2/:name/
+  sections3:
+    output: true
+    permalink: /lecture3/:name/
+  philosophers_all:
+    output: true
+    permalink: /philosopher/:name/
 
 defaults:
   - scope:
@@ -24,6 +30,16 @@ defaults:
       type: "sections2"
     values:
       layout: "section2"
+  - scope:
+      path: ""
+      type: "sections3"
+    values:
+      layout: "section3"
+  - scope:
+      path: ""
+      type: "philosophers_all"
+    values:
+      layout: "philosopher-page"
 
 markdown: kramdown
 highlighter: rouge
