@@ -1,0 +1,20 @@
+---
+layout: default3
+title: "Персоналии"
+---
+
+<div class="philosophers-page">
+  <h2>Персоналии лекции III</h2>
+  <p style="color: var(--brown-light); font-style: italic; margin-bottom: 0.5rem;">
+    18 мыслителей от Патанджали до Нисаргадатты — биографии, вклад в тему и любопытные факты.
+  </p>
+
+  <div class="divider" style="margin: 1.5rem 0;">— ❦ —</div>
+
+  <div class="philosophers-grid">
+    {% assign phil_list = "patanjali,shankara,bhartrhari,abhinavagupta,ramanuja,ramana_maharshi,nagarjuna,vasubandhu,asanga,dignaga,dharmakirti,chandrakirti,buddhaghosa,nagasena,dogen,tilopa,linji_yixuan,nisargadatta" | split: "," %}
+    {% for id in phil_list %}
+      {% include philosopher-card.html id=id %}
+    {% endfor %}
+  </div>
+</div>
