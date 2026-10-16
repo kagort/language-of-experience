@@ -1,0 +1,55 @@
+---
+layout: default
+title: "Словарь понятий"
+---
+
+<div class="glossary-page">
+  <h2>Словарь понятий</h2>
+  <p style="color:var(--brown-light);font-style:italic;margin-bottom:1rem;">
+    Ключевые термины трёх лекций — с определениями и перекрёстными ссылками.
+  </p>
+
+  <div class="glossary-filters">
+    <button class="gloss-filter active" data-trad="all">Все</button>
+    <button class="gloss-filter" data-trad="western">Западная</button>
+    <button class="gloss-filter" data-trad="patristic">Святоотеческая</button>
+    <button class="gloss-filter" data-trad="hindu">Индуистская</button>
+    <button class="gloss-filter" data-trad="buddhist">Буддийская</button>
+    <button class="gloss-filter" data-trad="shared">Общие</button>
+  </div>
+
+  <div class="glossary-list">
+    {% assign sorted = site.data.glossary | sort: 'term' %}
+    {% for entry in sorted %}
+    <div class="gloss-entry" id="term-{{ entry.id }}" data-trad="{{ entry.tradition }}">
+      <div class="gloss-header">
+        <h3 class="gloss-term">{{ entry.term }}</h3>
+        {% if entry.original %}<span class="gloss-original">{{ entry.original }}</span>{% endif %}
+        <span class="gloss-badge gloss-badge--{{ entry.tradition }}">{{ entry.tradition }}</span>
+      </div>
+      <div class="gloss-def">{{ entry.definition }}</div>
+      {% if entry.related %}
+      <div class="gloss-related">
+        <span class="gloss-related-label">См. также: </span>
+        {% for rel in entry.related %}
+        <a href="#term-{{ rel }}" class="gloss-related-link">{{ rel }}</a>{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.gloss-filter').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.gloss-filter').forEach(function(b) { b.classList.remove('active'); });
+    this.classList.add('active');
+    var trad = this.dataset.trad;
+    document.querySelectorAll('.gloss-entry').forEach(function(entry) {
+      entry.style.display = (trad === 'all' || entry.dataset.trad === trad) ? '' : 'none';
+    });
+  });
+});
+</script>

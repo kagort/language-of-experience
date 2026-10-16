@@ -50,6 +50,9 @@
         <a href="{{ '/' | relative_url }}" class="all-philosophers-link">
           ← Все лекции
         </a>
+        <a href="{{ '/glossary/' | relative_url }}" class="all-philosophers-link{% if page.url contains '/glossary' %} is-active{% endif %}">
+          ✦ Словарь понятий
+        </a>
       </footer>
     </div>
   </aside>

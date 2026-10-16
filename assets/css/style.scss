@@ -1355,6 +1355,38 @@ details[open] > .lecture-nav-summary {
 }
 
 /* ============================================================
+   GLOSSARY
+   ============================================================ */
+.glossary-page { max-width: 800px; }
+.glossary-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+.gloss-filter {
+  padding: 0.3rem 0.9rem; border: 1px solid var(--parchment-dark); border-radius: 20px;
+  background: none; color: var(--brown-light); cursor: pointer; font-size: 0.82rem;
+  font-family: 'EB Garamond', serif;
+  transition: all 0.2s;
+  &:hover, &.active { background: var(--gold); color: #1a1510; border-color: var(--gold); }
+}
+.gloss-entry {
+  padding: 1.5rem 0; border-bottom: 1px solid var(--parchment-dark);
+  &:last-child { border-bottom: none; }
+}
+.gloss-header { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+.gloss-term { font-size: 1.2rem; color: var(--gold); margin: 0; }
+.gloss-original { font-style: italic; color: var(--brown-light); font-size: 0.9rem; }
+.gloss-badge {
+  font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em;
+  &--western { background: rgba(111,163,216,0.2); color: #6fa3d8; }
+  &--patristic { background: rgba(232,184,109,0.2); color: #e8b86d; }
+  &--hindu { background: rgba(232,125,74,0.2); color: #e87d4a; }
+  &--buddhist { background: rgba(95,191,138,0.2); color: #5fbf8a; }
+  &--shared { background: rgba(160,144,128,0.2); color: #a09080; }
+}
+.gloss-def { color: var(--ink); line-height: 1.7; }
+.gloss-related { margin-top: 0.75rem; font-size: 0.85rem; color: var(--brown-light); }
+.gloss-related-label { color: var(--brown-light); }
+.gloss-related-link { color: var(--gold); text-decoration: none; &:hover { text-decoration: underline; } }
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {
