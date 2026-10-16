@@ -1293,6 +1293,68 @@ hr {
 .discussion-questions li { margin-bottom: 0.75rem; font-size: 0.95rem; }
 
 /* ============================================================
+   COLLAPSIBLE LECTURE NAV
+   ============================================================ */
+.lecture-nav-details {
+  margin-bottom: 0.25rem;
+  & + & { border-top: 1px solid var(--border, rgba(255,255,255,0.08)); }
+}
+.lecture-nav-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.25rem;
+  cursor: pointer;
+  list-style: none;
+  color: var(--gold, #c9a96e);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  user-select: none;
+  &::-webkit-details-marker { display: none; }
+  &::marker { display: none; }
+  &:hover { color: var(--gold-light, #e0c084); }
+  .lec-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+  .lec-title { flex: 1; }
+}
+details[open] > .lecture-nav-summary {
+  color: var(--gold-light, #e0c084);
+}
+
+/* ============================================================
+   DASHBOARD ENTRY (home page)
+   ============================================================ */
+.dashboard-entry {
+  margin: 0 0 2rem;
+}
+.dashboard-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--gold, #c9a96e);
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s;
+  &:hover { background: rgba(201,169,110,0.07); }
+  .dashboard-icon { font-size: 1.5rem; color: var(--gold); flex-shrink: 0; }
+  .dashboard-text { flex: 1; display: flex; flex-direction: column; gap: 0.2rem; strong { color: var(--gold); } span { font-size: 0.82rem; color: var(--text-muted, #a09080); } }
+  .dashboard-arrow { color: var(--gold); font-size: 1.2rem; }
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {

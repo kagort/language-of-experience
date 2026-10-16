@@ -22,50 +22,79 @@
       </header>
 
       <nav class="lecture-nav" aria-label="Навигация">
-        <h2 class="nav-heading">Лекция I</h2>
-        <ol class="section-list">
-          {% assign sorted_sections = site.sections | sort: 'order' %}
-          {% for section in sorted_sections %}
-          <li class="section-item{% if page.url == section.url %} is-active{% endif %}">
-            <a href="{{ section.url | relative_url }}" class="section-link">
-              <span class="section-num">{{ section.order }}</span>
-              <span class="section-info">
-                <span class="section-name">{{ section.short_title | default: section.title }}</span>
-                <span class="slide-ref">{{ section.slides }}</span>
-              </span>
-            </a>
-          </li>
-          {% endfor %}
-        </ol>
-        <h2 class="nav-heading" style="margin-top:1rem;">Лекция II</h2>
-        <ol class="section-list">
-          {% assign sorted_sections2 = site.sections2 | sort: 'order' %}
-          {% for section in sorted_sections2 %}
-          <li class="section-item{% if page.url == section.url %} is-active{% endif %}">
-            <a href="{{ section.url | relative_url }}" class="section-link">
-              <span class="section-num">{{ section.order }}</span>
-              <span class="section-info">
-                <span class="section-name">{{ section.short_title | default: section.title }}</span>
-                <span class="slide-ref">{{ section.slides }}</span>
-              </span>
-            </a>
-          </li>
-          {% endfor %}
-        </ol>
-        <h2 class="nav-heading" style="margin-top:1rem;">Лекция III</h2>
-        <ol class="section-list">
-          {% assign sorted_sections3 = site.sections3 | sort: 'order' %}
-          {% for section in sorted_sections3 %}
-          <li class="section-item{% if page.url == section.url %} is-active{% endif %}">
-            <a href="{{ section.url | relative_url }}" class="section-link">
-              <span class="section-num">{{ section.order }}</span>
-              <span class="section-info">
-                <span class="section-name">{{ section.short_title | default: section.title }}</span>
-              </span>
-            </a>
-          </li>
-          {% endfor %}
-        </ol>
+
+  {% assign lec1_active = false %}
+  {% if page.url contains '/lecture/' and page.url != '/lecture2/' and page.url != '/lecture3/' %}
+    {% assign lec1_active = true %}
+  {% endif %}
+  {% assign lec2_active = false %}
+  {% if page.url contains '/lecture2/' %}
+    {% assign lec2_active = true %}
+  {% endif %}
+  {% assign lec3_active = false %}
+  {% if page.url contains '/lecture3/' %}
+    {% assign lec3_active = true %}
+  {% endif %}
+
+  <details class="lecture-nav-details"{% if lec1_active %} open{% endif %}>
+    <summary class="lecture-nav-summary">
+      <span class="lec-num">I</span> <span class="lec-title">Сознание, тело, язык</span>
+    </summary>
+    <ol class="section-list">
+      {% assign sorted_sections = site.sections | sort: 'order' %}
+      {% for section in sorted_sections %}
+      <li class="section-item{% if page.url == section.url %} is-active{% endif %}">
+        <a href="{{ section.url | relative_url }}" class="section-link">
+          <span class="section-num">{{ section.order }}</span>
+          <span class="section-info">
+            <span class="section-name">{{ section.short_title | default: section.title }}</span>
+            <span class="slide-ref">{{ section.slides }}</span>
+          </span>
+        </a>
+      </li>
+      {% endfor %}
+    </ol>
+  </details>
+
+  <details class="lecture-nav-details"{% if lec2_active %} open{% endif %}>
+    <summary class="lecture-nav-summary">
+      <span class="lec-num">II</span> <span class="lec-title">Чувство, слово, внутренний человек</span>
+    </summary>
+    <ol class="section-list">
+      {% assign sorted_sections2 = site.sections2 | sort: 'order' %}
+      {% for section in sorted_sections2 %}
+      <li class="section-item{% if page.url == section.url %} is-active{% endif %}">
+        <a href="{{ section.url | relative_url }}" class="section-link">
+          <span class="section-num">{{ section.order }}</span>
+          <span class="section-info">
+            <span class="section-name">{{ section.short_title | default: section.title }}</span>
+            <span class="slide-ref">{{ section.slides }}</span>
+          </span>
+        </a>
+      </li>
+      {% endfor %}
+    </ol>
+  </details>
+
+  <details class="lecture-nav-details"{% if lec3_active %} open{% endif %}>
+    <summary class="lecture-nav-summary">
+      <span class="lec-num">III</span> <span class="lec-title">Академическая философия, отцы Церкви и Восток</span>
+    </summary>
+    <ol class="section-list">
+      {% assign sorted_sections3 = site.sections3 | sort: 'order' %}
+      {% for section in sorted_sections3 %}
+      <li class="section-item{% if page.url == section.url %} is-active{% endif %}">
+        <a href="{{ section.url | relative_url }}" class="section-link">
+          <span class="section-num">{{ section.order }}</span>
+          <span class="section-info">
+            <span class="section-name">{{ section.short_title | default: section.title }}</span>
+          </span>
+        </a>
+      </li>
+      {% endfor %}
+    </ol>
+  </details>
+
       </nav>
 
       <footer class="sidebar-footer">
